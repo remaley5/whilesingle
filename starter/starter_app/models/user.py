@@ -11,6 +11,8 @@ class User(db.Model):
     username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
 
+    mc_responses = db.relationship('MC_Response', backref='MC_Response.id')
+
     def to_dict(self):
         return {
             "id": self.id,
