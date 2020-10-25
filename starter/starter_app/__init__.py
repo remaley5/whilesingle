@@ -4,7 +4,9 @@ from flask_cors import CORS
 from flask_wtf.csrf import CSRFProtect, generate_csrf
 from flask_migrate import Migrate
 
-from starter_app.models import db, User
+
+from starter_app.models import db, User, MC_Response, MC_Question, MC_Answer_Option
+
 from starter_app.api.user_routes import user_routes
 
 from starter_app.config import Config
