@@ -8,8 +8,9 @@ with app.app_context():
     db.drop_all()
     db.create_all()
 
-
+####################################################
 # SEED USER TABLE
+####################################################
     ian = User(username='Ian', email='ian@aa.io')
     javier = User(username='Javier', email='javier@aa.io')
     dean = User(username='Dean', email='dean@aa.io')
@@ -24,8 +25,15 @@ with app.app_context():
     db.session.add(soonmi)
     db.session.add(alissa)
 
+####################################################
+####################################################
+# MULTIPLE CHOICE
+####################################################
+####################################################
 
-# SEED MC TABLE
+####################################################
+# SEED MC QUESTION AND ANSWER OPTIONS TABLES
+####################################################
 #   MC_Q1
     mc_q1 = MC_Question(question='How do you feel about cats?')
     mc_q1_a1 = MC_Answer_Option(answer='I love cats.', mc_question_id=1)
@@ -71,23 +79,46 @@ with app.app_context():
     db.session.add(mc_q3_a3)
     db.session.add(mc_q3_a4)
 
-#   FR_Q1
-    fr_q1 = FR_Question(question='How many cats do you have,and do you want 50')
-    fr_u1_q1_res = FR_Response(user_id=1, answer='I have 17 but dream of the day I have 50.', fr_question_id=1)
-
-    db.session.add(fr_q1)
-    db.session.add(fr_u1_q1_res)
-
-# Responses
-    mc_u1_q1_res = MC_Response(
+####################################################
+# SEED MC RESPONSE TABLE
+####################################################
+    u1_mc_q1_res = MC_Response(
         user_id=1, mc_answer_option_id=1, mc_question_id=1)
-    mc_u1_q2_res = MC_Response(
+    u1_mc_q2_res = MC_Response(
         user_id=1, mc_answer_option_id=8, mc_question_id=2)
-    mc_u2_q3_res = MC_Response(
+    u2_mc_q3_res = MC_Response(
         user_id=2, mc_answer_option_id=12, mc_question_id=3)
 
-    db.session.add(mc_u1_q1_res)
-    db.session.add(mc_u1_q2_res)
-    db.session.add(mc_u2_q3_res)
+    db.session.add(u1_mc_q1_res)
+    db.session.add(u1_mc_q2_res)
+    db.session.add(u2_mc_q3_res)
 
+####################################################
+####################################################
+# FREE RESPONSE
+####################################################
+####################################################
+
+####################################################
+# SEED FR QUESTION TABLE
+####################################################
+#   FR_Q1
+    fr_q1 = FR_Question(
+        question='How many cats do you have,and do you want 50')
+
+    db.session.add(fr_q1)
+
+####################################################
+# SEED FR RESPONSE TABLE
+####################################################
+    u1_fr_q1_res = FR_Response(
+        user_id=1, answer='I have 17 but dream of the day I have 50.', fr_question_id=1)
+    u3_fr_q1_res = FR_Response(user_id=3, answer='My name is Dean and I would like to have as many cats as I have toes.', fr_question_id=1)
+
+    db.session.add(u1_fr_q1_res)
+    db.session.add(u3_fr_q1_res)
+
+####################################################
+# COMMIT DB CHANGES
+####################################################
     db.session.commit()

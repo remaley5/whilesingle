@@ -13,6 +13,8 @@ class User(db.Model):
 
     mc_responses = db.relationship('MC_Response', backref='users')
 
+    fr_responses = db.relationship('FR_Response', backref='users')
+
     def to_dict(self):
         return {
             "id": self.id,
