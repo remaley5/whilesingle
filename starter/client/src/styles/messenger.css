@@ -52,6 +52,6 @@
     align-self: flex-end;
 }
 
-/* .message-sender{
-    height: 10px;
-} */
+.message-sender{
+    size: 10px;
+}
