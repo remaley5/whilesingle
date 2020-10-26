@@ -1,6 +1,3 @@
-# from flask_sqlalchemy import SQLAlchemy
-
-# db = SQLAlchemy()
 from . import db
 
 
@@ -12,6 +9,11 @@ class User(db.Model):
     email = db.Column(db.String(255), nullable=False, unique=True)
 
     mc_responses = db.relationship('MC_Response', backref='users')
+
+    fr_responses = db.relationship('FR_Response', backref='users')
+
+    matches = db.relationship(
+        "Match", secondary="match_users", back_populates="users")
 
     def to_dict(self):
         return {
