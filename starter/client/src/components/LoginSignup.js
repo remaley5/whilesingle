@@ -12,6 +12,9 @@ import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
+import { buttonThemeOne } from '../styles/buttonThemes.js';
+import clsx from 'clsx';
+import { Redirect } from 'react-router-dom';
 
 
 const styles = (theme) => ({
@@ -41,10 +44,24 @@ const DialogTitle = withStyles(styles)((props) => {
   )
 });
 
+const LoginSignupWrapper = styled.div`
+  .header{
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .login{
+    display: flex;
+    align-items: flex-end;
+  }
+`;
+
 function LoginSignup(props) {
   let [open, setOpen] = useState(false);
+  let [email, setEmail] = useState('');
+  let [password, setPassword] = useState('');
 
-  const classes = withStyles(styles)
+  const classes = buttonThemeOne()
 
   const handleOpen = (e) => {
     setOpen(true);
@@ -54,8 +71,23 @@ function LoginSignup(props) {
     setOpen(false);
   }
 
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value)
+  }
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value)
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setOpen(false);
+    console.log(email, password);
+    return <Redirect to="/" />;
+  }
+
   return (
-      <>
+      <LoginSignupWrapper>
         <div className="header">
           <div>Logo</div>
           <div className="login">
@@ -70,26 +102,29 @@ function LoginSignup(props) {
               <DialogContentText>
                 Enter Email and Password
               </DialogContentText>
+              <label htmlFor="email">Email</label>
               <TextField
-                autoFocus
-                margin="dense"
-                id="name"
-                label="Email"
+                margin="none"
+                variant="outlined"
+                id="email"
                 type="email"
                 placeholder="Email"
                 fullWidth
+                onChange={handleEmailChange}
               />
+              <label htmlFor="password">Password</label>
               <TextField
-                margin="dense"
+                margin="none"
                 id="password"
-                label="Password"
+                variant="outlined"
                 type="password"
                 placeholder="Password"
                 fullWidth
+                onChange={handlePasswordChange}
               />
             </DialogContent>
             <DialogActions>
-              <Button classes={classes.nextButton} onClick={handleClose} color="primary">
+              <Button className={clsx(classes.root)} onClick={handleSubmit}>
                 Next
               </Button>
             </DialogActions>
@@ -98,7 +133,7 @@ function LoginSignup(props) {
           <p>On OkCupid, you’re more than just a photo. You have stories to tell, and passions to share, and things to talk about that are more interesting than the weather. Get noticed for who you are, not what you look like. Because you deserve what dating deserves: better.</p>
           <button>Join OKCUPID</button>
         </div>
-      </>
+      </LoginSignupWrapper>
   );
 }
 export default LoginSignup;
