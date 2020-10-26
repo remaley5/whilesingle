@@ -1,0 +1,57 @@
+
+.messenger{
+    display: flex;
+    flex-direction: row;
+    border: 1px solid black;
+    /* flex-grow: inherit; */
+    /* flex: 2; */
+}
+
+
+.side-bar{
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(104, 182, 255);
+    overflow-y: scroll;
+    max-width: 30%;
+    border: 1px solid rgb(104, 182, 255);
+    border-radius: 5px;
+    flex: 1;
+}
+
+.side-bar::-webkit-scrollbar {
+    display: none;
+}
+
+.user{
+    margin: 2px 6px 2px 6px;
+    font-family: Arial, Helvetica, sans-serif;
+    padding-top: 5px;
+    /* border-top: 1px solid black; */
+    border-bottom: 1px solid black;
+    height: 25px;
+}
+.user:hover{
+    cursor: pointer;
+    outline: 1px solid rgb(158, 224, 216);
+}
+
+.compose-message{
+    display: flex;
+    flex-direction: row;
+    background-color: rgb(104, 182, 255);
+    /* overflow-y: scroll; */
+    max-width: 70%;
+    border: 1px solid rgb(104, 182, 255);
+    border-radius: 5px;
+    flex: 1;
+
+}
+
+.message-box{
+    align-self: flex-end;
+}
+
+/* .message-sender{
+    height: 10px;
+} */
