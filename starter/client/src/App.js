@@ -3,13 +3,14 @@ import { BrowserRouter, Switch, Route, NavLink, useLocation } from 'react-router
 
 import UserList from './components/UsersList';
 import LoginSignup from './components/LoginSignup';
+import Signup from './components/Signup'
 
 function App() {
   let location = useLocation();
 
   return (
     <>
-        {location.pathname !== '/login-signup' ?
+        {location.pathname !== '/login-signup' && location.pathname !== '/signup' ?
         <nav>
             <ul>
                 <li><NavLink to="/" activeclass="active">Home</NavLink></li>
@@ -24,6 +25,10 @@ function App() {
 
             <Route path="/login-signup">
                 <LoginSignup />
+            </Route>
+
+            <Route path="/signup">
+                <Signup />
             </Route>
 
             <Route path="/">

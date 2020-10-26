@@ -54,6 +54,20 @@ const LoginSignupWrapper = styled.div`
     display: flex;
     align-items: flex-end;
   }
+
+  .login-text{
+
+  }
+
+  .main{
+    margin: auto;
+    width: 50%;
+  }
+
+  .main p{
+    font-size: 20px;
+    line-height: 30px;
+  }
 `;
 
 function LoginSignup(props) {
@@ -89,9 +103,9 @@ function LoginSignup(props) {
   return (
       <LoginSignupWrapper>
         <div className="header">
-          <div>Logo</div>
+          <div>WHILESINGLE</div>
           <div className="login">
-            <div>Have an account?</div>
+            <div className="login-text">Have an account?</div>
             <Button variant="outlined" color="primary" onClick={handleOpen}>Sign in</Button>
           </div>
         </div>
@@ -129,9 +143,15 @@ function LoginSignup(props) {
               </Button>
             </DialogActions>
           </Dialog>
-          <h1>Dating Deserves Better</h1>
-          <p>On OkCupid, you’re more than just a photo. You have stories to tell, and passions to share, and things to talk about that are more interesting than the weather. Get noticed for who you are, not what you look like. Because you deserve what dating deserves: better.</p>
-          <button>Join OKCUPID</button>
+          <div className="main">
+            <h1>Dating Deserves Better</h1>
+            <p>On OkCupid, you’re more than just a photo. You have stories to tell, and passions to share, and things to talk about that are more interesting than the weather. Get noticed for who you are, not what you look like. Because you deserve what dating deserves: better.</p>
+            <Button
+              variant="contained"
+              href="/signup"
+              className={classes.signup}
+            >JOIN WHILESINGLE</Button>
+          </div>
         </div>
       </LoginSignupWrapper>
   );

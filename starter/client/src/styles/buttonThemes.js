@@ -15,4 +15,11 @@ export const buttonThemeOne = makeStyles({
     label: {
       textTransform: 'capitalize',
     },
+    signup: {
+      background: 'black',
+      color: 'white',
+      width: '35%',
+      padding: '15px',
+    }
+
 });
