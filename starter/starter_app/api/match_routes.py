@@ -9,6 +9,24 @@ match_routes = Blueprint("match_routes", __name__)
 current_user_id = 2
 
 
+# Get all users except current:
+# -------------------------
+# @user_routes.route("/swipe")
+# def get_users():
+#     newFriends = User.query.order_by(User.id)
+#     user_list = [{'id': f.id, 'username': f.username} for f in newFriends if f.id != user_id]
+#     return jsonify(user_list)
+
+
+# Gets all your existing matches
+# -------------------------------
+@match_routes.route("/get-matches")
+def get_matches():
+    matches = Match.query.join(Match.users).filter(User.id == current_user_id).all()
+    matches = list(itertools.chain(*[[{'id': m.id, 'username': m.username} for m in f.users if m.id != current_user_id] for f in matches]))
+    return jsonify(matches)
+
+
 # Creates a match
 # Pass in 'user_id' from the other user
 # -------------------------------
@@ -21,12 +39,3 @@ def add_match():
     db.session.add(newMatch)
     db.session.commit()
     return jsonify({'match_id': newMatch.id})
-
-
-# Gets all your existing matches
-# -------------------------------
-@match_routes.route("/get-matches")
-def get_matches():
-    matches = Match.query.join(Match.users).filter(User.id == current_user_id).all()
-    matches = list(itertools.chain(*[[{'id': m.id, 'username': m.username} for m in f.users if m.id != current_user_id] for f in matches]))
-    return jsonify(matches)

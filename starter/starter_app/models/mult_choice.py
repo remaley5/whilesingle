@@ -21,16 +21,17 @@ class MC_Response(db.Model):
     mc_question = db.relationship('MC_Question', backref='mc_responses')
 
     def to_dict(self):
+        # we may want to remove answer_option and question (the actual text) and instead refer to an entry in the store. As it stands now we will have multiple copies of the question/answer data.
         return {
             self.id: {
                 'mc_response_id': self.id,
-                'user_id': self.user_id,
-                # 'mc_answer_option_id': self.mc_answer_option_id,
-                'mc_answer_option': self.mc_answer_option.to_dict_for_question_and_response(),
-                # 'mc_question_id': self.mc_question_id,
-                'mc_question': self.mc_question.to_dict_for_response(),
+                'mc_answer_option_id': self.mc_answer_option_id,
+                'mc_answer_option': self.mc_answer_option.mc_answer,
+                'mc_question_id': self.mc_question_id,
+                'mc_question': self.mc_question.mc_question,
             }
         }
+
 
 
 class MC_Question(db.Model):

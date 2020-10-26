@@ -20,7 +20,6 @@ class FR_Response(db.Model):
         return {
             self.id: {
                 'fr_response_id': self.id,
-                'user_id': self.user_id,
                 'fr_answer': self.fr_answer,
                 'fr_question_id': self.fr_question_id,
                 'fr_question': self.fr_question.fr_question
