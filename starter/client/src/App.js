@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Switch, Route, NavLink } from 'react-router-dom';
 
 import UserList from './components/UsersList';
-
+import Messages from './components/messengerComponents/Messages'
 
 function App() {
 
@@ -18,7 +18,7 @@ function App() {
             <Route path="/users">
                 <UserList />
             </Route>
-
+            <Route path='/messenger' component={Messages}></Route>
             <Route path="/">
                 <h1>My Home Page</h1>
             </Route>
