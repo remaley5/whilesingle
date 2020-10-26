@@ -26,9 +26,8 @@ with app.app_context():
 
 
 # SEED MC TABLE
-
+#   Q1
     mc_q1 = MC_Question(question='How do you feel about cats?')
-
     mc_q1_a1 = MC_Answer_Option(answer='I love cats.', mc_question_id=1)
     mc_q1_a2 = MC_Answer_Option(answer='I hate cats.', mc_question_id=1)
     mc_q1_a3 = MC_Answer_Option(
@@ -37,18 +36,49 @@ with app.app_context():
         answer='I would prefer to keep my opinion on cats private.', mc_question_id=1)
 
     db.session.add(mc_q1)
-    db.session.commit()
-
-
     db.session.add(mc_q1_a1)
     db.session.add(mc_q1_a2)
     db.session.add(mc_q1_a3)
     db.session.add(mc_q1_a4)
-    db.session.commit()
+
+#   Q2
+    mc_q2 = MC_Question(question='How do you feel about dogs?')
+    mc_q2_a1 = MC_Answer_Option(answer='I love dogs.', mc_question_id=2)
+    mc_q2_a2 = MC_Answer_Option(answer='I hate dogs.', mc_question_id=2)
+    mc_q2_a3 = MC_Answer_Option(
+        answer='I have no strong feelings regarding dogs.', mc_question_id=2)
+    mc_q2_a4 = MC_Answer_Option(
+        answer='I would prefer to keep my opinion on dogs private.', mc_question_id=2)
+
+    db.session.add(mc_q2)
+    db.session.add(mc_q2_a1)
+    db.session.add(mc_q2_a2)
+    db.session.add(mc_q2_a3)
+    db.session.add(mc_q2_a4)
+
+#   Q3
+    mc_q3 = MC_Question(question='How do you feel about iguanas?')
+    mc_q3_a1 = MC_Answer_Option(answer='I love iguanas.', mc_question_id=3)
+    mc_q3_a2 = MC_Answer_Option(answer='I hate iguanas.', mc_question_id=3)
+    mc_q3_a3 = MC_Answer_Option(
+        answer='I have no strong feelings regarding iguanas.', mc_question_id=3)
+    mc_q3_a4 = MC_Answer_Option(
+        answer='I would prefer to keep my opinion on iguanas private.', mc_question_id=3)
+
+    db.session.add(mc_q3)
+    db.session.add(mc_q3_a1)
+    db.session.add(mc_q3_a2)
+    db.session.add(mc_q3_a3)
+    db.session.add(mc_q3_a4)
+
+# Response
+    mc_u1_q1_res = MC_Response(user_id=1, mc_answer_option_id=1, mc_question_id=1)
+    mc_u1_q2_res = MC_Response(user_id=1, mc_answer_option_id=8, mc_question_id=2)
+    mc_u2_q3_res = MC_Response(user_id=2, mc_answer_option_id=12, mc_question_id=3)
+
+    db.session.add(mc_u1_q1_res)
+    db.session.add(mc_u1_q2_res)
+    db.session.add(mc_u2_q3_res)
 
 
-
-    mc_q1_res = MC_Response(user_id=1, mc_answer_option_id=1, mc_question_id=1)
-
-    db.session.add(mc_q1_res)
     db.session.commit()
