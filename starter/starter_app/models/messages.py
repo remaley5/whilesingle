@@ -19,7 +19,6 @@ class Message(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     message = db.Column(db.String(2000), nullable=False)
     from_id = db.Column(db.Integer)
-    to_id = db.Column(db.Integer)
     match_id = db.Column(db.Integer, db.ForeignKey(
         "matches.id"), nullable=True)
     created_at = db.Column('created_at', db.DateTime, default=utcnow())

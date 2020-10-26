@@ -7,7 +7,7 @@ from flask_migrate import Migrate
 
 from starter_app.models import db
 
-from starter_app.api import user_routes, fr_routes, mc_routes, message_routes
+from starter_app.api import user_routes, fr_routes, mc_routes, message_routes, match_routes
 
 from starter_app.config import Config
 
@@ -18,6 +18,7 @@ app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(fr_routes, url_prefix='/api/fr')
 app.register_blueprint(mc_routes, url_prefix='/api/mc')
 app.register_blueprint(message_routes, url_prefix='/api/messages')
+app.register_blueprint(match_routes, url_prefix='/api/matches')
 
 db.init_app(app)
 
