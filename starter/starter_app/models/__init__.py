@@ -7,3 +7,5 @@ db = SQLAlchemy()
 from .user import User
 
 from .mult_choice import MC_Response, MC_Question, MC_Answer_Option
+
+from .free_response import FR_Response, FR_Question
