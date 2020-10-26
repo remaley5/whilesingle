@@ -5,9 +5,9 @@ from flask_wtf.csrf import CSRFProtect, generate_csrf
 from flask_migrate import Migrate
 
 
-from starter_app.models import db, User, MC_Response, MC_Question, MC_Answer_Option
+from starter_app.models import db
 
-from starter_app.api.user_routes import user_routes
+from starter_app.api import user_routes, fr_routes, mc_routes, message_routes
 
 from starter_app.config import Config
 
@@ -15,6 +15,10 @@ app = Flask(__name__)
 
 app.config.from_object(Config)
 app.register_blueprint(user_routes, url_prefix='/api/users')
+app.register_blueprint(fr_routes, url_prefix='/api/fr')
+app.register_blueprint(mc_routes, url_prefix='/api/mc')
+app.register_blueprint(message_routes, url_prefix='/api/messages')
+
 db.init_app(app)
 
 # included so alembic migrations folder within models folder
