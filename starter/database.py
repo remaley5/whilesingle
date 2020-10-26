@@ -1,4 +1,4 @@
-from starter_app.models import User, MC_Response, MC_Question, MC_Answer_Option, FR_Response, FR_Question
+from starter_app.models import User, MC_Response, MC_Question, MC_Answer_Option, FR_Response, FR_Question, Match, Message
 from starter_app import app, db
 from dotenv import load_dotenv
 load_dotenv()
@@ -117,6 +117,27 @@ with app.app_context():
 
     db.session.add(u1_fr_q1_res)
     db.session.add(u3_fr_q1_res)
+
+
+
+####################################################
+####################################################
+# MATCHES AND MESSAGES
+####################################################
+####################################################
+
+####################################################
+# SEED MATCH TABLE
+####################################################
+    match1 = Match(users=[ian, javier])
+    db.session.add(match1)
+
+
+####################################################
+# SEED MESSAGE TABLE
+####################################################
+    msg1 = Message(message='hello Ian it is your friend, Javier.', from_id=2, to_id=1, match_id=1)
+    db.session.add(msg1)
 
 ####################################################
 # COMMIT DB CHANGES

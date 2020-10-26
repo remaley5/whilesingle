@@ -1,4 +1,4 @@
-from . import db, User
+from . import db
 
 
 class FR_Response(db.Model):
