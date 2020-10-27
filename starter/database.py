@@ -1,4 +1,4 @@
-from starter_app.models import User, MC_Response, MC_Question, MC_Answer_Option, FR_Response, FR_Question, Match, Message
+from starter_app.models import User, MC_Response, MC_Question, MC_Answer_Option, FR_Response, FR_Question, Match, Message, MatchRequest
 from starter_app import app, db
 from dotenv import load_dotenv
 load_dotenv()
@@ -24,6 +24,17 @@ with app.app_context():
     db.session.add(angela)
     db.session.add(soonmi)
     db.session.add(alissa)
+
+####################################################
+# SEED MATCHREQUEST TABLE
+####################################################
+    ivan_to_javiar = MatchRequest(from_id = 1, to_id = 2)
+    dean_to_javiar = MatchRequest(from_id = 3, to_id = 2)
+    angela_to_javiar = MatchRequest(from_id = 4, to_id = 2)
+
+    db.session.add(ivan_to_javiar)
+    db.session.add(dean_to_javiar)
+    db.session.add(angela_to_javiar)
 
 ####################################################
 ####################################################
