@@ -11,12 +11,12 @@ with app.app_context():
 ####################################################
 # SEED USER TABLE
 ####################################################
-    ian = User(first_name='Ian', last_name='Doe', email='ian@aa.io')
-    javier = User(first_name='Javier', last_name='Doe', email='javier@aa.io')
-    dean = User(first_name='Dean', last_name='Doe', email='dean@aa.io')
-    angela = User(first_name='Angela', last_name='Doe', email='angela@aa.io')
-    soonmi = User(first_name='Soon-Mi', last_name='Doe', email='soonmi@aa.io')
-    alissa = User(first_name='Alissa', last_name='Doe', email='alissa@aa.io')
+    ian = User(first_name='Ian', last_name='Dude', email='ian@aa.io')
+    javier = User(first_name='Javier', last_name='Dude', email='javier@aa.io')
+    dean = User(first_name='Dean', last_name='Dude', email='dean@aa.io')
+    angela = User(first_name='Angela', last_name='Dude', email='angela@aa.io')
+    soonmi = User(first_name='Soon-Mi', last_name='Dude', email='soonmi@aa.io')
+    alissa = User(first_name='Alissa', last_name='Dude', email='alissa@aa.io')
 
     db.session.add(ian)
     db.session.add(javier)
