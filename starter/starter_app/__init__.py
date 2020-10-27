@@ -1,13 +1,23 @@
 import os
-from flask import Flask, render_template, request, session
+from flask import Flask, render_template, request, session, jsonify
 from flask_cors import CORS
 from flask_wtf.csrf import CSRFProtect, generate_csrf
 from flask_migrate import Migrate
-from flask_login import LoginManager, current_user, login_user, logout_user, \
-                        login_required
+from flask_login import (
+    LoginManager,
+    current_user,
+    login_user,
+    logout_user,
+    login_required
+)
 
-from starter_app.models import db, User, MC_Response, MC_Question, \
-                               MC_Answer_Option
+from starter_app.models import (
+    db,
+    User,
+    MC_Response,
+    MC_Question,
+    MC_Answer_Option
+)
 
 from starter_app.api.user_routes import user_routes
 
@@ -29,7 +39,7 @@ CORS(app)
 CSRFProtect(app)
 
 
-@login_manager.user_loader()
+@login_manager.user_loader
 def load_user(user_id):
     return User.query.get(user_id)
 
@@ -45,7 +55,8 @@ def react_root(path):
 
 @app.route('/api/csrf/restore')
 def restore_csrf():
-    return {'csrf_token': generate_csrf()}
+    id = current_user.id if current_user.is_authenticated else None
+    return {'csrf_token': generate_csrf(), "current_user_id": id}
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -56,20 +67,20 @@ def login():
     email = request.json.get('email', None)
     password = request.json.get('password', None)
 
-    if not username or not password:
+    if not email or not password:
         return {"errors": ["Missing required parameters"]}, 400
 
-    authenticated, user = User.authenticate(username, password)
+    authenticated, user = User.authenticate(email, password)
     # print(authenticated)
     # print(user)
     if authenticated:
         login_user(user)
         return {"current_user_id": current_user.id}
 
-    return {"errors": ["Invalid username or password"]}, 401
+    return {"errors": ["Invalid email or password"]}, 401
 
 
-@app.route('logout', methods=['POST'])
+@app.route('/logout', methods=['POST'])
 @login_required
 def logout():
     logout_user()

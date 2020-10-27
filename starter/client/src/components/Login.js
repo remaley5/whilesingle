@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import styled from 'styled-components';
 import LoginForm from './LoginForm';
 import { withStyles } from '@material-ui/core/styles';
@@ -14,7 +14,8 @@ import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
 import { buttonThemeOne } from '../styles/buttonThemes.js';
 import clsx from 'clsx';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
+import AuthContext from '../auth';
 
 
 const styles = (theme) => ({
@@ -44,7 +45,7 @@ const DialogTitle = withStyles(styles)((props) => {
   )
 });
 
-const LoginSignupWrapper = styled.div`
+const LoginWrapper = styled.div`
   .header{
     display: flex;
     justify-content: space-between;
@@ -70,10 +71,13 @@ const LoginSignupWrapper = styled.div`
   }
 `;
 
-function LoginSignup(props) {
+function Login(props) {
   let [open, setOpen] = useState(false);
   let [email, setEmail] = useState('');
   let [password, setPassword] = useState('');
+  let [errors, setErrors] = useState([]);
+  const {fetchWithCSRF, setCurrentUserId} = useContext(AuthContext);
+  let history = useHistory();
 
   const classes = buttonThemeOne()
 
@@ -95,13 +99,37 @@ function LoginSignup(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setOpen(false);
     console.log(email, password);
-    return <Redirect to="/" />;
+
+    async function loginUser() {
+      const response = await fetchWithCSRF('/login', {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: 'include',
+        body: JSON.stringify({
+          email,
+          password
+        })
+      });
+
+      const responseData = await response.json();
+      if(!response.ok) {
+        setErrors(responseData.errors);
+      } else {
+        setOpen(false);
+        setCurrentUserId(responseData.current_user_id)
+        history.push('/users')
+      }
+    };
+
+    loginUser();
+    // return <Redirect to="/" />;
   }
 
   return (
-      <LoginSignupWrapper>
+      <LoginWrapper>
         <div className="header">
           <div>WHILESINGLE</div>
           <div className="login">
@@ -111,7 +139,9 @@ function LoginSignup(props) {
         </div>
         <div className="body">
           <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-            <DialogTitle id="form-dialog-title" onClose={handleClose}></DialogTitle>
+            <DialogTitle id="form-dialog-title" onClose={handleClose}>
+              {errors.length ? errors.map((err) => <li key={err}>{err}</li>) : ''}
+            </DialogTitle>
             <DialogContent>
               <DialogContentText>
                 Enter Email and Password
@@ -153,7 +183,7 @@ function LoginSignup(props) {
             >JOIN WHILESINGLE</Button>
           </div>
         </div>
-      </LoginSignupWrapper>
+      </LoginWrapper>
   );
 }
-export default LoginSignup;
+export default Login;
