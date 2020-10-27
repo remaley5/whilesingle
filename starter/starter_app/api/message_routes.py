@@ -14,7 +14,7 @@ message_routes = Blueprint("message_routes", __name__, url_prefix="")
 def get_messages(match_id_params):
     match_id = int(match_id_params)
     messages = Message.query.filter(match_id == match_id)
-    messages = [{'message': m.message, 'message_id': m.id, 'from_id': m.from_id, 'to_id': m.to_id} for m in messages]
+    messages = [{'message': m.message, 'message_id': m.id, 'from_id': m.from_id} for m in messages]
     if (messages):
         return jsonify(messages)
     return 'no messages'
