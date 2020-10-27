@@ -11,12 +11,12 @@ with app.app_context():
 ####################################################
 # SEED USER TABLE
 ####################################################
-    ian = User(username='Ian', email='ian@aa.io')
-    javier = User(username='Javier', email='javier@aa.io')
-    dean = User(username='Dean', email='dean@aa.io')
-    angela = User(username='Angela', email='angela@aa.io')
-    soonmi = User(username='Soon-Mi', email='soonmi@aa.io')
-    alissa = User(username='Alissa', email='alissa@aa.io')
+    ian = User(first_name='Ian', last_name='Dude', email='ian@aa.io')
+    javier = User(first_name='Javier', last_name='Dude', email='javier@aa.io')
+    dean = User(first_name='Dean', last_name='Dude', email='dean@aa.io')
+    angela = User(first_name='Angela', last_name='Dude', email='angela@aa.io')
+    soonmi = User(first_name='Soon-Mi', last_name='Dude', email='soonmi@aa.io')
+    alissa = User(first_name='Alissa', last_name='Dude', email='alissa@aa.io')
 
     db.session.add(ian)
     db.session.add(javier)
@@ -136,7 +136,7 @@ with app.app_context():
 ####################################################
 # SEED MESSAGE TABLE
 ####################################################
-    msg1 = Message(message='hello Ian it is your friend, Javier.', from_id=2, to_id=1, match_id=1)
+    msg1 = Message(message='hello Ian it is your friend, Javier.', from_id=2, match_id=1)
     db.session.add(msg1)
 
 ####################################################

@@ -1,8 +1,8 @@
-"""more explicit fr and mc models
+"""empty message
 
-Revision ID: 187717fb947b
-Revises: 7fd16fd1d860
-Create Date: 2020-10-26 15:07:23.184919
+Revision ID: 07d7ca01c24f
+Revises: 
+Create Date: 2020-10-26 17:39:11.009658
 
 """
 from alembic import op
@@ -10,8 +10,8 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '187717fb947b'
-down_revision = '7fd16fd1d860'
+revision = '07d7ca01c24f'
+down_revision = None
 branch_labels = None
 depends_on = None
 
@@ -35,11 +35,13 @@ def upgrade():
     )
     op.create_table('users',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('username', sa.String(length=40), nullable=False),
+    sa.Column('first_name', sa.String(length=40), nullable=False),
+    sa.Column('last_name', sa.String(length=40), nullable=False),
     sa.Column('email', sa.String(length=255), nullable=False),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email'),
-    sa.UniqueConstraint('username')
+    sa.UniqueConstraint('first_name'),
+    sa.UniqueConstraint('last_name')
     )
     op.create_table('fr_responses',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -68,7 +70,6 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('message', sa.String(length=2000), nullable=False),
     sa.Column('from_id', sa.Integer(), nullable=True),
-    sa.Column('to_id', sa.Integer(), nullable=True),
     sa.Column('match_id', sa.Integer(), nullable=True),
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.ForeignKeyConstraint(['match_id'], ['matches.id'], ),
