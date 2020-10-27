@@ -6,6 +6,8 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
+boto3 = "*"
+django-storages = "*"
 
 [requires]
 python_version = "3.8"
