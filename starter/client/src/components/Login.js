@@ -1,6 +1,5 @@
 import React, {useState, useContext} from 'react';
 import styled from 'styled-components';
-import LoginForm from './LoginForm';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -120,7 +119,7 @@ function Login(props) {
       } else {
         setOpen(false);
         setCurrentUserId(responseData.current_user_id)
-        history.push('/users')
+        history.push('/')
       }
     };
 
@@ -131,7 +130,7 @@ function Login(props) {
   return (
       <LoginWrapper>
         <div className="header">
-          <div>WHILESINGLE</div>
+          <div>while(single):</div>
           <div className="login">
             <div className="login-text">Have an account?</div>
             <Button variant="outlined" color="primary" onClick={handleOpen}>Sign in</Button>
@@ -180,7 +179,7 @@ function Login(props) {
               variant="contained"
               href="/signup"
               className={classes.signup}
-            >JOIN WHILESINGLE</Button>
+            >JOIN while(single):</Button>
           </div>
         </div>
       </LoginWrapper>
