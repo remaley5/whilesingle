@@ -52,6 +52,8 @@
 }
 
 .user-selected{
+    display: flex;
+    flex-direction: row;
     margin: 2px 6px 2px 6px;
     font-family: Arial, Helvetica, sans-serif;
     padding-top: 5px;
@@ -60,6 +62,7 @@
     background-color: rgb(253, 254, 255);
     border-radius: 3px;
     height: 40px;
+    text-align: center;
 }
 
 .user:hover{
