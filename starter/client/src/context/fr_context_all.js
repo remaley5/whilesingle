@@ -3,32 +3,68 @@ import React, { useState, createContext, useEffect } from "react";
 export const FRContext = createContext();
 
 export const FRContextProvider = (props) => {
-  // const [allFr, setAllFr] = useState(null);
+  // need to get user Id from context or something.
+  // hard code for now
+  const user_id = 3;
 
-	const useFetch = (url) => {
-		const [data, setData] = useState(null);
-		const [loading, setLoading] = useState(true);
+  // we'll also need a match id to load their answered questions only
+  const match_id = 2;
+
+  const useFetch = (url) => {
+    const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(true);
     useEffect(() => {
       async function fetchData() {
         const res = await fetch(url);
-				const json = await res.json();
-				console.log(json)
-        // setData(all_fr_questions);
+        const json = await res.json();
+        // call returns object with one key - we only want its value (an array)
+        const data = json[Object.keys(json)];
+        setData(data);
         setLoading(false);
       }
       fetchData();
     }, [url]);
     return [data, loading];
-	};
+  };
 
-	const [allFr, allFrLoading] = useFetch("/api/questions/fr/all")
-	const [answeredFr, answeredFrLoading] = useFetch('/api/questions/fr/responses')
-	// const allFr = useFetch("/api/questions/fr/all")
+  const [allFr, allFrLoading] = useFetch("/api/questions/fr/all");
+  const [userAnsweredFr, userAnsweredFrLoading] = useFetch(
+    `/api/questions/fr/answered/${user_id}`
+  );
+  const [userUnansweredFr, userUnansweredFrLoading] = useFetch(
+    `/api/questions/fr/unanswered/${user_id}`
+  );
+  // const allFr = useFetch("/api/questions/fr/all")
   // setAllFr(data);
+  const [matchAnsweredFr, matchAnsweredFrLoading] = useFetch(
+    `/api/questions/fr/answered/${match_id}`
+  );
+
+
+  const frContext = {
+    allFr,
+    userAnsweredFr,
+    userUnansweredFr,
+    matchAnsweredFr,
+  };
+
+	console.log("hits");
+
+  const frLoading = [
+    allFrLoading,
+    userAnsweredFrLoading,
+    userUnansweredFrLoading,
+    matchAnsweredFrLoading,
+	];
+	// make sure context loaded before rendering children
+  for (let i = 0; i < frLoading.length; i++) {
+    if (frLoading[i]) {
+      console.log("hits if");
+      return 'Loading...';
+    }
+	}
 
   return (
-    <FRContext.Provider value={[allFr, allFrLoading]}>
-      {props.children}
-    </FRContext.Provider>
+    <FRContext.Provider value={frContext}>{props.children}</FRContext.Provider>
   );
 };

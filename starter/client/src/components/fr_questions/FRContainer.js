@@ -1,19 +1,20 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 
 import { FRContext } from "../../context/fr_context_all";
-import FRForm from "./FRForm";
+import FRFormContainer from "./FRFormContainer";
 
 export default function FRContainer() {
   // const [allFr, loading] = useContext(FRContext)
-	const [allFr, loading] = useContext(FRContext);
-	if (loading) {
-		return null
-	}
-	console.log(allFr)
+	const frContext = useContext(FRContext);
+  // console.log(allFr, loading)
+  const {userAnsweredFr, userUnansweredFr} = frContext
   return (
     <>
-      {allFr.map((fr, idx) => (
-        <FRForm key={idx} fr={fr} />
+      {userAnsweredFr.map((frObj, idx) => (
+        <FRFormContainer key={idx} frObj={frObj} />
+      ))}
+      {userUnansweredFr.map((frObj, idx) => (
+        <FRFormContainer key={idx} frObj={frObj} />
       ))}
     </>
   );
