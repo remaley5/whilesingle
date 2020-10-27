@@ -38,15 +38,22 @@ const Messages = () => {
                 {userComponents}
             </div>
             <div className='compose-message'>
-                <div>
-                    where messages go.
-                </div>
-
+                <div className='user-message'>Hey girl how you doin? You want to see my pokemon cards?
+                I'm not trying to brag or anything but I am kind of a big deal. As in I am a
+                pokemon master. Plus I am a shinobi. I mean I can go zero to chidori in 5 seconds flat.</div>
+                <div className='from-user-message'>Leave me alone, you jabroni.</div>
+                <div className='user-message'>Ouch, strike out huh?</div>
+                <div className='from-user-message'>Obvi</div>
+                <div className='user-message'>Sorry I am kinda nerdy and wanted to impress you.</div>
+                <div className='from-user-message'>It was a little weird fosho.</div>
+                <div className='user-message'>Any chance I can start over here?</div>
+                <div className='from-user-message'>UMMMM.....probably not my dude.</div>
                 <div className='form-box'>
                     <form className='message-box' onSubmit={handleSend}>
-                        <TextareaAutosize className='message-sender'
+                        <textarea className='message-sender'
                         rowsMax={4} onChange={handleMessage} size='medium'
-                        id="standard-basic" placeholder={!selectedName ?"Talk to them!" : `Talk to ${selectedName}`} />
+                        aria-label="maximum 4 rows"
+                        id="standard-basic" placeholder={!selectedName ?"Talk to them!" : `Talk to ${selectedName}`}></textarea>
                         <SendIcon className='send' />
                     </form>
                 </div>
