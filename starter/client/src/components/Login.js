@@ -174,7 +174,7 @@ function Login(props) {
           </Dialog>
           <div className="main">
             <h1>Dating Deserves Better</h1>
-            <p>On OkCupid, you’re more than just a photo. You have stories to tell, and passions to share, and things to talk about that are more interesting than the weather. Get noticed for who you are, not what you look like. Because you deserve what dating deserves: better.</p>
+            <p>On while(single): you are more than just an HTML element. You're a probably a bunch of them. Get out of the daily grind and repeat the loop of dating. Look for people who you pair well with thanks to our match algorithm and say goodbye to type errors.</p>
             <Button
               variant="contained"
               href="/signup"

@@ -24,8 +24,9 @@ def get_users(user_id_param):
 # -------------------------------
 @match_routes.route("/get-matches/<user_id_params>")
 def get_matches(user_id_params):
-    matches = query_matches(user_id_params)
-    matches = list(itertools.chain(*[[{"match_id":f.id, "user_id": m.id, "first_name": m.first_name, "last_name": m.last_name} for m in f.users if m.id != current_user_id] for f in matches]))
+    user_id = int(user_id_params)
+    matches = query_matches(user_id)
+    matches = list(itertools.chain(*[[{"match_id":f.id, "user_id": m.id, "first_name": m.first_name, "last_name": m.last_name} for m in f.users if m.id != user_id] for f in matches]))
     return jsonify(matches)
 
 # Creates a match
