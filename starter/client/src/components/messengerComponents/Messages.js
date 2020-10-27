@@ -19,7 +19,7 @@ const Messages = () => {
             const responseData = await response.json();
             setUsers(responseData.users);
         })()
-        scrollDiv.current.scrollTop = 100000;
+        scrollDiv.current.scrollTop = 1000000000000000;
     }, []);
 
     const handleSend = (e) => {
