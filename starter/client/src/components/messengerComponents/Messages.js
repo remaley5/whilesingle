@@ -1,7 +1,7 @@
 import React, { useEffect, useState }  from 'react'
 import '../../styles/messenger.css'
-import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import SendIcon from '@material-ui/icons/Send';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 
 const Messages = () => {
@@ -9,6 +9,7 @@ const Messages = () => {
     const [selectedName, setSelectedName] = useState();
     const [recipientId, setRecipientId] = useState();
     const [message, setMessage] = useState();
+    const [selectedDiv, setSelectedDiv] = useState();
 
     useEffect(() => {
         async function fetchData() {
@@ -21,9 +22,16 @@ const Messages = () => {
     }, []);
 
     const handleClick = (e) => {
+        if(selectedDiv){
+            selectedDiv.classList.remove('user-selected')
+            selectedDiv.classList.add('user')
+        }
+
+        setSelectedDiv(e.target)
         setSelectedName(e.target.innerHTML)
         setRecipientId(e.target.getAttribute('value'))
-        // console.log(selectedName)
+        e.target.classList.remove('user')
+        e.target.classList.add('user-selected')
     }
 
     const handleSend = (e) => {
@@ -31,7 +39,11 @@ const Messages = () => {
         console.log(message)
     }
     const handleMessage = (e) => setMessage(e.target.value)
-    const userComponents = users.map((user) => <div className='user' value={user.id} key={user.id} onClick={handleClick}>{user.first_name}</div>)
+    const userComponents = users.map((user) =>
+
+    <div className='user' value={user.id} key={user.id} onClick={handleClick}>
+    {user.profile_image ? user.profile_image :<AccountCircleIcon className='default-profile-image'/>}
+    <div className='username-text'>{user.first_name}</div></div>)
     return (
         <div className='messenger'>
             <div className='side-bar'>
