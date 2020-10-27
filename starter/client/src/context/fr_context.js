@@ -48,7 +48,6 @@ export const FRContextProvider = (props) => {
     matchAnsweredFr,
   };
 
-	console.log("hits");
 
   const frLoading = [
     allFrLoading,
@@ -56,10 +55,10 @@ export const FRContextProvider = (props) => {
     userUnansweredFrLoading,
     matchAnsweredFrLoading,
 	];
+
 	// make sure context loaded before rendering children
   for (let i = 0; i < frLoading.length; i++) {
     if (frLoading[i]) {
-      console.log("hits if");
       return 'Loading...';
     }
 	}

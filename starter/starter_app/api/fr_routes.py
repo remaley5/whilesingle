@@ -23,31 +23,31 @@ def unanswered_fr_questions(user_id):
     answered_fr_question_ids = [value for value, in FR_Response.query.filter(
         FR_Response.user_id == user_id).with_entities(FR_Response.fr_question_id)]
 
-    unanswered_fr_questions = FR_Question.query.filter(FR_Question.id.notin_(answered_fr_question_ids)).all()
+    unanswered_fr_questions = FR_Question.query.filter(
+        FR_Question.id.notin_(answered_fr_question_ids)).all()
 
     return {'fr_unanswered': [question.to_dict() for question in unanswered_fr_questions]}
+
 
 @fr_routes.route('/<int:user_id>/answer', methods=['POST'])
 def update_fr_response(user_id):
     data = request.json
     question_id = data['question_id']
     response = data['response']
-    response_id = data['response_id']
-    # if response exists, update
-    if response_id:
-        fr_response = FR_Response.query.get(response_id)
-        fr_response.fr_answer = response
-    # if response doesn't exist, create it
-    else:
-        fr_response = FR_Response(user_id=user_id, fr_question_id=question_id, fr_answer=response)
-    db.session.add(fr_response)
+    old_response = FR_Response.query.filter(FR_Response.user_id == user_id).filter(
+        FR_Response.fr_question_id == question_id).one_or_none()
+    # if old response exists, update/delete it based on if response not empty
+    if old_response:
+        if response != '':
+            old_response.fr_answer = response
+            db.session.add(old_response)
+        else:
+            db.session.delete(old_response)
+    # if old response doesn't exist, create it if response not empty
+    elif response != '':
+        fr_response = FR_Response(
+            user_id=user_id, fr_question_id=question_id, fr_answer=response)
+        db.session.add(fr_response)
+
     db.session.commit()
     return 'ok'
-
-@fr_routes.route('/answer/<int:user_id>/q<int:question_id>', methods=['POST'])
-def answer_fr_question(user_id, question_id):
-    answer = request.form
-    fr_response = FR_Response(user_id=user_id, fr_question_id=question_id, fr_answer=answer)
-    db.session.add(fr_response)
-    db.session.commit()
-    print(fr_response)

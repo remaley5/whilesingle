@@ -1,9 +1,7 @@
-import React, {useContext} from 'react';
+import React from 'react';
 
 // import context provider component
-import {FRContextProvider} from '../context/fr_context_all';
-
-import {FRContext} from '../context/fr_context_all'
+import {UserFrContextProvider} from '../context/user_fr_context';
 
 // import fr components to show in the view
 import FRContainer from '../components/fr_questions/FRContainer';
@@ -11,9 +9,9 @@ import FRContainer from '../components/fr_questions/FRContainer';
 export default function FRView() {
 
 	return (
-		<FRContextProvider>
+		<UserFrContextProvider>
 			<FRContainer/>
 				{/* other ish in here? */}
-		</FRContextProvider>
+		</UserFrContextProvider>
 	)
 }
