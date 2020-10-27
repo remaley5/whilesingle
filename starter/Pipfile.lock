@@ -1,15 +1,7 @@
 {
     "_meta": {
         "hash": {
-<<<<<<< HEAD
             "sha256": "548b0c3d5d3f84c0a317d118cf345ab639e114a621c27582a738cdbf76124e1a"
-=======
-<<<<<<< HEAD
-            "sha256": "713694f49faf2ca1fe92ddede3109a2be942c95b5ecd13e9668dec040c078eb6"
-=======
-            "sha256": "548b0c3d5d3f84c0a317d118cf345ab639e114a621c27582a738cdbf76124e1a"
->>>>>>> f5c63d2b1ef3a810a6cb9d2bf13ff0cf089876db
->>>>>>> c94680c52d44c59dc49ad08dfe0c047bc0531461
         },
         "pipfile-spec": 6,
         "requires": {
@@ -170,7 +162,7 @@
                 "sha256:73ebfe9dbf22e832286dafa60473e4cd239f8592f699aa5adaf10050e6e1823c",
                 "sha256:75bb3f31ea686f1197762692a9ee6a7550b59fc6ca3a1f4b5d7e32fb98e2da2a"
             ],
-            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'",
+            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2'",
             "version": "==2.8.1"
         },
         "python-dotenv": {
