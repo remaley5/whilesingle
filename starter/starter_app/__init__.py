@@ -15,8 +15,8 @@ app = Flask(__name__)
 
 app.config.from_object(Config)
 app.register_blueprint(user_routes, url_prefix='/api/users')
-app.register_blueprint(fr_routes, url_prefix='/api/fr_questions')
-app.register_blueprint(mc_routes, url_prefix='/api/mc_questions')
+app.register_blueprint(fr_routes, url_prefix='/api/questions/fr')
+app.register_blueprint(mc_routes, url_prefix='/api/questions/mc')
 app.register_blueprint(message_routes, url_prefix='/api/messages')
 app.register_blueprint(match_routes, url_prefix='/api/matches')
 
