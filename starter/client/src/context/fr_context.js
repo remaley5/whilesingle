@@ -1,16 +1,16 @@
 import React, { useState, createContext, useEffect } from "react";
 
-export const FRContext = createContext();
+export const FrContext = createContext();
 
-export const FRContextProvider = (props) => {
+export const FrContextProvider = (props) => {
   // need to get user Id from context or something.
   // hard code for now
   const user_id = 3;
 
   // we'll also need a match id to load their answered questions only
-  const match_id = 2;
+  const match_id = 1;
 
-  const useFetch = (url) => {
+  const useFetch = (url, id) => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     useEffect(() => {
@@ -23,25 +23,25 @@ export const FRContextProvider = (props) => {
         setLoading(false);
       }
       fetchData();
-    }, [url]);
+    }, [id]);
     return [data, loading];
   };
 
   const [allFr, allFrLoading] = useFetch("/api/questions/fr/all");
   const [userAnsweredFr, userAnsweredFrLoading] = useFetch(
-    `/api/questions/fr/answered/${user_id}`
+    `/api/questions/fr/answered/${user_id}`, user_id
   );
   const [userUnansweredFr, userUnansweredFrLoading] = useFetch(
-    `/api/questions/fr/unanswered/${user_id}`
+    `/api/questions/fr/unanswered/${user_id}`, user_id
   );
   // const allFr = useFetch("/api/questions/fr/all")
   // setAllFr(data);
   const [matchAnsweredFr, matchAnsweredFrLoading] = useFetch(
-    `/api/questions/fr/answered/${match_id}`
+    `/api/questions/fr/answered/${match_id}`, match_id
   );
 
 
-  const frContext = {
+  const fr = {
     allFr,
     userAnsweredFr,
     userUnansweredFr,
@@ -64,6 +64,6 @@ export const FRContextProvider = (props) => {
 	}
 
   return (
-    <FRContext.Provider value={frContext}>{props.children}</FRContext.Provider>
+    <FrContext.Provider value={fr}>{props.children}</FrContext.Provider>
   );
 };

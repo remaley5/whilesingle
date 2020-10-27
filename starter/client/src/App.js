@@ -3,7 +3,7 @@ import { BrowserRouter, Switch, Route, NavLink } from 'react-router-dom';
 
 import UserList from './components/UsersList';
 import Messages from './components/messengerComponents/Messages'
-import FRView from './views/FRView'
+import FrView from './views/FrView'
 
 function App() {
 
@@ -22,7 +22,7 @@ function App() {
                 <UserList />
             </Route>
             <Route path='/messenger' component={Messages}></Route>
-            <Route path='/fr_questions' component={FRView}></Route>
+            <Route path='/fr_questions' component={FrView}></Route>
 
             <Route path="/">
                 <h1>My Home Page</h1>

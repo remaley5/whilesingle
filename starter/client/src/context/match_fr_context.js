@@ -1,13 +1,9 @@
 import React, { useState, createContext, useEffect } from "react";
 
-export const UserFrContext = createContext();
+export const MatchFrContext = createContext();
 
-export const UserFrContextProvider = (props) => {
-  // need to get user Id from context or something.
-  // hard code for now
-	const user_id = 1;
-
-  // we'll also need a match id to load their answered questions only
+export const MatchFrContextProvider = (props) => {
+	// match id will be from context somehow... later
   const match_id = 2;
 
   const useFetch = (url) => {
@@ -23,25 +19,20 @@ export const UserFrContextProvider = (props) => {
         setLoading(false);
       }
       fetchData();
-    }, [match_id]);
+    }, [url]);
     return [data, loading];
   };
 
-  const [userAnsweredFr, userAnsweredFrLoading] = useFetch(
-    `/api/questions/fr/answered/${user_id}`
-  );
-  const [userUnansweredFr, userUnansweredFrLoading] = useFetch(
-    `/api/questions/fr/unanswered/${user_id}`
+  const [matchAnsweredFr, matchAnsweredFrLoading] = useFetch(
+    `/api/questions/fr/answered/${match_id}`
   );
 
   const frContext = {
-    userAnsweredFr,
-    userUnansweredFr,
+    matchAnsweredFr,
   };
 
   const frLoading = [
-    userAnsweredFrLoading,
-    userUnansweredFrLoading,
+    matchAnsweredFrLoading
 	];
 
 	// make sure context loaded before rendering children
@@ -52,6 +43,6 @@ export const UserFrContextProvider = (props) => {
 	}
 
   return (
-    <UserFrContext.Provider value={frContext}>{props.children}</UserFrContext.Provider>
+    <MatchFrContext.Provider value={frContext}>{props.children}</MatchFrContext.Provider>
   );
 };
