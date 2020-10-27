@@ -12,8 +12,6 @@ user_routes = Blueprint('users', __name__)
 def index():
     response = User.query.all()
     return {"users": [user.to_dict() for user in response]}
-<<<<<<< HEAD
-=======
 
 
 # Get all users except current:
@@ -26,4 +24,3 @@ def index():
 # @user_routes.route('/<int:id>', methods=['GET', 'POST'])
 # def user_detail(id):
 #   return {}
->>>>>>> main

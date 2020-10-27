@@ -1,11 +1,8 @@
 from . import db
-<<<<<<< HEAD
 from . import utcnow
-=======
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
->>>>>>> main
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
@@ -31,7 +28,6 @@ class User(db.Model, UserMixin):
             "email": self.email
         }
 
-    user = db.relationship("User")
     @property
     def password(self):
         raise AttributeError('Password not readable.')
@@ -56,3 +52,5 @@ class MatchRequest(db.Model):
     "users.id"), nullable=True)
     from_id = db.Column(db.Integer)
     created_at = db.Column('created_at', db.DateTime, default=utcnow())
+
+    user = db.relationship("User")
