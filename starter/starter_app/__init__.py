@@ -1,11 +1,23 @@
 import os
-from flask import Flask, render_template, request, session
+from flask import Flask, render_template, request, session, jsonify
 from flask_cors import CORS
 from flask_wtf.csrf import CSRFProtect, generate_csrf
 from flask_migrate import Migrate
+from flask_login import (
+    LoginManager,
+    current_user,
+    login_user,
+    logout_user,
+    login_required
+)
 
-
-from starter_app.models import db
+from starter_app.models import (
+    db,
+    User,
+    MC_Response,
+    MC_Question,
+    MC_Answer_Option
+)
 
 from starter_app.api import user_routes, fr_routes, mc_routes, message_routes, match_routes
 
@@ -21,21 +33,20 @@ app.register_blueprint(message_routes, url_prefix='/api/messages')
 app.register_blueprint(match_routes, url_prefix='/api/matches')
 
 db.init_app(app)
+login_manager = LoginManager(app)
 
 # included so alembic migrations folder within models folder
 MIGRATION_DIR = os.path.join('starter_app', 'models', 'migrations')
 Migrate(app, db, directory=MIGRATION_DIR)
 
-## Application Security
+# Application Security
 CORS(app)
-@app.after_request
-def inject_csrf_token(response):
-    response.set_cookie('csrf_token',
-        generate_csrf(),
-        secure=True if os.environ.get('FLASK_ENV') else False,
-        samesite='Strict' if os.environ.get('FLASK_ENV') else None,
-        httponly=True)
-    return response
+CSRFProtect(app)
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(user_id)
 
 
 @app.route('/', defaults={'path': ''})
@@ -45,3 +56,37 @@ def react_root(path):
     if path == 'favicon.ico':
         return app.send_static_file('favicon.ico')
     return app.send_static_file('index.html')
+
+
+@app.route('/api/csrf/restore')
+def restore_csrf():
+    id = current_user.id if current_user.is_authenticated else None
+    return {'csrf_token': generate_csrf(), "current_user_id": id}
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if not request.is_json:
+        return jsonify({"msg": "Missing JSON in request"}), 400
+
+    email = request.json.get('email', None)
+    password = request.json.get('password', None)
+
+    if not email or not password:
+        return {"errors": ["Missing required parameters"]}, 400
+
+    authenticated, user = User.authenticate(email, password)
+    # print(authenticated)
+    # print(user)
+    if authenticated:
+        login_user(user)
+        return {"current_user_id": current_user.id}
+
+    return {"errors": ["Invalid email or password"]}, 401
+
+
+@app.route('/logout', methods=['POST'])
+@login_required
+def logout():
+    logout_user()
+    return {"msg": "You have been logged out"}, 200
