@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export default function FRForm({frObj}) {
+export default function FrUserForm({frObj}) {
 	const {fr_answer, fr_question, fr_question_id} = frObj
 
 	// get user id from context - hardcode for now
