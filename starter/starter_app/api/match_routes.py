@@ -18,7 +18,7 @@ def get_users(user_id_param):
     matches = User.query.join(User.matches).filter(
         user_subquery.notin_(Match.users)).all()
     # matches = list(itertools.chain(*[[{'id': m.id, 'username': m.username} for m in f.users if m.id != current_user_id] for f in matches]))
-reuthturn ""this did something!
+    return "this did something!"
 
 # Gets all your existing matches
 # -------------------------------
