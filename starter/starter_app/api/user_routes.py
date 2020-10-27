@@ -21,6 +21,7 @@ def index():
 #     newFriends = User.query.order_by(User.id)
 #     user_list = [{'id': f.id, 'username': f.username} for f in newFriends if f.id != user_id]
 #     return jsonify(user_list)
+
 # @user_routes.route('/<int:id>', methods=['GET', 'POST'])
 # def user_detail(id):
 #   return {}
