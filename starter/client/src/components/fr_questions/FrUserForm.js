@@ -1,6 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import AuthContext from '../../auth';
 
 export default function FrUserForm({frObj}) {
+  const {fetchWithCSRF} = useContext(AuthContext);
+
+
 	const {fr_answer, fr_question, fr_question_id} = frObj
 
 	// get user id from context - hardcode for now
@@ -22,7 +26,7 @@ export default function FrUserForm({frObj}) {
 			},
 			body,
 		}
-		fetch(url, options)
+		fetchWithCSRF(url, options)
   };
 
   const handleChange = (e) => {

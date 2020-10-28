@@ -1,7 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import AuthContext from '../../auth';
 
 export default function McUserForm({ mcObj }) {
-  const { mc_answer_id: user_mc_answer_id, mc_question, mc_question_id, mc_answer_options } = mcObj;
+  const {fetchWithCSRF} = useContext(AuthContext);
+
+
+	const { mc_answer_id: user_mc_answer_id, mc_question, mc_question_id, mc_answer_options } = mcObj;
   console.log(mcObj);
   console.log(mc_answer_options);
   // get user id from context - hardcode for now
@@ -21,7 +25,7 @@ export default function McUserForm({ mcObj }) {
       },
       body,
     };
-    fetch(url, options);
+    fetchWithCSRF(url, options);
 	};
 
   return (
