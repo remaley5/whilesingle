@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 export default function McUserForm({ mcObj }) {
-  const { mc_answer, mc_question, mc_question_id, mc_answer_options } = mcObj;
+  const { mc_answer_id: user_mc_answer_id, mc_question, mc_question_id, mc_answer_options } = mcObj;
   console.log(mcObj);
   console.log(mc_answer_options);
   // get user id from context - hardcode for now
@@ -12,7 +12,7 @@ export default function McUserForm({ mcObj }) {
 		const url = `/api/questions/mc/${user_id}/answer`;
     const body = JSON.stringify({
 			question_id: e.target.name,
-			answer_option_id: e.target.id,
+			answer_id: e.target.id,
     });
     const options = {
       method: "post",
@@ -30,7 +30,7 @@ export default function McUserForm({ mcObj }) {
       {mc_answer_options.map(({ mc_answer, mc_answer_id }, idx) => {
         return (
           <div key={idx}>
-            <input type="radio" name={mc_question_id} id={mc_answer_id} onClick={handleClick} />
+            <input type="radio" name={mc_question_id} id={mc_answer_id} defaultChecked={user_mc_answer_id === mc_answer_id ? true : false} onClick={handleClick} />
             <label htmlFor={mc_question_id}>{mc_answer}</label>
           </div>
         );

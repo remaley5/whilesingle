@@ -43,10 +43,6 @@ class MC_Question(db.Model):
         'MC_Answer_Option', back_populates="mc_questions")
 
     def to_dict(self):
-        print('-----------------------------------------------------------------------------------------qqqqq')
-        print(self.mc_answer_options)
-        print(
-            'qqqq-----------------------------------------------------------------------------------------')
         mc_answer_option_list = [answer.to_dict_for_question_and_response()
                                  for answer in self.mc_answer_options]
         return {
