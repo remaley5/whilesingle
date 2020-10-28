@@ -8,7 +8,8 @@ const UserBox = ({user, setSelectedName, recipientId, setRecipientId, setMatch, 
     const parent = useRef()
 
     useEffect(() => {
-        if(user.id === Number(recipientId)){
+
+        if(user.user_id === Number(recipientId)){
             parent.current.classList.add('user-selected')
             parent.current.classList.remove('user')
         } else {
@@ -20,7 +21,7 @@ const UserBox = ({user, setSelectedName, recipientId, setRecipientId, setMatch, 
     const handleClick = (e) => {
         // setSelectedDiv(e.target)
         setSelectedName(user.first_name)
-        setRecipientId(user.id)
+        setRecipientId(user.user_id)
         setMatch(user.match_id)
         // console.log(match)
         getMessages()

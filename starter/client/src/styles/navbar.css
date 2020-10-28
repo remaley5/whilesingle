@@ -1,0 +1,32 @@
+.navbar-wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    width: 100%;
+    min-height: 100px;
+    border: solid 1px linear-gradient(50deg, #ff9b9b  40%, #ffbcbc 90%);
+    /* background-color:  rgb(255, 179, 179); */
+    background: linear-gradient(50deg, #ff9b9b  40%, #ffbcbc 90%);
+    box-shadow: 5px 3px 5px 3px rgba(71, 71, 71, 0.171);
+}
+
+.nav-links{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-content: center;
+}
+
+.logo{
+    color: white;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 25px;
+}
+
+.home-icon{
+    text-decoration: none;
+    color: white;
+    font-size: 100px;
+}

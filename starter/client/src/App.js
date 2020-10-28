@@ -7,6 +7,7 @@ import Login from './components/Login';
 import Signup from './components/Signup';
 import Home from './components/Home';
 import AuthContext from './auth';
+import NavBar from './components/NavBar'
 
 import { ProtectedRoute, AuthRoute } from './Routes';
 
@@ -65,12 +66,7 @@ function App() {
         {!loading &&
         location.pathname !== '/login' && location.pathname !== '/signup' ?
         <nav>
-            <ul>
-                <li><NavLink to="/" activeclass="active">Home</NavLink></li>
-                <li><NavLink to="/users" activeclass="active">Users</NavLink></li>
-                <li><NavLink to="/messenger" activeclass="active">Messenger</NavLink></li>
-                <li><a onClick={logoutUser} href="/login" activeclass="active">Logout</a></li>
-            </ul>
+            <NavBar setCurrentUserId={setCurrentUserId} />
         </nav> : null}
         <Switch>
             <ProtectedRoute path="/messenger" exact component={Messages} currentUserId={currentUserId} />
