@@ -1,17 +1,20 @@
 from flask import Blueprint, request
 from starter_app.models import db, MC_Question, MC_Answer_Option, MC_Response
+from flask_login import login_required
 
 
 mc_routes = Blueprint('mc_questions', __name__)
 
 
 @mc_routes.route('/all')
+@login_required
 def all_mc_questions():
     mc_questions = MC_Question.query.all()
     return {'mc_all': [question.to_dict() for question in mc_questions]}
 
 
 @mc_routes.route('/answered/<int:id>')
+@login_required
 # id is user_id
 def answered_mc_questions(id):
     mc_responses = MC_Response.query.filter(
@@ -28,6 +31,7 @@ def answered_mc_questions(id):
 # this route serves up data in the same format as /api/mc/questions
 # except only those unanswered
 @mc_routes.route('/unanswered/<int:id>')
+@login_required
 # id is user_id
 def unanswered_mc_questions(id):
     ans_ids = [value for value, in MC_Response.query.filter(
@@ -44,6 +48,7 @@ def unanswered_mc_questions(id):
 
 
 @mc_routes.route('/<int:id>/answer', methods=['POST'])
+@login_required
 # id is user_id
 def update_mc_response(id):
     data = request.json
