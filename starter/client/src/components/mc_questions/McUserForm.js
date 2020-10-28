@@ -22,7 +22,8 @@ export default function McUserForm({ mcObj }) {
     console.log(form.elements);
 
     let question_weight = 1;
-    let unacceptable_answers = [];
+		let unacceptable_answers = [];
+		let answer_id = null;
     const els = form.elements;
     for (let i = 0; i < els.length; i++) {
       const el = els[i];
@@ -30,14 +31,16 @@ export default function McUserForm({ mcObj }) {
         unacceptable_answers.push(parseInt(el.id.slice(13), 10));
       } else if (el.id.startsWith("weight")) {
         question_weight = parseInt(el.value, 10);
-      }
+			} else if (el.id.startsWith('answer') && el.checked) {
+				answer_id = parseInt(el.id.slice(7),10)
+			}
     }
     console.log(unacceptable_answers);
 
     const url = `/api/questions/mc/${user_id}/answer`;
     const body = JSON.stringify({
-      question_id: e.target.name,
-      answer_id: e.target.id,
+      question_id: mc_question_id,
+      answer_id,
       unacceptable_answers,
       question_weight,
     });
@@ -72,7 +75,7 @@ export default function McUserForm({ mcObj }) {
             <input
               type="radio"
               name={mc_question_id}
-              id={mc_answer_id}
+              id={`answer-${mc_answer_id}`}
               defaultChecked={user_mc_answer_id === mc_answer_id ? true : false}
               onClick={handleClick}
             />
