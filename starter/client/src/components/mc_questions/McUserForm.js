@@ -119,10 +119,11 @@ export default function McUserForm({ mcObj }) {
       <select
         onChange={handleWeight}
         name={mc_question_id}
-        id={`weight-${mc_question_id}`}
+				id={`weight-${mc_question_id}`}
+				value={weightRef.current}
       >
-        <option selected={weightRef.current === 1}value="1">Less Important</option>
-				<option selected={weightRef.current === 2} value="2">Neutral</option>
+        <option value="1">Less Important</option>
+				<option value="2">Neutral</option>
         <option value="3">More Important</option>
       </select>
       {mc_answer_options.map(({ mc_answer, mc_answer_id }, idx) => {
@@ -138,7 +139,8 @@ export default function McUserForm({ mcObj }) {
             />
             <label htmlFor={mc_question_id}>{mc_answer}</label>
             <input
-              type="checkbox"
+							type="checkbox"
+							checked={unacceptableRef.current.indexOf(mc_answer_id) !== -1}
               name={mc_question_id}
               id={`unacceptable-${mc_answer_id}`}
               onChange={handleUnacceptable}
