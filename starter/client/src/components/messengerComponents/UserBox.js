@@ -1,6 +1,5 @@
-import React, { useEffect, useState, useRef }  from 'react'
-import '../../styles/messenger.css'
-import SendIcon from '@material-ui/icons/Send';
+import React, { useEffect, useRef }  from 'react'
+import '../../styles/messenger.css';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 
@@ -16,7 +15,7 @@ const UserBox = ({user, setSelectedName, recipientId, setRecipientId }) => {
             parent.current.classList.remove('user-selected')
             parent.current.classList.add('user')
         }
-    }, [recipientId]);
+    }, [user.id, recipientId]);
 
     const handleClick = (e) => {
         // setSelectedDiv(e.target)

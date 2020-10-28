@@ -12,7 +12,7 @@ const Messages = () => {
     const [message, setMessage] = useState();
     const scrollDiv = useRef()
 
-    const { fetchWithCSRF, currentUserId } = useContext(AuthContext);
+    const { currentUserId } = useContext(AuthContext);
 
     useEffect(() => {
         (async () => {
@@ -22,11 +22,11 @@ const Messages = () => {
             setUsers(responseData);
         })()
         scrollDiv.current.scrollTop = 1000000000000000;
-    }, []);
+    }, [currentUserId]);
 
     const handleSend = (e) => {
         e.preventDefault()
-        // console.log(message)
+        console.log(message)
     }
     const handleMessage = (e) => setMessage(e.target.value)
     const userComponents = users.map((user) =>

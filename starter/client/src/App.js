@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { Switch, Route, NavLink, useLocation } from 'react-router-dom';
+import { Switch, NavLink, useLocation } from 'react-router-dom';
 
 import UserList from './components/UsersList';
 import Messages from './components/messengerComponents/Messages'
@@ -54,7 +54,7 @@ function App() {
                   setCurrentUserId(authData.current_user_id)
               }
           }
-          setLoading(false);
+        setLoading(false);
       }
       restoreCSRF();
   }, []);
@@ -75,8 +75,8 @@ function App() {
         <Switch>
             <ProtectedRoute path="/messenger" exact component={Messages} currentUserId={currentUserId} />
             <ProtectedRoute path="/users" exact component={UserList} currentUserId={currentUserId} />
-            <AuthRoute path="/login" component={Login} />
-            <AuthRoute path="/signup" component={Signup} />
+            <AuthRoute path="/login" component={Login} currentUserId={currentUserId} />
+            <AuthRoute path="/signup" component={Signup} currentUserId={currentUserId} />
             <ProtectedRoute path="/" component={Home} currentUserId={currentUserId} />
         </Switch>
     </AuthContext.Provider>
