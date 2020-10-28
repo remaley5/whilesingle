@@ -3,13 +3,15 @@ import { Switch, Route, NavLink, useLocation } from 'react-router-dom';
 
 import UserList from './components/UsersList';
 import Messages from './components/messengerComponents/Messages'
+import FrView from './views/FrView'
+import McView from './views/McView'
 import Login from './components/Login';
 import Signup from './components/Signup';
 import Home from './components/Home';
 import AuthContext from './auth';
 import NavBar from './components/NavBar'
-
 import { ProtectedRoute, AuthRoute } from './Routes';
+
 
 function App() {
   let location = useLocation();
@@ -71,6 +73,8 @@ function App() {
         <Switch>
             <ProtectedRoute path="/messenger" exact component={Messages} currentUserId={currentUserId} />
             <ProtectedRoute path="/users" exact component={UserList} currentUserId={currentUserId} />
+            <ProtectedRoute path='/fr_questions' exact component={FrView} currentUserId={currentUserId}/>
+            <ProtectedRoute path='/mc_questions' exact component={McView} currentUserId={currentUserId}/>
             <AuthRoute path="/login" component={Login} />
             <AuthRoute path="/signup" component={Signup} />
             <ProtectedRoute path="/" component={Home} currentUserId={currentUserId} />
