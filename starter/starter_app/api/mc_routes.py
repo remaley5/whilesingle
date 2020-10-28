@@ -47,6 +47,7 @@ def unanswered_mc_questions(id):
 # id is user_id
 def update_mc_response(id):
     data = request.json
+    print(data)
     question_id = data['question_id']
     answer_id = data['answer_id']
     old_response = MC_Response.query.filter(MC_Response.user_id == id).filter(
@@ -74,10 +75,10 @@ def calc_match(user_id, match_id):
     # get weighting from request.json in the future
     print(type(user_id), match_id)
     # get question and answer ids for user's mc responses
-    user_responses = MC_Response.query.filter(MC_Response.user_id == user_id).with_entities(MC_Response.mc_question_id, MC_Response.mc_answer_id).all()
+    user_responses = MC_Response.query.filter(MC_Response.user_id == user_id).with_entities(MC_Response.mc_question_id, MC_Response.mc_answer_id, MC_Response.question_weight, MC_Response.unacceptable_answers).all()
 
     # res[0] is question_id, res[1] is answer_id
-    user_res_obj = {res[0]: res[1] for res in user_responses}
+    user_res_obj = {res[0]: {'answer_id': res[1], 'weight': res[2], 'unacceptable': res[3]} for res in user_responses}
     user_question_ids = list(user_res_obj.keys())
     user_question_ids_set = set(user_res_obj.keys())
 
@@ -91,14 +92,21 @@ def calc_match(user_id, match_id):
 
     # for the questions that both users answered, we now want to check for which questions their answers were the same
     # later we will update the total to account for weighting
-    total = len(common_question_ids)
+    total = 0
     count = 0
+    unacceptable = False
     for i in range(len(common_question_ids)):
         question_id = common_question_ids[i]
-        if user_res_obj[question_id] == match_res_obj[question_id]:
+        weight = user_res_obj[question_id]['weight']
+        match_answer_id = match_res_obj[question_id]
+        if match_answer_id in user_res_obj[question_id]['unacceptable']:
+            unacceptable = True
+            break
+        if user_res_obj[question_id]['answer_id'] == match_res_obj[question_id]:
             # later on we will factor in weighting
-            count += 1
-    match_percent = count/total * 100 if total > 0 else 0
+            count += weight
+        total += weight
+    match_percent = count/total * 100 if total > 0 and unacceptable is False else 0
 
 
     # IDEA - to do weighting, we can have a weight property set on each MC_Response instance that defaults to 1. The user can change this in the mc form. we can grab this weight and put it in the user_res object and use it as a multiplier
@@ -109,6 +117,7 @@ def calc_match(user_id, match_id):
             'match_res_obj': match_res_obj,
             'match_question_ids': match_question_ids,
             'common_question_ids': common_question_ids,
-            'match_percent': match_percent
+            'match_percent': match_percent,
+            'unacceptable': unacceptable,
             }
     # return 'ok'
