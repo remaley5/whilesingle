@@ -72,6 +72,8 @@ function App() {
         </nav> : null}
         <Switch>
             <ProtectedRoute path="/messenger" exact component={Messages} currentUserId={currentUserId} />
+            <ProtectedRoute path="/profile/:id" exact currentUserId={currentUserId}/>
+            <ProtectedRoute path="/settings" exact currentUserId={currentUserId}/>
             <ProtectedRoute path="/users" exact component={UserList} currentUserId={currentUserId} />
             <ProtectedRoute path='/fr_questions' exact component={FrView} currentUserId={currentUserId}/>
             <ProtectedRoute path='/mc_questions' exact component={McView} currentUserId={currentUserId}/>

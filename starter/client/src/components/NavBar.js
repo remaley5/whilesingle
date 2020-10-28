@@ -7,12 +7,27 @@ import QuestionAnswerRoundedIcon from '@material-ui/icons/QuestionAnswerRounded'
 import SupervisorAccountRoundedIcon from '@material-ui/icons/SupervisorAccountRounded';
 import MeetingRoomRoundedIcon from '@material-ui/icons/MeetingRoomRounded';
 import Tooltip from '@material-ui/core/Tooltip';
-import navStyles from '../styles/navbarThemes';
-
+import navStyles, { menuStyles } from '../styles/navbarThemes';
+import MenuItem from '@material-ui/core/MenuItem';
+import Menu from '@material-ui/core/Menu';
+import MenuIcon from '@material-ui/icons/Menu';
+import AccountBoxRoundedIcon from '@material-ui/icons/AccountBoxRounded';
+import Button from '@material-ui/core/Button'
+import MoreVertRoundedIcon from '@material-ui/icons/MoreVertRounded';
 
 const NavBar = ({setCurrentUserId}) => {
 
     const { fetchWithCSRF, currentUserId } = useContext(AuthContext);
+
+    const [anchorEl, setAnchorEl] = React.useState(null);
+
+    const handleClick = (event) => {
+      setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+      setAnchorEl(null);
+    };
 
     const navClass = navStyles();
 
@@ -25,7 +40,6 @@ const NavBar = ({setCurrentUserId}) => {
             setCurrentUserId(null)
         }
     }
-
 
     return (
         <div className='navbar-wrapper'>
@@ -46,13 +60,24 @@ const NavBar = ({setCurrentUserId}) => {
                         <NavLink to="/messenger"><QuestionAnswerRoundedIcon className={navClass.messages}/></NavLink>
                     </div>
                 </Tooltip>
-                <Tooltip title='Messages'>
-                    <div>
-                        <a onClick={logoutUser} href="/login">
-                            <MeetingRoomRoundedIcon className={navClass.logout} />
-                        </a>
-                    </div>
-                </Tooltip>
+                <div>
+                    <MoreVertRoundedIcon onClick={handleClick} className={navClass.matches} />
+                    <Menu
+                        id="simple-menu"
+                        anchorEl={anchorEl}
+                        keepMounted
+                        open={Boolean(anchorEl)}
+                        onClose={handleClose}
+                    >
+                        <NavLink to={`/profile/${currentUserId}`} className='menu-link'>
+                            <MenuItem>Profile</MenuItem>
+                        </NavLink>
+                        <NavLink to='/settings' className='menu-link'>
+                            <MenuItem >My account</MenuItem>
+                        </NavLink>
+                        <MenuItem onClick={logoutUser}>Logout</MenuItem>
+                    </Menu>
+                </div>
             </nav>
         </div>
     )
