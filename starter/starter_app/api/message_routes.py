@@ -3,7 +3,9 @@ from flask import Blueprint, redirect, render_template, url_for, request, jsonif
 from ..models import (db, User, Match, Message)
 from sqlalchemy import and_
 from pprint import pprint
+from flask_login import login_required
 import itertools
+
 
 message_routes = Blueprint("message_routes", __name__, url_prefix="")
 
@@ -11,6 +13,7 @@ message_routes = Blueprint("message_routes", __name__, url_prefix="")
 # Pass in the correlating 'match_id' for that match/user
 # -------------------------------
 @message_routes.route("/get-messages/<match_id_params>")
+@login_required
 def get_messages(match_id_params):
     match_id = int(match_id_params)
     messages = Message.query.filter(match_id == match_id)
@@ -23,6 +26,7 @@ def get_messages(match_id_params):
 # Pass in the new 'message', correlating 'match_id' and current 'user_id' (sender)
 # -------------------------------
 @message_routes.route("/send-message", methods=["GET", "POST"])
+@login_required
 def send_message():
     user_id = request.get_json().get('user_id', '')
     message = request.get_json().get('message', '')

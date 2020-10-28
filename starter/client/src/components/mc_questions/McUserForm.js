@@ -3,7 +3,8 @@ import AuthContext from "../../auth";
 
 export default function McUserForm({ mcObj }) {
   const { fetchWithCSRF } = useContext(AuthContext);
-
+// use state for controlled form inputs!!!!
+  // then use effect hook that pulls from state on change and makes post request
   const {
     mc_answer_id: user_mc_answer_id,
     mc_question,

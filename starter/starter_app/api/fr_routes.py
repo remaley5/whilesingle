@@ -1,17 +1,20 @@
 from flask import Blueprint, request
 from starter_app.models import db, User, FR_Question, FR_Response
+from flask_login import login_required
 
 
 fr_routes = Blueprint('fr_questions', __name__)
 
 
 @fr_routes.route('/all')
+@login_required
 def all_fr_questions():
     fr_questions = FR_Question.query.all()
     return {'fr_all': [question.to_dict() for question in fr_questions]}
 
 
 @fr_routes.route('/answered/<int:user_id>')
+@login_required
 def answered_fr_questions(user_id):
     resArr = FR_Response.query.filter(FR_Response.user_id == user_id).join(
         FR_Question).options(db.joinedload(FR_Response.fr_question)).all()
@@ -19,6 +22,7 @@ def answered_fr_questions(user_id):
 
 
 @fr_routes.route('/unanswered/<int:user_id>')
+@login_required
 def unanswered_fr_questions(user_id):
     answered_fr_question_ids = [value for value, in FR_Response.query.filter(
         FR_Response.user_id == user_id)
@@ -31,6 +35,7 @@ def unanswered_fr_questions(user_id):
 
 
 @fr_routes.route('/<int:id>/answer', methods=['POST'])
+@login_required
 # id is user_id
 def update_fr_response(id):
     data = request.json

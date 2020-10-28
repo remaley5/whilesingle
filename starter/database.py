@@ -167,7 +167,10 @@ with app.app_context():
 # SEED MESSAGE TABLE
 ####################################################
     msg1 = Message(message='hello Ian it is your friend, Javier.', from_id=2, match_id=1)
+    msg2 = Message(message='Hey, Javier! Nice to meet you!', from_id=1, match_id=1)
     db.session.add(msg1)
+    db.session.add(msg2)
+
 
 ####################################################
 # COMMIT DB CHANGES

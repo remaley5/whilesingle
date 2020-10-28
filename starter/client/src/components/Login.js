@@ -13,7 +13,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
 import { buttonThemeOne } from '../styles/buttonThemes.js';
 import clsx from 'clsx';
-import { Redirect, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import AuthContext from '../auth';
 
 

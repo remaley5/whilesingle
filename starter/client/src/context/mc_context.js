@@ -24,7 +24,7 @@ export const McContextProvider = (props) => {
         setLoading(false);
       }
       fetchData();
-    }, [id]);
+    }, [id, url]);
     return [data, loading];
   };
 
