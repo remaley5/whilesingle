@@ -24,15 +24,7 @@ function App() {
       currentUserId,
       setCurrentUserId,
   };
-//   const logoutUser = async ()=> {
-//     const response = await fetchWithCSRF('/logout', {
-//         method: 'POST',
-//         credentials: 'include'
-//     });
-//     if(response.ok){
-//         setCurrentUserId(null)
-//     }
-//   }
+
   useEffect(() => {
       async function restoreCSRF() {
           const response = await fetch('/api/csrf/restore', {
