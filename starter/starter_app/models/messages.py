@@ -33,6 +33,7 @@ class Match(db.Model):
     __tablename__ = 'matches'
 
     id = db.Column(db.Integer, primary_key=True)
+    status = db.Column(db.Boolean)
     created_at = db.Column('created_at', db.DateTime, default=utcnow())
 
     users = db.relationship(

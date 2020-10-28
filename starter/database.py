@@ -1,4 +1,4 @@
-from starter_app.models import User, MC_Response, MC_Question, MC_Answer_Option, FR_Response, FR_Question, Match, Message
+from starter_app.models import User, MC_Response, MC_Question, MC_Answer_Option, FR_Response, FR_Question, Match, Message, MatchRequest
 from starter_app import app, db
 from dotenv import load_dotenv
 load_dotenv()
@@ -11,12 +11,12 @@ with app.app_context():
 ####################################################
 # SEED USER TABLE
 ####################################################
-    ian = User(username='Ian', email='ian@aa.io')
-    javier = User(username='Javier', email='javier@aa.io')
-    dean = User(username='Dean', email='dean@aa.io')
-    angela = User(username='Angela', email='angela@aa.io')
-    soonmi = User(username='Soon-Mi', email='soonmi@aa.io')
-    alissa = User(username='Alissa', email='alissa@aa.io')
+    ian = User(first_name='Ian', last_name='Dude', email='ian@aa.io', password='password')
+    javier = User(first_name='Javier', last_name='Dude', email='javier@aa.io', password='password')
+    dean = User(first_name='Dean', last_name='Dude', email='dean@aa.io', password='password')
+    angela = User(first_name='Angela', last_name='Dude', email='angela@aa.io', password='password')
+    soonmi = User(first_name='Soon-Mi', last_name='Dude', email='soonmi@aa.io', password='password')
+    alissa = User(first_name='Alissa', last_name='Dude', email='alissa@aa.io', password='password')
 
     db.session.add(ian)
     db.session.add(javier)
@@ -24,6 +24,17 @@ with app.app_context():
     db.session.add(angela)
     db.session.add(soonmi)
     db.session.add(alissa)
+
+####################################################
+# SEED MATCHREQUEST TABLE
+####################################################
+    ivan_to_javiar = MatchRequest(from_id = 1, to_id = 2)
+    dean_to_javiar = MatchRequest(from_id = 3, to_id = 2)
+    angela_to_javiar = MatchRequest(from_id = 4, to_id = 2)
+
+    db.session.add(ivan_to_javiar)
+    db.session.add(dean_to_javiar)
+    db.session.add(angela_to_javiar)
 
 ####################################################
 ####################################################
