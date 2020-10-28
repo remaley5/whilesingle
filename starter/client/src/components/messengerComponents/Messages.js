@@ -1,7 +1,8 @@
-import React, { useEffect, useState }  from 'react'
+import React, { useEffect, useState, useRef, useContext }  from 'react'
 import '../../styles/messenger.css'
-import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import SendIcon from '@material-ui/icons/Send';
+import UserBox from './UserBox';
+import AuthContext from '../../auth'
 
 
 const Messages = () => {
@@ -9,44 +10,43 @@ const Messages = () => {
     const [selectedName, setSelectedName] = useState();
     const [recipientId, setRecipientId] = useState();
     const [message, setMessage] = useState();
+    const scrollDiv = useRef()
+
+    const { fetchWithCSRF, currentUserId } = useContext(AuthContext);
 
     useEffect(() => {
-        async function fetchData() {
-            const response = await fetch('/api/users/');
+        (async () => {
+            const response = await fetch(`/api/matches/get-matches/${currentUserId}`);
             const responseData = await response.json();
-            setUsers(responseData.users);
-            console.log(users)
-        }
-        fetchData();
+            console.log(responseData)
+            setUsers(responseData);
+        })()
+        scrollDiv.current.scrollTop = 1000000000000000;
     }, []);
-
-    const handleClick = (e) => {
-        setSelectedName(e.target.innerHTML)
-        setRecipientId(e.target.getAttribute('value'))
-        // console.log(selectedName)
-    }
 
     const handleSend = (e) => {
         e.preventDefault()
-        console.log(message)
+        // console.log(message)
     }
     const handleMessage = (e) => setMessage(e.target.value)
-    const userComponents = users.map((user) => <div className='user' value={user.id} key={user.id} onClick={handleClick}>{user.first_name}</div>)
+    const userComponents = users.map((user) =>
+    <UserBox setRecipientId={setRecipientId}
+    recipientId={recipientId}
+    setSelectedName={setSelectedName}
+    user={user} key={user.id}/>)
+
     return (
         <div className='messenger'>
             <div className='side-bar'>
                 {userComponents}
             </div>
-            <div className='compose-message'>
-                <div>
-                    where messages go.
-                </div>
-
+            <div className='compose-message' ref={scrollDiv}>
                 <div className='form-box'>
                     <form className='message-box' onSubmit={handleSend}>
-                        <TextareaAutosize className='message-sender'
-                        rowsMax={4} onChange={handleMessage} size='medium'
-                        id="standard-basic" placeholder={!selectedName ?"Talk to them!" : `Talk to ${selectedName}`} />
+                        <textarea className='message-sender'
+                        onChange={handleMessage} size='medium'
+                        aria-label="maximum 4 rows"
+                        id="standard-basic" placeholder={!selectedName ?"Talk to them!" : `Talk to ${selectedName}!`}></textarea>
                         <SendIcon className='send' />
                     </form>
                 </div>
