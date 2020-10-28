@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import '../styles/navbar.css'
-import { Switch, Route, NavLink, useLocation } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import AuthContext from '../auth'
 import HomeIcon from '@material-ui/icons/Home';
 import QuestionAnswerRoundedIcon from '@material-ui/icons/QuestionAnswerRounded';
@@ -10,9 +10,9 @@ import Tooltip from '@material-ui/core/Tooltip';
 import navStyles from '../styles/navbarThemes';
 
 
-const NavBar = ({setCurrentUserId}) => {
+const NavBar = () => {
 
-    const { fetchWithCSRF, currentUserId } = useContext(AuthContext);
+    const { fetchWithCSRF, setCurrentUserId } = useContext(AuthContext);
 
     const navClass = navStyles();
 

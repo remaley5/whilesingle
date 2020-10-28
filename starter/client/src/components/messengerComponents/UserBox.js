@@ -1,10 +1,5 @@
-<<<<<<< HEAD
 import React, { useEffect, useRef }  from 'react'
-import '../../styles/messenger.css';
-=======
-import React, { useEffect, useState, useRef }  from 'react'
 import '../../styles/messenger.css'
->>>>>>> 8f4407ae0194f81aa66a5383633dd6f58f6ecb89
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 
@@ -21,7 +16,7 @@ const UserBox = ({user, setSelectedName, recipientId, setRecipientId, setMatch, 
             parent.current.classList.remove('user-selected')
             parent.current.classList.add('user')
         }
-    }, [user.id, recipientId]);
+    }, [user.user_id, recipientId]);
 
     const handleClick = (e) => {
         // setSelectedDiv(e.target)
@@ -48,13 +43,3 @@ const UserBox = ({user, setSelectedName, recipientId, setRecipientId, setMatch, 
 }
 
 export default UserBox
-<<<<<<< HEAD
-
-
-// <div className='user-overlay' >
-// <div className='user' username={user.first_name} value={user.id} key={user.id}>
-// {user.profile_image ? user.profile_image :<AccountCircleIcon className='default-profile-image'/>}
-// <div className='username-text'>{user.first_name}</div></div>
-// </div>)
-=======
->>>>>>> 8f4407ae0194f81aa66a5383633dd6f58f6ecb89

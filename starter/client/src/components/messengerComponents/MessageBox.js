@@ -1,11 +1,11 @@
-import React, { useEffect, useState, useRef, useContext }  from 'react'
+import React, { useContext }  from 'react'
 import '../../styles/messenger.css'
 import AuthContext from '../../auth'
 
 
 const MessageBox = ({message}) => {
 
-    const { fetchWithCSRF, currentUserId } = useContext(AuthContext);
+    const { currentUserId } = useContext(AuthContext);
 
     // useEffect(() => {
 

@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { Switch, NavLink, useLocation } from 'react-router-dom';
+import { Switch, useLocation } from 'react-router-dom';
 
 import UserList from './components/UsersList';
 import Messages from './components/messengerComponents/Messages'
@@ -24,15 +24,15 @@ function App() {
       currentUserId,
       setCurrentUserId,
   };
-  const logoutUser = async ()=> {
-    const response = await fetchWithCSRF('/logout', {
-        method: 'POST',
-        credentials: 'include'
-    });
-    if(response.ok){
-        setCurrentUserId(null)
-    }
-  }
+//   const logoutUser = async ()=> {
+//     const response = await fetchWithCSRF('/logout', {
+//         method: 'POST',
+//         credentials: 'include'
+//     });
+//     if(response.ok){
+//         setCurrentUserId(null)
+//     }
+//   }
   useEffect(() => {
       async function restoreCSRF() {
           const response = await fetch('/api/csrf/restore', {
@@ -68,7 +68,7 @@ function App() {
         {!loading &&
         location.pathname !== '/login' && location.pathname !== '/signup' ?
         <nav>
-            <NavBar setCurrentUserId={setCurrentUserId} />
+            <NavBar currentUserId={currentUserId} />
         </nav> : null}
         <Switch>
             <ProtectedRoute path="/messenger" exact component={Messages} currentUserId={currentUserId} />
