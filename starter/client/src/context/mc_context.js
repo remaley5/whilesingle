@@ -5,7 +5,7 @@ export const McContext = createContext();
 export const McContextProvider = (props) => {
   // need to get user Id from context or something.
   // hard code for now
-  const user_id = 3;
+  const user_id = 1;
 
   // we'll also need a match id to load their answered questions only
   const match_id = 2;
@@ -19,13 +19,8 @@ export const McContextProvider = (props) => {
         console.log(res)
         const json = await res.json();
 				// call returns object with one key - we only want its value (an array)
-				console.log(json)
-				if (json) {
-					// console.log(json)
-					const obj = json[Object.keys(json)];
-					setData(obj);
-					// console.log(obj)
-				}
+        const obj = json[Object.keys(json)];
+        setData(obj);
         setLoading(false);
       }
       fetchData();
@@ -46,7 +41,6 @@ export const McContextProvider = (props) => {
     `/api/questions/mc/answered/${match_id}`, match_id
   );
 
-// 		console.log(allMc)
   const mc = {
     allMc,
     userAnsweredMc,
@@ -68,8 +62,9 @@ export const McContextProvider = (props) => {
       return 'Loading...';
     }
 	}
+  console.log(mc)
 
   return (
     <McContext.Provider value={mc}>{props.children}</McContext.Provider>
-  );
-};
+    );
+  };

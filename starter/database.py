@@ -83,11 +83,11 @@ with app.app_context():
 # SEED MC RESPONSE TABLE
 ####################################################
     u1_mc_q1_res = MC_Response(
-        user_id=1, mc_answer_option_id=1, mc_question_id=1)
+        user_id=1, mc_answer_id=1, mc_question_id=1)
     u1_mc_q2_res = MC_Response(
-        user_id=1, mc_answer_option_id=8, mc_question_id=2)
+        user_id=1, mc_answer_id=8, mc_question_id=2)
     u2_mc_q3_res = MC_Response(
-        user_id=2, mc_answer_option_id=12, mc_question_id=3)
+        user_id=2, mc_answer_id=12, mc_question_id=3)
 
     db.session.add(u1_mc_q1_res)
     db.session.add(u1_mc_q2_res)

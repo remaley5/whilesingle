@@ -14,9 +14,10 @@ def all_mc_questions():
 @mc_routes.route('/answered/<int:user_id>')
 def answered_mc_questions(user_id):
     mc_responses = MC_Response.query.filter(MC_Response.user_id == user_id).join(MC_Question, MC_Answer_Option).options(
-        db.joinedload(MC_Response.mc_question), db.joinedload(MC_Response.mc_answer_option)).all()
+        db.joinedload(MC_Response.mc_question), db.joinedload(MC_Response.mc_answer_options)).all()
+    # print(mc_responses)
     data = []
-    if len(mc_responses) != 0:
+    if mc_responses:
         data = [mc_response.to_dict() for mc_response in mc_responses]
     return {'mc_answered': data}
 
@@ -30,7 +31,7 @@ def unanswered_mc_questions(user_id):
     unanswered_mc_questions = MC_Question.query.filter(MC_Question.id.notin_(answered_mc_question_ids)).join(
         MC_Answer_Option).options(db.joinedload(MC_Question.mc_answer_options)).all()
     data = []
-    if len(unanswered_mc_questions) != 0:
+    if unanswered_mc_questions:
         data = [question.to_dict() for question in unanswered_mc_questions]
     return {'mc_unanswered': data}
 
