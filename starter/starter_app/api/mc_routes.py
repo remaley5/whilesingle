@@ -25,6 +25,13 @@ def answered_mc_questions(id):
     data = []
     if mc_responses:
         data = [mc_response.to_dict() for mc_response in mc_responses]
+    print(f'''
+
+
+    {data}
+
+
+    ''')
     return {'mc_answered': data}
 
 
@@ -55,18 +62,44 @@ def update_mc_response(id):
     print(data)
     question_id = data['question_id']
     answer_id = data['answer_id']
-    old_response = MC_Response.query.filter(MC_Response.user_id == id).filter(
+    unacceptable = data['unacceptable_answers']
+    weight = data['question_weight']
+    response = MC_Response.query.filter(MC_Response.user_id == id).filter(
         MC_Response.mc_question_id == question_id).one_or_none()
     # if old response exists, update/delete it based on if response not empty
-    if old_response:
-        old_response.mc_answer_id = answer_id
-        db.session.add(old_response)
+    if response:
+        response.mc_answer_id = answer_id
+        response.unacceptable_answers = unacceptable
+        response.question_weight = weight
+        print('''
+
+        hits response if
+
+
+        ''')
     # if old response doesn't exist, create it if response not empty
     else:
-        mc_response = MC_Response(
-            user_id=id, mc_question_id=question_id, mc_answer_id=answer_id)
-        db.session.add(mc_response)
+        response = MC_Response(
+            user_id=id, mc_question_id=question_id, mc_answer_id=answer_id, unacceptable_answers=unacceptable, question_weight=weight)
+        print('''
 
+        hits response else
+
+
+        ''')
+    print(f'''
+    from post
+
+    {response.unacceptable_answers}
+    {unacceptable}
+    {question_id}
+    {weight}
+    {answer_id}
+    {id}
+
+
+    ''')
+    db.session.add(response)
     db.session.commit()
     return 'ok'
 
@@ -75,54 +108,46 @@ def update_mc_response(id):
 # this route should return the match % between user_id and match_id
 # this is based on common mc responses
 # later I will add mc response weighting based on user input
+
+
 @mc_routes.route('/user/<int:user_id>/match/<int:match_id>')
 def calc_match(user_id, match_id):
-    # get weighting from request.json in the future
-    print(type(user_id), match_id)
-    # get question and answer ids for user's mc responses
-    user_responses = MC_Response.query.filter(MC_Response.user_id == user_id).with_entities(MC_Response.mc_question_id, MC_Response.mc_answer_id, MC_Response.question_weight, MC_Response.unacceptable_answers).all()
+    user_responses = MC_Response.query.filter(MC_Response.user_id == user_id).with_entities(
+        MC_Response.mc_question_id, MC_Response.mc_answer_id, MC_Response.question_weight, MC_Response.unacceptable_answers).all()
 
     # res[0] is question_id, res[1] is answer_id
-    user_res_obj = {res[0]: {'answer_id': res[1], 'weight': res[2], 'unacceptable': res[3]} for res in user_responses}
-    user_question_ids = list(user_res_obj.keys())
+    user_res_obj = {res[0]: {'answer_id': res[1], 'weight': res[2],
+                             'unacceptable': res[3]} for res in user_responses}
     user_question_ids_set = set(user_res_obj.keys())
 
-    match_responses = MC_Response.query.filter(MC_Response.user_id == match_id).with_entities(MC_Response.mc_question_id, MC_Response.mc_answer_id).all()
+    match_responses = MC_Response.query.filter(MC_Response.user_id == match_id).with_entities(
+        MC_Response.mc_question_id, MC_Response.mc_answer_id).all()
     match_res_obj = {res[0]: res[1] for res in match_responses}
-    match_question_ids = list(match_res_obj.keys())
     match_question_ids_set = set(match_res_obj.keys())
 
     # these are the questions that both users have answered
-    common_question_ids = list(user_question_ids_set.intersection(match_question_ids_set))
+    common_question_ids = list(
+        user_question_ids_set.intersection(match_question_ids_set))
 
-    # for the questions that both users answered, we now want to check for which questions their answers were the same
-    # later we will update the total to account for weighting
     total = 0
     count = 0
     unacceptable = False
     for i in range(len(common_question_ids)):
         question_id = common_question_ids[i]
-        weight = user_res_obj[question_id]['weight']
+        user_answer_info = user_res_obj[question_id]
+        weight = user_answer_info['weight']
         match_answer_id = match_res_obj[question_id]
-        if match_answer_id in user_res_obj[question_id]['unacceptable']:
+        if match_answer_id in user_answer_info['unacceptable']:
             unacceptable = True
             break
-        if user_res_obj[question_id]['answer_id'] == match_res_obj[question_id]:
-            # later on we will factor in weighting
+        if user_answer_info['answer_id'] == match_answer_id:
             count += weight
         total += weight
-    match_percent = count/total * 100 if total > 0 and unacceptable is False else 0
+    match_percent = int(count/total * 100) if total > 0 and unacceptable is False else 0
 
-
-    # IDEA - to do weighting, we can have a weight property set on each MC_Response instance that defaults to 1. The user can change this in the mc form. we can grab this weight and put it in the user_res object and use it as a multiplier
-
-    # print(user_responses)
-    return {'user_res_obj': user_res_obj,
-            'user_question_ids': user_question_ids,
-            'match_res_obj': match_res_obj,
-            'match_question_ids': match_question_ids,
-            'common_question_ids': common_question_ids,
-            'match_percent': match_percent,
-            'unacceptable': unacceptable,
+    return {'match_percent': match_percent,
+            # 'user_res_obj': user_res_obj,
+            # 'match_res_obj': match_res_obj,
+            # 'common_question_ids': common_question_ids,
+            # 'unacceptable': unacceptable,
             }
-    # return 'ok'

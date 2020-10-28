@@ -10,7 +10,7 @@ class MC_Response(db.Model):
         'users.id', ondelete='cascade'), nullable=False)
 
     mc_answer_id = db.Column(db.ForeignKey(
-        'mc_answer_options.id', ondelete='cascade'), nullable=False)
+        'mc_answer_options.id', ondelete='cascade'))
 
     question_weight = db.Column(db.Integer, default=1)
     # mc_answer_option = db.relationship('MC_Answer_Option', backref='mc_responses')
@@ -33,6 +33,8 @@ class MC_Response(db.Model):
             'mc_question_id': mc_question_info['mc_question_id'],
             'mc_question': mc_question_info['mc_question'],
             'mc_answer_options': mc_question_info['mc_answer_options'],
+            'question_weight': self.question_weight,
+            'unacceptable_answers': self.unacceptable_answers
         }
 
 

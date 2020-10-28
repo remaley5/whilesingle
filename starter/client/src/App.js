@@ -66,7 +66,7 @@ function App() {
             <ProtectedRoute path="/messenger" exact component={Messages} currentUserId={currentUserId} />
             <ProtectedRoute path="/profile/:id" exact currentUserId={currentUserId}/>
             <ProtectedRoute path="/settings" exact currentUserId={currentUserId}/>
-            <ProtectedRoute path="/quiz" exact currentUserId={currentUserId}/>
+            <ProtectedRoute path="/quiz" exact currentUserId={currentUserId} component={McView}/>
             <ProtectedRoute path="/users" exact component={UserList} currentUserId={currentUserId} />
             <AuthRoute path="/login" component={Login} currentUserId={currentUserId} />
             <AuthRoute path="/signup" component={Signup} currentUserId={currentUserId} />
