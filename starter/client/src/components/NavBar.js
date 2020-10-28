@@ -17,7 +17,7 @@ import MoreVertRoundedIcon from '@material-ui/icons/MoreVertRounded';
 
 const NavBar = () => {
 
-    const { fetchWithCSRF, setCurrentUserId } = useContext(AuthContext);
+    const { fetchWithCSRF, setCurrentUserId, currentUserId } = useContext(AuthContext);
 
     const [anchorEl, setAnchorEl] = React.useState(null);
 
