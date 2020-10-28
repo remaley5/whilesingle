@@ -2,17 +2,13 @@ import React, { useContext } from 'react';
 import '../styles/navbar.css'
 import { NavLink } from 'react-router-dom';
 import AuthContext from '../auth'
-import HomeIcon from '@material-ui/icons/Home';
+import AssessmentIcon from '@material-ui/icons/Assessment';
 import QuestionAnswerRoundedIcon from '@material-ui/icons/QuestionAnswerRounded';
 import SupervisorAccountRoundedIcon from '@material-ui/icons/SupervisorAccountRounded';
-import MeetingRoomRoundedIcon from '@material-ui/icons/MeetingRoomRounded';
 import Tooltip from '@material-ui/core/Tooltip';
-import navStyles, { menuStyles } from '../styles/navbarThemes';
+import navStyles from '../styles/navbarThemes';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import MenuIcon from '@material-ui/icons/Menu';
-import AccountBoxRoundedIcon from '@material-ui/icons/AccountBoxRounded';
-import Button from '@material-ui/core/Button'
 import MoreVertRoundedIcon from '@material-ui/icons/MoreVertRounded';
 
 const NavBar = () => {
@@ -44,10 +40,12 @@ const NavBar = () => {
     return (
         <div className='navbar-wrapper'>
             <nav className='nav-links'>
-                <div className='logo'>while(single):</div>
-                <Tooltip title='Home'>
+                <NavLink to='/' className='menu-link'>
+                    <div className='logo'>while(single):</div>
+                </NavLink>
+                <Tooltip title='Take Match Quiz'>
                     <div>
-                        <NavLink to="/"><HomeIcon className={navClass.home} /></NavLink>
+                        <NavLink to="/quiz"><AssessmentIcon className={navClass.home} /></NavLink>
                     </div>
                 </Tooltip>
                 <Tooltip title='Matches'>
