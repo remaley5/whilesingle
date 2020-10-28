@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container'
 import TextField from "@material-ui/core/TextField";
 import { Button } from '@material-ui/core';
+import AuthContext from '../auth';
+import {useHistory} from 'react-router-dom';
 import {
   signupFormStyle,
   textFieldStyle,
@@ -15,6 +17,67 @@ import {
 
 
 function Signup(props) {
+  let [email, setEmail] = useState('');
+  let [password, setPassword] = useState('');
+  let [firstName, setFirstName] = useState('');
+  let [lastName, setLastName] = useState('');
+  let [errors, setErrors] = useState([]);
+  const {fetchWithCSRF, setCurrentUserId} = useContext(AuthContext);
+  let history = useHistory();
+
+  const handleChange = (e) => {
+    const {id, value} = e.target;
+    switch(id){
+      case "email":
+        setEmail(value);
+        return;
+      case "password":
+        setPassword(value);
+        return;
+      case "firstName":
+        setFirstName(value);
+        return;
+      case "lastName":
+        setLastName(value);
+        return;
+      default:
+        return;
+    }
+  }
+
+  async function signupUser() {
+    const response = await fetchWithCSRF('/api/users/', {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: 'include',
+      body: JSON.stringify({
+        email,
+        password,
+        firstName,
+        lastName,
+      })
+    });
+
+    const responseData = await response.json();
+    if(!response.ok) {
+      setErrors(responseData.errors);
+    } else {
+      setCurrentUserId(responseData.current_user_id)
+      history.push('/')
+    }
+  };
+
+  const handleSignUp = (e) => {
+    e.preventDefault();
+    // console.log("Email", email)
+    // console.log("Password", password)
+    // console.log("FirstName", firstName)
+    // console.log("LastName", lastName)
+    signupUser();
+  }
+
   return (
     <>
       <CssBaseline />
@@ -27,6 +90,7 @@ function Signup(props) {
             type='email'
             variant="outlined"
             style={textFieldStyle}
+            onChange={handleChange}
            />
           <label style={labelStyle} htmlFor="password">Password</label>
           <TextField
@@ -34,6 +98,7 @@ function Signup(props) {
             type='password'
             variant="outlined"
             style={textFieldStyle}
+            onChange={handleChange}
            />
           <label style={labelStyle} htmlFor="firstName">First Name</label>
           <TextField
@@ -41,6 +106,7 @@ function Signup(props) {
             type='text'
             variant="outlined"
             style={textFieldStyle}
+            onChange={handleChange}
            />
           <label style={labelStyle} htmlFor="lastName">Last Name</label>
           <TextField
@@ -48,9 +114,10 @@ function Signup(props) {
             type='text'
             variant="outlined"
             style={textFieldStyle}
+            onChange={handleChange}
            />
            <div style={buttonHolderStyle}>
-            <Button variant="contained" style={buttonStyle}>Sign Up</Button>
+            <Button onClick={handleSignUp} variant="contained" style={buttonStyle}>Sign Up</Button>
             <Button variant="contained" style={buttonStyle} href="/login">Login Instead</Button>
            </div>
         </form>

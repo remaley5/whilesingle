@@ -1,6 +1,6 @@
-from flask import Blueprint, jsonify
-from starter_app.models import User
-from flask_login import current_user, login_required
+from flask import Blueprint, jsonify, request
+from starter_app.models import User, db
+from flask_login import current_user, login_required, login_user
 
 user_routes = Blueprint('users', __name__)
 
@@ -13,15 +13,11 @@ def index():
     response = User.query.all()
     return {"users": [user.to_dict() for user in response]}
 
-
-# Get all users except current:
-# -------------------------
-# @user_routes.route("/swipe")
-# def get_users():
-#     newFriends = User.query.order_by(User.id)
-#     user_list = [{'id': f.id, 'username': f.username} for f in newFriends if f.id != user_id]
-#     return jsonify(user_list)
-
-# @user_routes.route('/<int:id>', methods=['GET', 'POST'])
-# def user_detail(id):
-#   return {}
+@user_routes.route('/', methods = ["POST"])
+def createUser():
+    email, password, firstName, lastName = request.json.values()
+    user = User(email=email, password=password, first_name=firstName, last_name=lastName)
+    db.session.add(user)
+    db.session.commit()
+    login_user(user)
+    return {"current_user_id": current_user.id}
