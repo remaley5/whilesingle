@@ -12,7 +12,10 @@ class MC_Response(db.Model):
     mc_answer_id = db.Column(db.ForeignKey(
         'mc_answer_options.id', ondelete='cascade'), nullable=False)
 
+    question_weight = db.Column(db.Integer, default=1)
     # mc_answer_option = db.relationship('MC_Answer_Option', backref='mc_responses')
+
+    unacceptable_answers = db.Column(db.ARRAY(db.Integer), default=[])
 
     mc_answer_options = db.relationship(
         'MC_Answer_Option', backref="mc_responses")
