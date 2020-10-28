@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef }  from 'react'
+import React, { useEffect, useRef }  from 'react'
 import '../../styles/messenger.css'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
@@ -16,7 +16,7 @@ const UserBox = ({user, setSelectedName, recipientId, setRecipientId, setMatch, 
             parent.current.classList.remove('user-selected')
             parent.current.classList.add('user')
         }
-    }, [recipientId]);
+    }, [user.user_id, recipientId]);
 
     const handleClick = (e) => {
         // setSelectedDiv(e.target)

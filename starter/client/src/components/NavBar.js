@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import '../styles/navbar.css'
-import { Switch, Route, NavLink, useLocation } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import AuthContext from '../auth'
 import HomeIcon from '@material-ui/icons/Home';
 import QuestionAnswerRoundedIcon from '@material-ui/icons/QuestionAnswerRounded';
@@ -15,9 +15,9 @@ import AccountBoxRoundedIcon from '@material-ui/icons/AccountBoxRounded';
 import Button from '@material-ui/core/Button'
 import MoreVertRoundedIcon from '@material-ui/icons/MoreVertRounded';
 
-const NavBar = ({setCurrentUserId}) => {
+const NavBar = () => {
 
-    const { fetchWithCSRF, currentUserId } = useContext(AuthContext);
+    const { fetchWithCSRF, setCurrentUserId } = useContext(AuthContext);
 
     const [anchorEl, setAnchorEl] = React.useState(null);
 

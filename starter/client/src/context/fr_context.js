@@ -23,7 +23,7 @@ export const FrContextProvider = (props) => {
         setLoading(false);
       }
       fetchData();
-    }, [id]);
+    }, [id, url]);
     return [data, loading];
   };
 

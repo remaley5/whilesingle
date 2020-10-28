@@ -1,7 +1,9 @@
 from flask import Blueprint, redirect, render_template, url_for, request, jsonify
 from ..models import (db, User, Match, MatchRequest)
 from pprint import pprint
+from flask_login import login_required
 import itertools
+
 
 match_routes = Blueprint("match_routes", __name__)
 
@@ -12,6 +14,7 @@ def query_matches(user_id):
 # Get all users except matches and current:
 # -------------------------
 @match_routes.route("/swipe/<user_id_param>")
+@login_required
 def get_users(user_id_param):
     matches = query_matches(user_id_param)
     user_id = int(user_id_param)
@@ -23,6 +26,7 @@ def get_users(user_id_param):
 # Get all your existing matches:
 # -------------------------------
 @match_routes.route("/get-matches/<user_id_params>")
+@login_required
 def get_matches(user_id_params):
     user_id = int(user_id_params)
     matches = query_matches(user_id)
@@ -33,6 +37,7 @@ def get_matches(user_id_params):
 # Pass in "user_id" for the other user
 # -------------------------------
 @match_routes.route("/add-match/<user_id_params>", methods=["GET", "POST"])
+@login_required
 def add_match(user_id_params):
     friend_id = request.get_json().get('user_id', '')
     user_id = int(user_id_params)
