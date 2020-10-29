@@ -71,10 +71,6 @@ function Signup(props) {
 
   const handleSignUp = (e) => {
     e.preventDefault();
-    // console.log("Email", email)
-    // console.log("Password", password)
-    // console.log("FirstName", firstName)
-    // console.log("LastName", lastName)
     signupUser();
   }
 
