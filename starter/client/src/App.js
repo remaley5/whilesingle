@@ -9,6 +9,7 @@ import Login from './components/Login';
 import Signup from './components/Signup';
 import Home from './components/Home';
 import Upload from './components/profileComponents/Upload'
+import EditProfile from './components/profileComponents/EditProfile'
 import Profile from './components/profileComponents/Profile'
 import AuthContext from './auth';
 import NavBar from './components/NavBar'
@@ -56,6 +57,9 @@ function App() {
       restoreCSRF();
 	}, []);
 
+if(loading) {
+    return null;
+}
   return (
     <AuthContext.Provider value={authContextValue}>
         {loading && <div>Loading...</div>}
@@ -65,8 +69,8 @@ function App() {
             <NavBar currentUserId={currentUserId} />
         </nav> : null}
         <Switch>
-						<ProtectedRoute path="/messenger" exact component={Messages} currentUserId={currentUserId} />
-            <ProtectedRoute path="/profile/:id" exact currentUserId={currentUserId}/>
+			<ProtectedRoute path="/messenger" exact component={Messages} currentUserId={currentUserId} />
+            <ProtectedRoute path="/profile/:id" exact component={Profile} currentUserId={currentUserId}/>
             <ProtectedRoute path="/settings" exact currentUserId={currentUserId}/>
             <ProtectedRoute path="/quiz" exact currentUserId={currentUserId} component={McView}/>
             <ProtectedRoute path="/users" exact component={UserList} currentUserId={currentUserId} />
@@ -75,7 +79,7 @@ function App() {
             <ProtectedRoute path='/fr_questions' exact component={FrView} currentUserId={currentUserId}/>
             <ProtectedRoute path='/mc_questions' exact component={McView} currentUserId={currentUserId}/>
             <ProtectedRoute path='/upload_images' exact component={Upload} currentUserId={currentUserId}/>
-            <ProtectedRoute path={`/profile`} exact component={Profile} currentUserId={currentUserId} />
+            <ProtectedRoute path={`/profile`} exact component={EditProfile} currentUserId={currentUserId} />
             {/* <AuthRoute path="/login" component={Login} />
             <AuthRoute path="/signup" component={Signup} /> */}
             <ProtectedRoute path="/" component={Home} currentUserId={currentUserId} />
