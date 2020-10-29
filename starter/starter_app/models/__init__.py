@@ -5,7 +5,7 @@ db = SQLAlchemy()
 # from .models import User, MC_Response, MC_Question, MC_Answer_Option
 from .utcnow import utcnow
 
-from .user import User, MatchRequest
+from .user import User, MatchRequest, Photo
 
 from .mult_choice import MC_Response, MC_Question, MC_Answer_Option
 

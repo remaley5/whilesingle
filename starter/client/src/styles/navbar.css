@@ -1,4 +1,6 @@
 .navbar-wrapper{
+    top: -10px;
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;

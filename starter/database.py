@@ -94,15 +94,27 @@ with app.app_context():
 # SEED MC RESPONSE TABLE
 ####################################################
     u1_mc_q1_res = MC_Response(
-        user_id=1, mc_answer_id=1, mc_question_id=1)
+        user_id=1, mc_answer_id=1, mc_question_id=1, question_weight=2, unacceptable_answers=[2, 3])
     u1_mc_q2_res = MC_Response(
         user_id=1, mc_answer_id=8, mc_question_id=2)
-    u2_mc_q3_res = MC_Response(
-        user_id=2, mc_answer_id=12, mc_question_id=3)
-
     db.session.add(u1_mc_q1_res)
     db.session.add(u1_mc_q2_res)
+
+    u2_mc_q1_res = MC_Response(user_id=2, mc_answer_id=1, mc_question_id=1)
+    u2_mc_q2_res = MC_Response(user_id=2, mc_answer_id=5, mc_question_id=2)
+    u2_mc_q3_res = MC_Response(
+        user_id=2, mc_answer_id=12, mc_question_id=3)
+    db.session.add(u2_mc_q1_res)
+    db.session.add(u2_mc_q2_res)
     db.session.add(u2_mc_q3_res)
+
+    u3_mc_q1_res = MC_Response(user_id=3, mc_answer_id=1, mc_question_id=1)
+    u3_mc_q2_res = MC_Response(user_id=3, mc_answer_id=5, mc_question_id=2)
+    db.session.add(u3_mc_q1_res)
+    db.session.add(u3_mc_q2_res)
+
+
+
 
 ####################################################
 ####################################################
@@ -117,7 +129,7 @@ with app.app_context():
     fr_q1 = FR_Question(
         fr_question='How many cats do you have, and do you want 50?')
     fr_q2 = FR_Question(
-        fr_question='Why is my shit like, all busted?')
+        fr_question='Why is my shit like, all busted?', alt='Have you tried turning it off?')
 
     db.session.add(fr_q1)
     db.session.add(fr_q2)

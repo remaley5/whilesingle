@@ -1,0 +1,20 @@
+.textarea {
+	/* remove default textarea styling */
+  border: none;
+  background-color: transparent;
+	resize: none;
+	outline: none;
+	/* overflow-y: visible; */
+	/* grab styling from parent */
+  color: inherit;
+  font: inherit;
+	letter-spacing: inherit;
+	/* fix width */
+	width: 100%;
+	box-sizing: "border-box";
+	/* height: auto; */
+}
+
+.textarea::placeholder {
+	color: inherit;
+}

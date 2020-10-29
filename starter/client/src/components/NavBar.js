@@ -58,6 +58,16 @@ const NavBar = () => {
                         <NavLink to="/messenger"><QuestionAnswerRoundedIcon className={navClass.messages}/></NavLink>
                     </div>
                 </Tooltip>
+								<Tooltip title='Testing MC - delete'>
+                    <div>
+                        <NavLink to="/mc_questions"><QuestionAnswerRoundedIcon className={navClass.messages}/></NavLink>
+                    </div>
+                </Tooltip>
+								<Tooltip title='Testing FR - delete'>
+                    <div>
+                        <NavLink to="/fr_questions"><QuestionAnswerRoundedIcon className={navClass.messages}/></NavLink>
+                    </div>
+                </Tooltip>
                 <div>
                     <MoreVertRoundedIcon onClick={handleClick} className={navClass.matches} />
                     <Menu
@@ -67,7 +77,7 @@ const NavBar = () => {
                         open={Boolean(anchorEl)}
                         onClose={handleClose}
                     >
-                        <NavLink to={`/profile/${currentUserId}`} className='menu-link'>
+                        <NavLink to={`/profile`} className='menu-link'>
                             <MenuItem>Profile</MenuItem>
                         </NavLink>
                         <NavLink to='/settings' className='menu-link'>

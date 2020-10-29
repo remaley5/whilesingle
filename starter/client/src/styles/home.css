@@ -1,0 +1,32 @@
+/*
+swipe-con: swipe container
+    swipe-img-con: image container
+        swipe-img: image
+    swipe__info: info container
+        swipe-info__head: username
+        swipe-info__sub-head: location
+        swipe-bio: bio
+*/
+
+.swipe-con {
+    background-color: rgb(215, 237, 245);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgb(196, 193, 193);
+    width: 70%;
+    margin: auto;
+    margin-top: 50px;
+    display: flex;
+    padding: 50px;
+    gap: 30px;
+}
+.swipe-img-con {
+    height: 400px;
+    width: 1800px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgb(196, 193, 193);
+}
+
+.swipe-img {
+    height: 100%;
+    width: auto;
+}

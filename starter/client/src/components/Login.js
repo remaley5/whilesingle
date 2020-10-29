@@ -50,13 +50,24 @@ const LoginWrapper = styled.div`
     justify-content: space-between;
   }
 
+  .logo {
+    font-family: 'Roboto';
+    font-size: 20px;
+    font-weight: bold;
+    color: black;
+  }
+
   .login{
     display: flex;
     align-items: flex-end;
   }
 
   .login-text{
-
+    align-self: center;
+    padding-right: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: 'Roboto';
   }
 
   .main{
@@ -96,41 +107,44 @@ function Login(props) {
     setEmail(e.target.value)
   }
 
+  async function loginUser(email, password) {
+    const response = await fetchWithCSRF('/login', {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: 'include',
+      body: JSON.stringify({
+        email,
+        password
+      })
+    });
+
+    const responseData = await response.json();
+    if(!response.ok) {
+      setErrors(responseData.errors);
+    } else {
+      setOpen(false);
+      setCurrentUserId(responseData.current_user_id)
+      history.push('/')
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(email, password);
-
-    async function loginUser() {
-      const response = await fetchWithCSRF('/login', {
-        method: 'POST',
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: 'include',
-        body: JSON.stringify({
-          email,
-          password
-        })
-      });
-
-      const responseData = await response.json();
-      if(!response.ok) {
-        setErrors(responseData.errors);
-      } else {
-        setOpen(false);
-        setCurrentUserId(responseData.current_user_id)
-        history.push('/')
-      }
-    };
-
-    loginUser();
+    loginUser(email, password);
     // return <Redirect to="/" />;
+  }
+
+  const handleDemoUserSubmit = (e) => {
+    e.preventDefault();
+    loginUser("ian@aa.io", "password");
   }
 
   return (
       <LoginWrapper>
         <div className="header">
-          <div>while(single):</div>
+          <div className="logo">while(single):</div>
           <div className="login">
             <div className="login-text">Have an account?</div>
             <Button variant="outlined" color="primary" onClick={handleOpen}>Sign in</Button>
@@ -168,7 +182,10 @@ function Login(props) {
             </DialogContent>
             <DialogActions>
               <Button className={clsx(classes.root)} onClick={handleSubmit}>
-                Next
+                Sign-In
+              </Button>
+              <Button className={clsx(classes.root)} onClick={handleDemoUserSubmit}>
+                Demo User Sign-In
               </Button>
             </DialogActions>
           </Dialog>
@@ -182,6 +199,7 @@ function Login(props) {
             >JOIN while(single):</Button>
           </div>
         </div>
+        <img src='https://while-single-bucket.s3-us-west-2.amazonaws.com/WedOct281609032020.png' alt='image'/>
       </LoginWrapper>
   );
 }

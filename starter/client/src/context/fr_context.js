@@ -1,11 +1,10 @@
-import React, { useState, createContext, useEffect } from "react";
+import React, { useState, createContext, useEffect, useContext } from "react";
+import AuthContext from '../auth';
 
 export const FrContext = createContext();
 
 export const FrContextProvider = (props) => {
-  // need to get user Id from context or something.
-  // hard code for now
-  const user_id = 3;
+	const {currentUserId: user_id} = useContext(AuthContext);
 
   // we'll also need a match id to load their answered questions only
   const match_id = 1;
@@ -40,7 +39,8 @@ export const FrContextProvider = (props) => {
     `/api/questions/fr/answered/${match_id}`, match_id
   );
 
-
+// might not need to load allFr - userAnswered and userUnanswered do the same.
+// if loading a match view then we only care about matchAnswered
   const fr = {
     allFr,
     userAnsweredFr,
