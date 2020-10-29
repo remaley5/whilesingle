@@ -24,7 +24,7 @@ from starter_app.api import user_routes, fr_routes, mc_routes, message_routes, m
 
 from starter_app.config import Config
 
-from flask_socketio import SocketIO, send, join_room, leave_room
+from flask_socketio import SocketIO, send
 
 
 app = Flask(__name__)
@@ -120,13 +120,3 @@ def handle_message(data):
 
     db.session.add(message)
     db.session.commit()
-
-
-# @socketio.on('join')
-# def on_join(data):
-#     user = data['user_id']
-#     room = data['room']
-#     join_room(room)
-
-
-# @socketio.on('leave')
