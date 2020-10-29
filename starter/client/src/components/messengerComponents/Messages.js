@@ -39,7 +39,7 @@ const Messages = () => {
         messageRef.current.value = '';
         scrollDiv.current.scrollTop = 1000000000000000;
         const socket = socketIOClient(ENDPOINT);
-        socket.emit("FromClient", { message: message, from_id: currentUserId, match_id: match });
+        socket.emit('FromClient', { message: message, from_id: currentUserId, match_id: match });
     }
 
     const handleMessage = (e) => setMessage(e.target.value)
@@ -52,6 +52,7 @@ const Messages = () => {
     setMessages={setMessages}
     setMatch={setMatch}
     match={match}
+    scrollDiv={scrollDiv}
     user={user} key={user.id}/>)
 
     const messageComponents = messages.map((message) => <MessageBox message={message} key={message.from_id}/>)

@@ -6,7 +6,7 @@ import socketIOClient from "socket.io-client"
 const ENDPOINT = "http://localhost:3000"
 
 
-const UserBox = ({user, setSelectedName, recipientId, setRecipientId, setMatch, setMessages, messages }) => {
+const UserBox = ({user, scrollDiv, setSelectedName, recipientId, setRecipientId, setMatch, setMessages, messages }) => {
 
     const parent = useRef()
 
@@ -29,7 +29,7 @@ const UserBox = ({user, setSelectedName, recipientId, setRecipientId, setMatch, 
         getMessages()
 
         const socket = socketIOClient(ENDPOINT);
-        socket.on("FromAPI", addNewMessage)
+        socket.on(`FromAPI/${user.match_id}`, addNewMessage)
     }
 
     const getMessages = async () => {
@@ -37,10 +37,12 @@ const UserBox = ({user, setSelectedName, recipientId, setRecipientId, setMatch, 
         const responseData = await response.json();
         console.log(responseData)
         setMessages(responseData)
+        scrollDiv.current.scrollTop = 1000000000000000;
     }
 
     const addNewMessage = (data) => {
         setMessages(previousState => [...previousState, data])
+        scrollDiv.current.scrollTop = 1000000000000000;
     }
 
     return(

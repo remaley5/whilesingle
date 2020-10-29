@@ -24,7 +24,7 @@ from starter_app.api import user_routes, fr_routes, mc_routes, message_routes, m
 
 from starter_app.config import Config
 
-from flask_socketio import SocketIO, send
+from flask_socketio import SocketIO, send, join_room, leave_room
 
 
 app = Flask(__name__)
@@ -113,11 +113,20 @@ def get_messages(match_id_params):
 
 @socketio.on('FromClient')
 def handle_message(data):
-    print(data)
-    # print(data.message)
-    socketio.emit('FromAPI', data)
+    print(data, '============================================================')
+    socketio.emit(f"FromAPI/{data['match_id']}", data)
 
     message = Message(message=data['message'], from_id=data['from_id'], match_id=data['match_id'])
 
     db.session.add(message)
     db.session.commit()
+
+
+# @socketio.on('join')
+# def on_join(data):
+#     user = data['user_id']
+#     room = data['room']
+#     join_room(room)
+
+
+# @socketio.on('leave')
