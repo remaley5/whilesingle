@@ -7,7 +7,6 @@ import {FrContextProvider} from '../context/fr_context';
 import FrContainer from '../components/fr_questions/FrContainer';
 
 export default function FrView() {
-
 	const person = 'user'
 	// change to 'match' or 'user'
 

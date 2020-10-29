@@ -58,6 +58,11 @@ const NavBar = () => {
                         <NavLink to="/messenger"><QuestionAnswerRoundedIcon className={navClass.messages}/></NavLink>
                     </div>
                 </Tooltip>
+								{/* <Tooltip title='Testing - delete'>
+                    <div>
+                        <NavLink to="/fr_questions"><QuestionAnswerRoundedIcon className={navClass.messages}/></NavLink>
+                    </div>
+                </Tooltip> */}
                 <div>
                     <MoreVertRoundedIcon onClick={handleClick} className={navClass.matches} />
                     <Menu

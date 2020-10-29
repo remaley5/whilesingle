@@ -1,11 +1,10 @@
-import React, { useState, createContext, useEffect } from "react";
+import React, { useState, createContext, useEffect, useContext } from "react";
+import AuthContext from '../auth';
 
 export const FrContext = createContext();
 
 export const FrContextProvider = (props) => {
-  // need to get user Id from context or something.
-  // hard code for now
-  const user_id = 3;
+	const {currentUserId: user_id} = useContext(AuthContext);
 
   // we'll also need a match id to load their answered questions only
   const match_id = 1;
