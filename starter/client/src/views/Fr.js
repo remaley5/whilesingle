@@ -8,10 +8,10 @@ import FrViewContainer from '../components/fr_questions/FrViewContainer';
 import FrEditContainer from '../components/fr_questions/FrEditContainer';
 
 
-export default function FrView() {
+export default function Fr({show}) {
 
 	// if user wants to change their fr questions we set show to 'edit'. Otherwise it renders the match view
-	const show = 'view'
+	// const show = 'view'
 
 	return (
 		<FrContextProvider>
