@@ -165,3 +165,8 @@ p.pro-body__alt-cont {
 .pro-body__img {
     height: 200px;
 }
+
+.edit-icon:hover {
+    cursor: pointer;
+    color: blue;
+}

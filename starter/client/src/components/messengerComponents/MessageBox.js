@@ -18,7 +18,6 @@ const MessageBox = ({message}) => {
         class_name = 'from-user-message'
     }
 
-
     return(
         <div className={class_name}>{message.message}</div>
     )

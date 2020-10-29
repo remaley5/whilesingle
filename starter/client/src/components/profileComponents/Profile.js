@@ -1,6 +1,6 @@
 import React from 'react';
 import AddPhotos from './AddPhotos'
-// import EditIcon from '@material-ui/icons/Edit';
+import EditIcon from '@material-ui/icons/Edit';
 // import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 
@@ -76,7 +76,8 @@ function Profile(props) {
                             <p className='pro-body__cont'>{user.bio}</p>
                         </div>
                         <div className='pro-body__img-con'>
-                            <Button variant="outlined" color="primary" onClick={handleClickOpen}>edit photos</Button>
+                            {/* <Button variant="outlined" color="primary" onClick={handleClickOpen}>edit photos</Button> */}
+                            <EditIcon className='edit-icon' onClick={handleClickOpen} />
                             <div className='pro-body__imgs'>
                                 <img className='pro-body__img' src='https://while-single-bucket.s3-us-west-2.amazonaws.com/default.jpg' />
                                 <img className='pro-body__img' src='https://while-single-bucket.s3-us-west-2.amazonaws.com/default.jpg' />

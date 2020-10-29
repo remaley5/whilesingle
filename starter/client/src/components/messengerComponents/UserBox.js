@@ -8,7 +8,6 @@ const UserBox = ({user, setSelectedName, recipientId, setRecipientId, setMatch, 
     const parent = useRef()
 
     useEffect(() => {
-
         if(user.user_id === Number(recipientId)){
             parent.current.classList.add('user-selected')
             parent.current.classList.remove('user')
