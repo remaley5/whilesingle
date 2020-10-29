@@ -2,13 +2,9 @@ import React, { useState, useContext } from "react";
 import AuthContext from '../../auth';
 
 export default function FrUserForm({frObj}) {
-  const {fetchWithCSRF} = useContext(AuthContext);
+  let {fetchWithCSRF, currentUserId: user_id} = useContext(AuthContext);
 
-
-	const {fr_answer, fr_question, fr_question_id} = frObj
-
-	// get user id from context - hardcode for now
-	const user_id = 3;
+	const {fr_answer, fr_question, fr_question_id, fr_alt} = frObj
 
 	const [response, setResponse] = useState(fr_answer || "");
 
@@ -31,14 +27,14 @@ export default function FrUserForm({frObj}) {
 
   const handleChange = (e) => {
     setResponse(e.target.value);
-  };
+	};
 
-  return (
+	return (
     <form onSubmit={handleSubmit}>
       <div>{fr_question}</div>
       <input
         type="textarea"
-        placeholder="write some ish"
+        placeholder={fr_alt}
         value={response}
         onChange={handleChange}
       />

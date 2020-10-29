@@ -129,7 +129,7 @@ with app.app_context():
     fr_q1 = FR_Question(
         fr_question='How many cats do you have, and do you want 50?')
     fr_q2 = FR_Question(
-        fr_question='Why is my shit like, all busted?')
+        fr_question='Why is my shit like, all busted?', alt='Have you tried turning it off?')
 
     db.session.add(fr_q1)
     db.session.add(fr_q2)

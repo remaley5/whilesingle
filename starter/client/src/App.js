@@ -48,11 +48,11 @@ function App() {
               if(authData.current_user_id){
                   setCurrentUserId(authData.current_user_id)
               }
-          }
+					}
         setLoading(false);
       }
       restoreCSRF();
-  }, []);
+	}, []);
 
   return (
     <AuthContext.Provider value={authContextValue}>
@@ -63,7 +63,7 @@ function App() {
             <NavBar currentUserId={currentUserId} />
         </nav> : null}
         <Switch>
-            <ProtectedRoute path="/messenger" exact component={Messages} currentUserId={currentUserId} />
+						<ProtectedRoute path="/messenger" exact component={Messages} currentUserId={currentUserId} />
             <ProtectedRoute path="/profile/:id" exact currentUserId={currentUserId}/>
             <ProtectedRoute path="/settings" exact currentUserId={currentUserId}/>
             <ProtectedRoute path="/quiz" exact currentUserId={currentUserId} component={McView}/>
