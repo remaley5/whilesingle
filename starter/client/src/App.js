@@ -10,6 +10,7 @@ import Signup from './components/Signup';
 import Home from './components/Home';
 import Upload from './components/profileComponents/Upload'
 import EditProfile from './components/profileComponents/EditProfile'
+import Profile from './components/profileComponents/Profile'
 import AuthContext from './auth';
 import NavBar from './components/NavBar'
 import { ProtectedRoute, AuthRoute } from './Routes';
@@ -56,6 +57,9 @@ function App() {
       restoreCSRF();
 	}, []);
 
+if(loading) {
+    return null;
+}
   return (
     <AuthContext.Provider value={authContextValue}>
         {loading && <div>Loading...</div>}
@@ -65,8 +69,8 @@ function App() {
             <NavBar currentUserId={currentUserId} />
         </nav> : null}
         <Switch>
-						<ProtectedRoute path="/messenger" exact component={Messages} currentUserId={currentUserId} />
-            <ProtectedRoute path="/profile/:id" exact currentUserId={currentUserId}/>
+			<ProtectedRoute path="/messenger" exact component={Messages} currentUserId={currentUserId} />
+            <ProtectedRoute path="/profile/:id" exact component={Profile} currentUserId={currentUserId}/>
             <ProtectedRoute path="/settings" exact currentUserId={currentUserId}/>
             <ProtectedRoute path="/quiz" exact currentUserId={currentUserId} render={() => <Mc view={'edit'}/>}/>
             <ProtectedRoute path="/users" exact component={UserList} currentUserId={currentUserId} />
