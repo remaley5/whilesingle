@@ -1,6 +1,4 @@
-import React, {useState} from 'react';
-import { Redirect } from 'react-router-dom';
-import styled from 'styled-components';
+import React from 'react';
 
 function Signup(props) {
   return (

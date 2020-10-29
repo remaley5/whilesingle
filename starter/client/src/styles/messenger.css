@@ -6,9 +6,11 @@
     border-radius: 5px;
     padding: 5px 5px 5px 5px;
     background-color: rgb(187, 214, 240);
+    box-shadow: 5px 3px 5px 3px rgba(71, 71, 71, 0.116);
     margin-left: 25px;
     margin-right: 25px;
     min-height: 400px;
+    margin-top: 20px;
 }
 
 

@@ -13,7 +13,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
 import { buttonThemeOne } from '../styles/buttonThemes.js';
 import clsx from 'clsx';
-import { Redirect, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import AuthContext from '../auth';
 
 
@@ -96,35 +96,38 @@ function Login(props) {
     setEmail(e.target.value)
   }
 
+  async function loginUser(email, password) {
+    const response = await fetchWithCSRF('/login', {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: 'include',
+      body: JSON.stringify({
+        email,
+        password
+      })
+    });
+
+    const responseData = await response.json();
+    if(!response.ok) {
+      setErrors(responseData.errors);
+    } else {
+      setOpen(false);
+      setCurrentUserId(responseData.current_user_id)
+      history.push('/')
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(email, password);
-
-    async function loginUser() {
-      const response = await fetchWithCSRF('/login', {
-        method: 'POST',
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: 'include',
-        body: JSON.stringify({
-          email,
-          password
-        })
-      });
-
-      const responseData = await response.json();
-      if(!response.ok) {
-        setErrors(responseData.errors);
-      } else {
-        setOpen(false);
-        setCurrentUserId(responseData.current_user_id)
-        history.push('/')
-      }
-    };
-
-    loginUser();
+    loginUser(email, password);
     // return <Redirect to="/" />;
+  }
+
+  const handleDemoUserSubmit = (e) => {
+    e.preventDefault();
+    loginUser("ian@aa.io", "password");
   }
 
   return (
@@ -168,7 +171,10 @@ function Login(props) {
             </DialogContent>
             <DialogActions>
               <Button className={clsx(classes.root)} onClick={handleSubmit}>
-                Next
+                Sign-In
+              </Button>
+              <Button className={clsx(classes.root)} onClick={handleDemoUserSubmit}>
+                Demo User Sign-In
               </Button>
             </DialogActions>
           </Dialog>

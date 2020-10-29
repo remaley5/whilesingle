@@ -1,11 +1,13 @@
-import React, { useState, createContext, useEffect } from "react";
+import React, { useState, createContext, useEffect, useContext } from "react";
+import AuthContext from "../auth";
 
 export const McContext = createContext();
 
 export const McContextProvider = (props) => {
   // need to get user Id from context or something.
-  // hard code for now
-  const user_id = 3;
+	// hard code for now
+  const { currentUserId: user_id } = useContext(AuthContext);
+
 
   // we'll also need a match id to load their answered questions only
   const match_id = 2;
@@ -16,7 +18,6 @@ export const McContextProvider = (props) => {
     useEffect(() => {
       async function fetchData() {
         const res = await fetch(url);
-        console.log(res)
         const json = await res.json();
 				// call returns object with one key - we only want its value (an array)
         const obj = json[Object.keys(json)];
@@ -24,7 +25,7 @@ export const McContextProvider = (props) => {
         setLoading(false);
       }
       fetchData();
-    }, [id]);
+    }, [id, url]);
     return [data, loading];
   };
 
@@ -62,9 +63,8 @@ export const McContextProvider = (props) => {
       return 'Loading...';
     }
 	}
-  console.log(mc)
 
-  return (
+	return (
     <McContext.Provider value={mc}>{props.children}</McContext.Provider>
     );
   };

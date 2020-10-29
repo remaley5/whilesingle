@@ -94,15 +94,27 @@ with app.app_context():
 # SEED MC RESPONSE TABLE
 ####################################################
     u1_mc_q1_res = MC_Response(
-        user_id=1, mc_answer_id=1, mc_question_id=1)
+        user_id=1, mc_answer_id=1, mc_question_id=1, question_weight=2, unacceptable_answers=[2, 3])
     u1_mc_q2_res = MC_Response(
         user_id=1, mc_answer_id=8, mc_question_id=2)
-    u2_mc_q3_res = MC_Response(
-        user_id=2, mc_answer_id=12, mc_question_id=3)
-
     db.session.add(u1_mc_q1_res)
     db.session.add(u1_mc_q2_res)
+
+    u2_mc_q1_res = MC_Response(user_id=2, mc_answer_id=1, mc_question_id=1)
+    u2_mc_q2_res = MC_Response(user_id=2, mc_answer_id=5, mc_question_id=2)
+    u2_mc_q3_res = MC_Response(
+        user_id=2, mc_answer_id=12, mc_question_id=3)
+    db.session.add(u2_mc_q1_res)
+    db.session.add(u2_mc_q2_res)
     db.session.add(u2_mc_q3_res)
+
+    u3_mc_q1_res = MC_Response(user_id=3, mc_answer_id=1, mc_question_id=1)
+    u3_mc_q2_res = MC_Response(user_id=3, mc_answer_id=5, mc_question_id=2)
+    db.session.add(u3_mc_q1_res)
+    db.session.add(u3_mc_q2_res)
+
+
+
 
 ####################################################
 ####################################################
@@ -155,7 +167,10 @@ with app.app_context():
 # SEED MESSAGE TABLE
 ####################################################
     msg1 = Message(message='hello Ian it is your friend, Javier.', from_id=2, match_id=1)
+    msg2 = Message(message='Hey, Javier! Nice to meet you!', from_id=1, match_id=1)
     db.session.add(msg1)
+    db.session.add(msg2)
+
 
 ####################################################
 # COMMIT DB CHANGES
