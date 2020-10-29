@@ -1,9 +1,14 @@
-import React from "react";
+import React, {useContext} from "react";
 import AddPhotos from "./AddPhotos";
 import EditIcon from "@material-ui/icons/Edit";
 // import { withStyles } from '@material-ui/core/styles';
+import {UserProfileContext, } from '../../context/user_profile_context';
+
 import Button from "@material-ui/core/Button";
 import Fr from '../../views/Fr'
+
+// import context provider component
+
 const styles = (theme) => ({
   root: {
     margin: 0,
@@ -17,13 +22,13 @@ const styles = (theme) => ({
 	},
 });
 
-let user = {
-  username: "Sophie",
-  location: "Portland, OR",
-  bio:
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis consequat nulla eget nunc tempor laoreet. Quisque ac gravida enim, at viverra lorem. Nulla quis magna leo. Donec quis ante vel magna sodales luctus ac sed ipsum. Nulla consequat varius finibus. Sed non fermentum ex. Fusce dignis",
-  preferences: "Gay, Androgynous, Single, Monogamy or Non-Monogamy",
-};
+// let user = {
+//   username: "Sophie",
+//   location: "Portland, OR",
+//   bio:
+//     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis consequat nulla eget nunc tempor laoreet. Quisque ac gravida enim, at viverra lorem. Nulla quis magna leo. Donec quis ante vel magna sodales luctus ac sed ipsum. Nulla consequat varius finibus. Sed non fermentum ex. Fusce dignis",
+//   preferences: "Gay, Androgynous, Single, Monogamy or Non-Monogamy",
+// };
 
 // let questions = [
 //   {
@@ -48,15 +53,26 @@ let user = {
 // ];
 
 function EditProfile(props) {
-  const [open, setOpen] = React.useState(false);
-
+	const [open, setOpen] = React.useState(false);
+	const user = useContext(UserProfileContext);
+	let {first_name, last_name, bio, location, preferences} = user
   const handleClickOpen = () => {
     setOpen(true);
-  };
+	};
+	// we're going to add a second level of validation (beyond logging in) that requires user to enter location, preferences, gender, and bio before viewing the full site. Use placeholders for now
+	if(!location) {
+		location = 'Planet Earth'
+	}
+	if(!preferences){
+		preferences = ['All of them']
+	}
+	if(!bio) {
+		bio = 'Tell us about yourself'
+	}
+	const preferencesString = preferences.join(', ')
   const handleClose = () => {
     setOpen(false);
-  };
-
+	};
   return (
     <>
       <div className="pro-con">
@@ -66,16 +82,16 @@ function EditProfile(props) {
             src="https://while-single-bucket.s3-us-west-2.amazonaws.com/default.jpg"
           />
           <div className="pro-head__cont">
-            <h2 className="pro-head__username">{user.username}</h2>
-            <h4 className="pro-head__location">{user.location}</h4>
-            <p className="pro-head__pref">{user.preferences}</p>
+            <h2 className="pro-head__username">{`${first_name} ${last_name}`}</h2>
+            <h4 className="pro-head__location">{location}</h4>
+            <p className="pro-head__pref">{preferencesString}</p>
           </div>
         </div>
         <div className="pro-body-outer">
           <div className="pro-body">
             <div className="pro-body__con">
               <h3 className="pro-body__head">about me</h3>
-              <p className="pro-body__cont">{user.bio}</p>
+              <p className="pro-body__cont">{bio}</p>
             </div>
             <div className="pro-body__img-con">
               {/* <Button variant="outlined" color="primary" onClick={handleClickOpen}>edit photos</Button> */}

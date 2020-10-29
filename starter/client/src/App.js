@@ -9,7 +9,9 @@ import Login from "./components/Login";
 import Signup from "./components/Signup";
 import Home from "./components/Home";
 import Upload from "./components/profileComponents/Upload";
+import EditProfileContainer from "./components/profileComponents/EditProfileContainer";
 import EditProfile from "./components/profileComponents/EditProfile";
+
 import AuthContext from "./auth";
 import NavBar from "./components/NavBar";
 import { ProtectedRoute, AuthRoute } from "./Routes";
@@ -123,7 +125,7 @@ function App() {
         <ProtectedRoute
           path={`/profile`}
           exact
-          component={EditProfile}
+          component={EditProfileContainer}
           currentUserId={currentUserId}
         />
         {/* <AuthRoute path="/login" component={Login} />

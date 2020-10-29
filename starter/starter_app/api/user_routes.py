@@ -21,3 +21,11 @@ def createUser():
     db.session.commit()
     login_user(user)
     return {"current_user_id": current_user.id}
+
+@user_routes.route('/<int:id>')
+def getUser(id):
+    user = User.query.filter(User.id == id).one_or_none()
+    data = []
+    if user:
+        data = user.to_dict()
+    return {'user': data}

@@ -12,6 +12,15 @@ user_preferences = db.Table(
         'preferences.id'), primary_key=True)
 )
 
+# user_genders = db.Table(
+#     'user_geners',
+#     db.Model.metadata,
+#     db.Column('user_id', db.Integer, db.ForeignKey(
+#         'users.id'), primary_key=True),
+#     db.Column('gender_id', db.Integer, db.ForeignKey(
+#         'genders.id'), primary_key=True)
+# )
+
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
@@ -33,23 +42,26 @@ class User(db.Model, UserMixin):
     preferences = db.relationship(
         'Preference', secondary='user_preferences', back_populates='users')
 
-    # preferences = db.Column(db.ARRAY(db.Integer), default=[])
+    gender_id = db.Column(db.Integer, db.ForeignKey(
+        "genders.id"))
 
-    # preferences = db.relationship('Preference', backref='users')
+    genders = db.relationship('Gender', back_populates='users')
 
     bio = db.Column(db.Text)
 
     def to_dict(self):
         # get preference values here from preference model
         # user_preferences = [pref.to_dict() for pref in self.]
+        preferences = [pref.preference for pref in self.preferences]
         return {
             "id": self.id,
             "first_name": self.first_name,
             "last_name": self.last_name,
             "email": self.email,
             'location': self.location,
-            'preference_ids': self.preferences,
+            'preferences': preferences,
             'bio': self.bio,
+            'gender': self.genders
         }
 
     @property
@@ -97,3 +109,14 @@ class Preference(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     preference = db.Column(db.String(40))
+    users = db.relationship(
+        'User', secondary='user_preferences', back_populates='preferences')
+
+
+class Gender(db.Model):
+    __tablename__ = 'genders'
+
+    id = db.Column(db.Integer, primary_key=True)
+    gender = db.Column(db.String(40))
+    users = db.relationship(
+        'User', back_populates='genders')
