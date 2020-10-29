@@ -10,8 +10,6 @@ const UserBox = ({user, setSelectedName, recipientId, setRecipientId, setMatch, 
 
     const parent = useRef()
 
-    // const [newMessage, setNewMessage] = useState();
-
     useEffect(() => {
         if(user.user_id === Number(recipientId)){
             parent.current.classList.add('user-selected')
@@ -24,7 +22,7 @@ const UserBox = ({user, setSelectedName, recipientId, setRecipientId, setMatch, 
     }, [user.user_id, recipientId]);
 
 
-    const handleClick = (e) => {
+    const handleClick = () => {
         setSelectedName(user.first_name)
         setRecipientId(user.user_id)
         setMatch(user.match_id)

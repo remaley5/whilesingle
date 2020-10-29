@@ -38,21 +38,8 @@ const Messages = () => {
         setMessage('')
         messageRef.current.value = '';
         scrollDiv.current.scrollTop = 1000000000000000;
-
-        // const res = await fetchWithCSRF(`/api/messages/send-message`, {
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     },
-        //     method: 'POST',
-        //     credentials: 'include',
-        //     body: JSON.stringify({ message: message, user_id: currentUserId, match_id: match })
-        // })
-        // const data = await res.json()
-        // const data = { from_id: currentUserId, message: message, match_id: match }
         const socket = socketIOClient(ENDPOINT);
         socket.emit("FromClient", { message: message, from_id: currentUserId, match_id: match });
-
-        // setMessages([...messages, data])
     }
 
     const handleMessage = (e) => setMessage(e.target.value)
