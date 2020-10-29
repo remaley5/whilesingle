@@ -1,5 +1,6 @@
 from starter_app.models import User, MC_Response, MC_Question, MC_Answer_Option, FR_Response, FR_Question, Match, Message, MatchRequest, Preference, Gender, Pronoun
 from starter_app import app, db
+from faker import Faker
 from dotenv import load_dotenv
 load_dotenv()
 
