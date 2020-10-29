@@ -1,9 +1,12 @@
-import React, { useEffect, useRef }  from 'react'
+import React, { useEffect, useRef, useState }  from 'react'
 import '../../styles/messenger.css'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import socketIOClient from "socket.io-client"
+
+const ENDPOINT = "http://localhost:3000"
 
 
-const UserBox = ({user, setSelectedName, recipientId, setRecipientId, setMatch, setMessages }) => {
+const UserBox = ({user, scrollDiv, setSelectedName, recipientId, setRecipientId, setMatch, setMessages, messages }) => {
 
     const parent = useRef()
 
@@ -15,15 +18,18 @@ const UserBox = ({user, setSelectedName, recipientId, setRecipientId, setMatch, 
             parent.current.classList.remove('user-selected')
             parent.current.classList.add('user')
         }
+
     }, [user.user_id, recipientId]);
 
-    const handleClick = (e) => {
-        // setSelectedDiv(e.target)
+
+    const handleClick = () => {
         setSelectedName(user.first_name)
         setRecipientId(user.user_id)
         setMatch(user.match_id)
-        // console.log(match)
         getMessages()
+
+        const socket = socketIOClient(ENDPOINT);
+        socket.on(`FromAPI/${user.match_id}`, addNewMessage)
     }
 
     const getMessages = async () => {
@@ -31,6 +37,12 @@ const UserBox = ({user, setSelectedName, recipientId, setRecipientId, setMatch, 
         const responseData = await response.json();
         console.log(responseData)
         setMessages(responseData)
+        scrollDiv.current.scrollTop = 1000000000000000;
+    }
+
+    const addNewMessage = (data) => {
+        setMessages(previousState => [...previousState, data])
+        scrollDiv.current.scrollTop = 1000000000000000;
     }
 
     return(

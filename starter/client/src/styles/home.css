@@ -30,3 +30,8 @@ swipe-con: swipe container
     height: 100%;
     width: auto;
 }
+
+.swipe-info {
+    display: flex;
+    flex-direction: column;
+}

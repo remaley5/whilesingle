@@ -16,14 +16,20 @@ from starter_app.models import (
     User,
     MC_Response,
     MC_Question,
-    MC_Answer_Option
+    MC_Answer_Option,
+    Message
 )
 
 from starter_app.api import user_routes, fr_routes, mc_routes, message_routes, match_routes, upload_routes
 
 from starter_app.config import Config
 
+from flask_socketio import SocketIO, send
+
+
 app = Flask(__name__)
+socketio = SocketIO(app)
+socketio.run(app)
 
 app.config.from_object(Config)
 app.register_blueprint(user_routes, url_prefix='/api/users')
@@ -41,7 +47,7 @@ MIGRATION_DIR = os.path.join('starter_app', 'models', 'migrations')
 Migrate(app, db, directory=MIGRATION_DIR)
 
 # Application Security
-CORS(app)
+# CORS(app)
 CSRFProtect(app)
 
 
@@ -91,3 +97,26 @@ def login():
 def logout():
     logout_user()
     return {"msg": "You have been logged out"}, 200
+
+
+
+
+@app.route("/api/messages/get-messages/<match_id_params>")
+@login_required
+def get_messages(match_id_params):
+    match_id = int(match_id_params)
+    messages = Message.query.filter(match_id == match_id)
+    messages = [{'message': m.message, 'message_id': m.id, 'from_id': m.from_id} for m in messages]
+    if (messages):
+        return jsonify(messages)
+    return 'no messages'
+
+@socketio.on('FromClient')
+def handle_message(data):
+    print(data, '============================================================')
+    socketio.emit(f"FromAPI/{data['match_id']}", data)
+
+    message = Message(message=data['message'], from_id=data['from_id'], match_id=data['match_id'])
+
+    db.session.add(message)
+    db.session.commit()

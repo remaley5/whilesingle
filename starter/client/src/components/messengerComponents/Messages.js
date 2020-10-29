@@ -4,18 +4,23 @@ import SendIcon from '@material-ui/icons/Send';
 import UserBox from './UserBox';
 import MessageBox from './MessageBox'
 import AuthContext from '../../auth'
+import socketIOClient from "socket.io-client"
+
+const ENDPOINT = "http://localhost:3000"
 
 
 const Messages = () => {
     const [users, setUsers] = useState([]);
     const [selectedName, setSelectedName] = useState();
     const [recipientId, setRecipientId] = useState();
-    const [message, setMessage] = useState();
+    const [message, setMessage] = useState('');
     const scrollDiv = useRef()
     const [match, setMatch] = useState();
     const [messages, setMessages] = useState([])
 
-    const { currentUserId } = useContext(AuthContext);
+    const { currentUserId, fetchWithCSRF } = useContext(AuthContext);
+
+    const messageRef = useRef()
 
 
     useEffect(() => {
@@ -28,10 +33,15 @@ const Messages = () => {
         scrollDiv.current.scrollTop = 1000000000000000;
     }, [currentUserId]);
 
-    const handleSend = (e) => {
+    const handleSend = async(e) => {
         e.preventDefault()
-        console.log(message)
+        setMessage('')
+        messageRef.current.value = '';
+        scrollDiv.current.scrollTop = 1000000000000000;
+        const socket = socketIOClient(ENDPOINT);
+        socket.emit('FromClient', { message: message, from_id: currentUserId, match_id: match });
     }
+
     const handleMessage = (e) => setMessage(e.target.value)
 
     const userComponents = users.map((user) =>
@@ -42,9 +52,10 @@ const Messages = () => {
     setMessages={setMessages}
     setMatch={setMatch}
     match={match}
+    scrollDiv={scrollDiv}
     user={user} key={user.id}/>)
 
-    const messageComponents = messages.map((message) => <MessageBox message={message}/>)
+    const messageComponents = messages.map((message) => <MessageBox message={message} key={message.from_id}/>)
 
     return (
         <div className='messenger'>
@@ -58,8 +69,9 @@ const Messages = () => {
                         <textarea className='message-sender'
                         onChange={handleMessage} size='medium'
                         aria-label="maximum 4 rows"
+                        ref={messageRef}
                         id="standard-basic" placeholder={!selectedName ?"Talk to them!" : `Talk to ${selectedName}!`}></textarea>
-                        <SendIcon className='send' />
+                        <SendIcon className='send' onClick={handleSend}/>
                     </form>
                 </div>
             </div>

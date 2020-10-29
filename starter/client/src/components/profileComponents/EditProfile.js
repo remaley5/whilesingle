@@ -9,16 +9,16 @@ import Fr from '../../views/Fr'
 
 
 const styles = (theme) => ({
-  root: {
-    margin: 0,
-    padding: theme.spacing(2),
-  },
-  closeButton: {
-    position: "absolute",
-    right: theme.spacing(1),
-    top: theme.spacing(1),
-    color: theme.palette.grey[500],
-	},
+    root: {
+        margin: 0,
+        padding: theme.spacing(2),
+    },
+    closeButton: {
+        position: 'absolute',
+        right: theme.spacing(1),
+        top: theme.spacing(1),
+        color: theme.palette.grey[500],
+    },
 });
 
 function EditProfile(props) {
@@ -70,34 +70,16 @@ function EditProfile(props) {
               <h3 className="pro-body__head">about me</h3>
               <p className="pro-body__cont">{bio}</p>
             </div>
-            <div className="pro-body__img-con">
+            <div className='pro-body__img-con'>
               {/* <Button variant="outlined" color="primary" onClick={handleClickOpen}>edit photos</Button> */}
-              <EditIcon className="edit-icon" onClick={handleClickOpen} />
-              <div className="pro-body__imgs">
-                <img
-                  className="pro-body__img"
-                  src="https://while-single-bucket.s3-us-west-2.amazonaws.com/default.jpg"
-                />
-                <img
-                  className="pro-body__img"
-                  src="https://while-single-bucket.s3-us-west-2.amazonaws.com/default.jpg"
-                />
-                <img
-                  className="pro-body__img"
-                  src="https://while-single-bucket.s3-us-west-2.amazonaws.com/default.jpg"
-                />
-                <img
-                  className="pro-body__img"
-                  src="https://while-single-bucket.s3-us-west-2.amazonaws.com/default.jpg"
-                />
-                <img
-                  className="pro-body__img"
-                  src="https://while-single-bucket.s3-us-west-2.amazonaws.com/default.jpg"
-                />
-                <img
-                  className="pro-body__img"
-                  src="https://while-single-bucket.s3-us-west-2.amazonaws.com/default.jpg"
-                />
+              <EditIcon className='edit-icon' onClick={handleClickOpen} />
+              <div className='pro-body__imgs'>
+                  <img className='pro-body__img' src='https://while-single-bucket.s3-us-west-2.amazonaws.com/default.jpg' />
+                  <img className='pro-body__img' src='https://while-single-bucket.s3-us-west-2.amazonaws.com/default.jpg' />
+                  <img className='pro-body__img' src='https://while-single-bucket.s3-us-west-2.amazonaws.com/default.jpg' />
+                  <img className='pro-body__img' src='https://while-single-bucket.s3-us-west-2.amazonaws.com/default.jpg' />
+                  <img className='pro-body__img' src='https://while-single-bucket.s3-us-west-2.amazonaws.com/default.jpg' />
+                  <img className='pro-body__img' src='https://while-single-bucket.s3-us-west-2.amazonaws.com/default.jpg' />
               </div>
             </div>
 						<Fr show={'edit'} />
