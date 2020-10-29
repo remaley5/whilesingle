@@ -67,7 +67,7 @@ const NavBar = () => {
                         open={Boolean(anchorEl)}
                         onClose={handleClose}
                     >
-                        <NavLink to={`/profile/${currentUserId}`} className='menu-link'>
+                        <NavLink to={`/profile`} className='menu-link'>
                             <MenuItem>Profile</MenuItem>
                         </NavLink>
                         <NavLink to='/settings' className='menu-link'>
