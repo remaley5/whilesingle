@@ -7,9 +7,6 @@ const MessageBox = ({message}) => {
 
     const { currentUserId } = useContext(AuthContext);
 
-    // useEffect(() => {
-
-    // }, []);
     let class_name;
 
     if(message.from_id === currentUserId){
