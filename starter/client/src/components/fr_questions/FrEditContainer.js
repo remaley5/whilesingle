@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import { FrContext } from "../../context/fr_context";
 import FrEdit from "./FrEdit";
 
-export default function FrEditContainer({ show }) {
+export default function FrEditContainer() {
   const frContext = useContext(FrContext);
 
   const { userAnsweredFr, userUnansweredFr } = frContext;
