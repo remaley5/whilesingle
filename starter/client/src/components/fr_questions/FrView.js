@@ -5,9 +5,9 @@ export default function FrView({frObj}) {
 
 	// really all you need to do is add styling to this component
   return (
-    <>
-      <div>{fr_question}</div>
-      <div>{fr_answer}</div>
-    </>
+		<div className="pro-body__con">
+				<h3 className="pro-body__head">{fr_question}</h3>
+				<p className="pro-body__cont">{fr_answer}</p>
+		</div>
   );
 }
