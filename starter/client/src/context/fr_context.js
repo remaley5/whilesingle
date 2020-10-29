@@ -39,7 +39,8 @@ export const FrContextProvider = (props) => {
     `/api/questions/fr/answered/${match_id}`, match_id
   );
 
-
+// might not need to load allFr - userAnswered and userUnanswered do the same.
+// if loading a match view then we only care about matchAnswered
   const fr = {
     allFr,
     userAnsweredFr,

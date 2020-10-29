@@ -17,7 +17,7 @@ class MC_Response(db.Model):
 
     unacceptable_answers = db.Column(db.ARRAY(db.Integer), default=[])
 
-    mc_answer_options = db.relationship(
+    mc_answer = db.relationship(
         'MC_Answer_Option', backref="mc_responses")
 
     mc_question_id = db.Column(db.ForeignKey(
@@ -26,6 +26,9 @@ class MC_Response(db.Model):
     mc_question = db.relationship('MC_Question', backref='mc_responses')
 
     def to_dict(self):
+        answer = None
+        if self.mc_answer is not None:
+            answer = self.mc_answer.mc_answer
         mc_question_info = self.mc_question.to_dict()
         return {
             'mc_response_id': self.id,
@@ -34,7 +37,9 @@ class MC_Response(db.Model):
             'mc_question': mc_question_info['mc_question'],
             'mc_answer_options': mc_question_info['mc_answer_options'],
             'question_weight': self.question_weight,
-            'unacceptable_answers': self.unacceptable_answers
+            'unacceptable_answers': self.unacceptable_answers,
+            # shouldn't be any responses without answers....
+            'mc_answer': answer
         }
 
 
