@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import { Switch, useLocation } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { Switch, useLocation } from "react-router-dom";
 
 import UserList from './components/UsersList';
 import Messages from './components/messengerComponents/Messages'
@@ -9,12 +9,14 @@ import Login from './components/Login';
 import Signup from './components/Signup';
 import Home from './components/Home';
 import Upload from './components/profileComponents/Upload'
-import EditProfile from './components/profileComponents/EditProfile'
+import EditProfileContainer from "./components/profileComponents/EditProfileContainer";
 import Profile from './components/profileComponents/Profile'
 import AuthContext from './auth';
 import NavBar from './components/NavBar'
 import { ProtectedRoute, AuthRoute } from './Routes';
-
+import AuthContext from "./auth";
+import NavBar from "./components/NavBar";
+import { ProtectedRoute, AuthRoute } from "./Routes";
 
 function App() {
   let location = useLocation();
@@ -23,9 +25,9 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   const authContextValue = {
-      fetchWithCSRF,
-      currentUserId,
-      setCurrentUserId,
+    fetchWithCSRF,
+    currentUserId,
+    setCurrentUserId,
   };
 
   useEffect(() => {
@@ -51,20 +53,20 @@ function App() {
               if(authData.current_user_id){
                   setCurrentUserId(authData.current_user_id)
               }
-					}
+  				}
         setLoading(false);
       }
       restoreCSRF();
 	}, []);
 
-if(loading) {
-    return null;
-}
+	if(loading) {
+		return null
+	}
+  
   return (
     <AuthContext.Provider value={authContextValue}>
-        {loading && <div>Loading...</div>}
-        {!loading &&
-        location.pathname !== '/login' && location.pathname !== '/signup' ?
+      {location.pathname !== "/login" &&
+      location.pathname !== "/signup" ? (
         <nav>
             <NavBar currentUserId={currentUserId} />
         </nav> : null}
@@ -79,11 +81,15 @@ if(loading) {
             <ProtectedRoute path='/fr_questions' exact component={Fr} currentUserId={currentUserId}/>
             <ProtectedRoute path='/mc_questions' exact component={Mc} currentUserId={currentUserId}/>
             <ProtectedRoute path='/upload_images' exact component={Upload} currentUserId={currentUserId}/>
-            <ProtectedRoute path={`/profile`} exact component={EditProfile} currentUserId={currentUserId} />
+            <ProtectedRoute path={`/profile`} exact component={EditProfileContainer} currentUserId={currentUserId} />
             {/* <AuthRoute path="/login" component={Login} />
             <AuthRoute path="/signup" component={Signup} /> */}
-            <ProtectedRoute path="/" component={Home} currentUserId={currentUserId} />
-        </Switch>
+        <ProtectedRoute
+          path="/"
+          component={Home}
+          currentUserId={currentUserId}
+        />
+      </Switch>
     </AuthContext.Provider>
   );
 }
