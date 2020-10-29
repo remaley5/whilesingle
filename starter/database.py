@@ -1,4 +1,4 @@
-from starter_app.models import User, MC_Response, MC_Question, MC_Answer_Option, FR_Response, FR_Question, Match, Message, MatchRequest
+from starter_app.models import User, MC_Response, MC_Question, MC_Answer_Option, FR_Response, FR_Question, Match, Message, MatchRequest, Preference
 from starter_app import app, db
 from dotenv import load_dotenv
 load_dotenv()
@@ -11,7 +11,7 @@ with app.app_context():
 ####################################################
 # SEED USER TABLE
 ####################################################
-    ian = User(first_name='Ian', last_name='Dude', email='ian@aa.io', password='password')
+    ian = User(first_name='Ian', last_name='Dude', email='ian@aa.io', password='password', preferences=[1, 3, 5])
     javier = User(first_name='Javier', last_name='Dude', email='javier@aa.io', password='password')
     dean = User(first_name='Dean', last_name='Dude', email='dean@aa.io', password='password')
     angela = User(first_name='Angela', last_name='Dude', email='angela@aa.io', password='password')
@@ -35,6 +35,21 @@ with app.app_context():
     db.session.add(ivan_to_javiar)
     db.session.add(dean_to_javiar)
     db.session.add(angela_to_javiar)
+
+####################################################
+# SEED PREFERENCES TABLE
+####################################################
+    p1 = Preference(preference='Gay')
+    p2 = Preference(preference='Androgynous')
+    p3 = Preference(preference='Single')
+    p4 = Preference(preference='Monogamy')
+    p5 = Preference(preference='Non-Monogamy')
+    db.session.add(p1)
+    db.session.add(p2)
+    db.session.add(p3)
+    db.session.add(p4)
+    db.session.add(p5)
+
 
 ####################################################
 ####################################################
@@ -130,9 +145,29 @@ with app.app_context():
         fr_question='How many cats do you have, and do you want 50?')
     fr_q2 = FR_Question(
         fr_question='Why is my shit like, all busted?', alt='Have you tried turning it off?')
+    fr_q3 = FR_Question(
+        fr_question='My current goal',
+        alt='Aim high'
+    )
+    fr_q4 = FR_Question(
+        fr_question='My favorite furry friend',
+        alt='Fur not required'
+    )
+    fr_q5 = FR_Question(
+        fr_question='I could probably beat you at',
+        alt='Go ahead and brag a little, champ'
+    )
+    fr_q6 = FR_Question(
+        fr_question='My golden rule',
+        alt='The thing you live by'
+    )
 
     db.session.add(fr_q1)
     db.session.add(fr_q2)
+    db.session.add(fr_q3)
+    db.session.add(fr_q4)
+    db.session.add(fr_q5)
+    db.session.add(fr_q6)
 
 
 ####################################################

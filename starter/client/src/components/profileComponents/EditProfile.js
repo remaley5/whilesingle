@@ -25,27 +25,27 @@ let user = {
   preferences: "Gay, Androgynous, Single, Monogamy or Non-Monogamy",
 };
 
-let questions = [
-  {
-    question: "I could probably beat you at",
-    alt: "Go ahead and brag a little, champ",
-  },
-  {
-    question: "My golden rule",
-    alt: "The thing you live by",
-  },
-];
-let answeredQuestions = [
-  {
-    question: "My current goal",
-    answer:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis consequat nulla eget nunc tempor laoreet. Quisque ac gravida enim, at viverra lorem. ",
-  },
-  {
-    question: "My favorite furry friend",
-    answer: "Lorem ipsum dolor sit amet.",
-  },
-];
+// let questions = [
+//   {
+//     question: "I could probably beat you at",
+//     alt: "Go ahead and brag a little, champ",
+//   },
+//   {
+//     question: "My golden rule",
+//     alt: "The thing you live by",
+//   },
+// ];
+// let answeredQuestions = [
+//   {
+//     question: "My current goal",
+//     answer:
+//       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis consequat nulla eget nunc tempor laoreet. Quisque ac gravida enim, at viverra lorem. ",
+//   },
+//   {
+//     question: "My favorite furry friend",
+//     answer: "Lorem ipsum dolor sit amet.",
+//   },
+// ];
 
 function EditProfile(props) {
   const [open, setOpen] = React.useState(false);
@@ -108,7 +108,7 @@ function EditProfile(props) {
               </div>
             </div>
 						<Fr show={'edit'} />
-            {answeredQuestions.map((question) => {
+            {/* {answeredQuestions.map((question) => {
               return (
                 <div className="pro-body__con">
                   <h3 className="pro-body__head">{question.question}</h3>
@@ -123,7 +123,7 @@ function EditProfile(props) {
                   <p className="pro-body__alt-cont">{question.alt}</p>
                 </div>
               );
-            })}
+            })} */}
           </div>
         </div>
       </div>
