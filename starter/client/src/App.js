@@ -3,8 +3,8 @@ import { Switch, useLocation } from 'react-router-dom';
 
 import UserList from './components/UsersList';
 import Messages from './components/messengerComponents/Messages'
-import FrView from './views/FrView'
-import McView from './views/McView'
+import Fr from './views/Fr'
+import Mc from './views/Mc'
 import Login from './components/Login';
 import Signup from './components/Signup';
 import Home from './components/Home';
@@ -72,12 +72,12 @@ if(loading) {
 			<ProtectedRoute path="/messenger" exact component={Messages} currentUserId={currentUserId} />
             <ProtectedRoute path="/profile/:id" exact component={Profile} currentUserId={currentUserId}/>
             <ProtectedRoute path="/settings" exact currentUserId={currentUserId}/>
-            <ProtectedRoute path="/quiz" exact currentUserId={currentUserId} component={McView}/>
+            <ProtectedRoute path="/quiz" exact currentUserId={currentUserId} render={() => <Mc view={'edit'}/>}/>
             <ProtectedRoute path="/users" exact component={UserList} currentUserId={currentUserId} />
             <AuthRoute path="/login" component={Login} currentUserId={currentUserId} />
             <AuthRoute path="/signup" component={Signup} currentUserId={currentUserId} />
-            <ProtectedRoute path='/fr_questions' exact component={FrView} currentUserId={currentUserId}/>
-            <ProtectedRoute path='/mc_questions' exact component={McView} currentUserId={currentUserId}/>
+            <ProtectedRoute path='/fr_questions' exact component={Fr} currentUserId={currentUserId}/>
+            <ProtectedRoute path='/mc_questions' exact component={Mc} currentUserId={currentUserId}/>
             <ProtectedRoute path='/upload_images' exact component={Upload} currentUserId={currentUserId}/>
             <ProtectedRoute path={`/profile`} exact component={EditProfile} currentUserId={currentUserId} />
             {/* <AuthRoute path="/login" component={Login} />

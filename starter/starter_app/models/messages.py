@@ -29,6 +29,7 @@ class Message(db.Model):
         return f'- Message: {self.id}, To: {self.to_id}, From: {self.from_id}'
 
 
+
 class Match(db.Model):
     __tablename__ = 'matches'
 
