@@ -14,9 +14,7 @@ import Profile from './components/profileComponents/Profile'
 import AuthContext from './auth';
 import NavBar from './components/NavBar'
 import { ProtectedRoute, AuthRoute } from './Routes';
-import AuthContext from "./auth";
-import NavBar from "./components/NavBar";
-import { ProtectedRoute, AuthRoute } from "./Routes";
+
 
 function App() {
   let location = useLocation();
@@ -62,14 +60,14 @@ function App() {
 	if(loading) {
 		return null
 	}
-  
+
   return (
     <AuthContext.Provider value={authContextValue}>
       {location.pathname !== "/login" &&
       location.pathname !== "/signup" ? (
         <nav>
             <NavBar currentUserId={currentUserId} />
-        </nav> : null}
+        </nav>) : null}
         <Switch>
 			<ProtectedRoute path="/messenger" exact component={Messages} currentUserId={currentUserId} />
             <ProtectedRoute path="/profile/:id" exact component={Profile} currentUserId={currentUserId}/>
