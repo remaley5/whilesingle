@@ -55,7 +55,8 @@ const styles = (theme) => ({
 function EditProfile(props) {
 	const [open, setOpen] = React.useState(false);
 	const user = useContext(UserProfileContext);
-	let {first_name, last_name, bio, location, preferences} = user
+	let pronouns = null
+	let {first_name, last_name, bio, location, preferences, gender} = user
   const handleClickOpen = () => {
     setOpen(true);
 	};
@@ -68,6 +69,12 @@ function EditProfile(props) {
 	}
 	if(!bio) {
 		bio = 'Tell us about yourself'
+	}
+	if(!gender) {
+		gender = 'Human'
+	}
+	if(!pronouns) {
+		pronouns = 'They/Them'
 	}
 	const preferencesString = preferences.join(', ')
   const handleClose = () => {
@@ -84,7 +91,9 @@ function EditProfile(props) {
           <div className="pro-head__cont">
             <h2 className="pro-head__username">{`${first_name} ${last_name}`}</h2>
             <h4 className="pro-head__location">{location}</h4>
-            <p className="pro-head__pref">{preferencesString}</p>
+            <p className="pro-head__pref">{gender}</p>
+						<p className="pro-head__pref">Uses {pronouns} pronouns</p>
+						<p className="pro-head__pref">{preferencesString}</p>
           </div>
         </div>
         <div className="pro-body-outer">

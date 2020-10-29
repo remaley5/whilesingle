@@ -1,4 +1,4 @@
-from starter_app.models import User, MC_Response, MC_Question, MC_Answer_Option, FR_Response, FR_Question, Match, Message, MatchRequest, Preference, Gender
+from starter_app.models import User, MC_Response, MC_Question, MC_Answer_Option, FR_Response, FR_Question, Match, Message, MatchRequest, Preference, Gender, Pronoun
 from starter_app import app, db
 from dotenv import load_dotenv
 load_dotenv()
@@ -29,10 +29,23 @@ with app.app_context():
     g1 = Gender(gender='Man')
 
     db.session.add(g1)
+
+####################################################
+# SEED PRONOUNS TABLE
+####################################################
+    pronoun1 = Pronoun(pronoun='They/Them')
+    pronoun2 = Pronoun(pronoun='She/Her')
+    pronoun3 = Pronoun(pronoun='He/Him')
+
+    db.session.add(pronoun1)
+    db.session.add(pronoun2)
+    db.session.add(pronoun3)
+
+
 ####################################################
 # SEED USER TABLE
 ####################################################
-    ian = User(first_name='Ian', last_name='Dude', email='ian@aa.io', password='password', preferences=[p1, p3, p5], genders=g1)
+    ian = User(first_name='Ian', last_name='Dude', email='ian@aa.io', password='password', preferences=[p1, p3, p5], genders=g1, pronouns=pronoun1)
     javier = User(first_name='Javier', last_name='Dude', email='javier@aa.io', password='password')
     dean = User(first_name='Dean', last_name='Dude', email='dean@aa.io', password='password')
     angela = User(first_name='Angela', last_name='Dude', email='angela@aa.io', password='password')

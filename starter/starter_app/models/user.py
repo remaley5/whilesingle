@@ -47,11 +47,14 @@ class User(db.Model, UserMixin):
 
     genders = db.relationship('Gender', back_populates='users')
 
+    pronoun_id = db.Column(db.Integer, db.ForeignKey(
+        "pronouns.id"))
+
+    pronouns = db.relationship('Pronoun', back_populates='users')
+
     bio = db.Column(db.Text)
 
     def to_dict(self):
-        # get preference values here from preference model
-        # user_preferences = [pref.to_dict() for pref in self.]
         preferences = [pref.preference for pref in self.preferences]
         return {
             "id": self.id,
@@ -61,7 +64,8 @@ class User(db.Model, UserMixin):
             'location': self.location,
             'preferences': preferences,
             'bio': self.bio,
-            'gender': self.genders
+            'gender': self.genders.gender,
+            'pronouns': self.pronouns.pronoun
         }
 
     @property
@@ -120,3 +124,12 @@ class Gender(db.Model):
     gender = db.Column(db.String(40))
     users = db.relationship(
         'User', back_populates='genders')
+
+
+class Pronoun(db.Model):
+    __tablename__ = 'pronouns'
+
+    id = db.Column(db.Integer, primary_key=True)
+    pronoun = db.Column(db.String(40))
+    users = db.relationship(
+        'User', back_populates='pronouns')

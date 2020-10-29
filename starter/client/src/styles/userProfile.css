@@ -87,7 +87,7 @@ img {
 .pro-head__cont {
     display: flex;
     flex-direction: column;
-    height: 100px;
+    height: auto;
     align-self: flex-end;
 }
 
