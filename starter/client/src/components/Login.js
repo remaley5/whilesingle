@@ -50,13 +50,24 @@ const LoginWrapper = styled.div`
     justify-content: space-between;
   }
 
+  .logo {
+    font-family: 'Roboto';
+    font-size: 20px;
+    font-weight: bold;
+    color: black;
+  }
+
   .login{
     display: flex;
     align-items: flex-end;
   }
 
   .login-text{
-
+    align-self: center;
+    padding-right: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: 'Roboto';
   }
 
   .main{
@@ -133,7 +144,7 @@ function Login(props) {
   return (
       <LoginWrapper>
         <div className="header">
-          <div>while(single):</div>
+          <div className="logo">while(single):</div>
           <div className="login">
             <div className="login-text">Have an account?</div>
             <Button variant="outlined" color="primary" onClick={handleOpen}>Sign in</Button>
