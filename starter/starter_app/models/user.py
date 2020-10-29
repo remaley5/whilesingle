@@ -12,7 +12,6 @@ class User(db.Model, UserMixin):
     last_name = db.Column(db.String(40), nullable=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
     password_digest = db.Column(db.String(255), nullable=False)
-
     mc_responses = db.relationship('MC_Response', backref='users')
 
     fr_responses = db.relationship('FR_Response', backref='users')
@@ -51,6 +50,17 @@ class MatchRequest(db.Model):
     to_id = db.Column(db.Integer, db.ForeignKey(
     "users.id"), nullable=True)
     from_id = db.Column(db.Integer)
+    created_at = db.Column('created_at', db.DateTime, default=utcnow())
+
+    user = db.relationship("User")
+
+class Photo(db.Model):
+    __tablename__ = 'photos'
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey(
+    "users.id"), nullable=False)
+    photo_url = db.Column(db.String, nullable=False, unique=True)
     created_at = db.Column('created_at', db.DateTime, default=utcnow())
 
     user = db.relationship("User")

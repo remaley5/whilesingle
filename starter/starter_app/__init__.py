@@ -19,7 +19,7 @@ from starter_app.models import (
     MC_Answer_Option
 )
 
-from starter_app.api import user_routes, fr_routes, mc_routes, message_routes, match_routes
+from starter_app.api import user_routes, fr_routes, mc_routes, message_routes, match_routes, upload_routes
 
 from starter_app.config import Config
 
@@ -31,6 +31,7 @@ app.register_blueprint(fr_routes, url_prefix='/api/questions/fr')
 app.register_blueprint(mc_routes, url_prefix='/api/questions/mc')
 app.register_blueprint(message_routes, url_prefix='/api/messages')
 app.register_blueprint(match_routes, url_prefix='/api/matches')
+app.register_blueprint(upload_routes, url_prefix='/api/uploads')
 
 db.init_app(app)
 login_manager = LoginManager(app)

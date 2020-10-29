@@ -8,6 +8,7 @@ import McView from './views/McView'
 import Login from './components/Login';
 import Signup from './components/Signup';
 import Home from './components/Home';
+import Upload from './components/user_page/Upload'
 import AuthContext from './auth';
 import { ProtectedRoute, AuthRoute } from './Routes';
 
@@ -72,6 +73,7 @@ function App() {
                 <li><NavLink to="/fr_questions" activeclass="active">FR Questions</NavLink></li>
 								<li><NavLink to="/mc_questions" activeclass="active">MC Questions</NavLink></li>
                 <li><NavLink to="/messenger" activeclass="active">Messenger</NavLink></li>
+                <li><NavLink to="/upload_images" activeclass="active">Upload Images</NavLink></li>
                 <li><a onClick={logoutUser} href="/login" activeclass="active">Logout</a></li>
             </ul>
         </nav> : null}
@@ -79,7 +81,8 @@ function App() {
             <ProtectedRoute path="/messenger" exact component={Messages} currentUserId={currentUserId} />
             <ProtectedRoute path="/users" exact component={UserList} currentUserId={currentUserId} />
             <ProtectedRoute path='/fr_questions' exact component={FrView} currentUserId={currentUserId}/>
-            <ProtectedRoute path='/mc_questions' exact component={McView} currentUserId={currentUserId}/>        
+            <ProtectedRoute path='/mc_questions' exact component={McView} currentUserId={currentUserId}/>
+            <ProtectedRoute path='/upload_images' exact component={Upload} currentUserId={currentUserId}/>
             <AuthRoute path="/login" component={Login} />
             <AuthRoute path="/signup" component={Signup} />
             <ProtectedRoute path="/" component={Home} currentUserId={currentUserId} />
