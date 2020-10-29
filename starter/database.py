@@ -16,41 +16,56 @@ with app.app_context():
     p3 = Preference(preference='Single')
     p4 = Preference(preference='Monogamy')
     p5 = Preference(preference='Non-Monogamy')
-    db.session.add(p1)
-    db.session.add(p2)
-    db.session.add(p3)
-    db.session.add(p4)
-    db.session.add(p5)
 
+    # use this array for generating random users
+    preferences = [p1, p2, p3, p4, p5]
+    for preference in preferences:
+        db.session.add(preference)
 
 ####################################################
 # SEED GENDERS TABLE
 ####################################################
-    g1 = Gender(gender='Man')
+    g1 = Gender(gender='cis man')
+    g2 = Gender(gender='cis woman')
+    g3 = Gender(gender='trans man')
+    g4 = Gender(gender='trans woman')
+    g5 = Gender(gender='non-binary')
+    g6 = Gender(gender='genderqueer')
+    g7 = Gender(gender='gender fluid')
+    g8 = Gender(gender='gender neutral')
 
-    db.session.add(g1)
+    # use this array for generating random users
+    genders = [g1, g2, g3, g4, g5, g6, g7, g8]
+    for gender in genders:
+        db.session.add(gender)
 
 ####################################################
 # SEED PRONOUNS TABLE
 ####################################################
-    pronoun1 = Pronoun(pronoun='They/Them')
-    pronoun2 = Pronoun(pronoun='She/Her')
-    pronoun3 = Pronoun(pronoun='He/Him')
+    n1 = Pronoun(pronoun='They/Them')
+    n2 = Pronoun(pronoun='She/Her')
+    n3 = Pronoun(pronoun='He/Him')
 
-    db.session.add(pronoun1)
-    db.session.add(pronoun2)
-    db.session.add(pronoun3)
-
+    # use this array for generating random users
+    pronouns = [n1, n2, n3]
+    for pronoun in pronouns:
+        db.session.add(pronoun)
 
 ####################################################
 # SEED USER TABLE
 ####################################################
-    ian = User(first_name='Ian', last_name='Dude', email='ian@aa.io', password='password', preferences=[p1, p3, p5], genders=g1, pronouns=pronoun1)
-    javier = User(first_name='Javier', last_name='Dude', email='javier@aa.io', password='password')
-    dean = User(first_name='Dean', last_name='Dude', email='dean@aa.io', password='password')
-    angela = User(first_name='Angela', last_name='Dude', email='angela@aa.io', password='password')
-    soonmi = User(first_name='Soon-Mi', last_name='Dude', email='soonmi@aa.io', password='password')
-    alissa = User(first_name='Alissa', last_name='Dude', email='alissa@aa.io', password='password')
+    ian = User(first_name='Ian', last_name='Dude', email='ian@aa.io',
+               password='password', preferences=[p1, p3, p5], genders=g1, pronouns=n1)
+    javier = User(first_name='Javier', last_name='Dude',
+                  email='javier@aa.io', password='password')
+    dean = User(first_name='Dean', last_name='Dude',
+                email='dean@aa.io', password='password')
+    angela = User(first_name='Angela', last_name='Dude',
+                  email='angela@aa.io', password='password')
+    soonmi = User(first_name='Soon-Mi', last_name='Dude',
+                  email='soonmi@aa.io', password='password')
+    alissa = User(first_name='Alissa', last_name='Dude',
+                  email='alissa@aa.io', password='password')
 
     db.session.add(ian)
     db.session.add(javier)
@@ -62,9 +77,9 @@ with app.app_context():
 ####################################################
 # SEED MATCHREQUEST TABLE
 ####################################################
-    ivan_to_javiar = MatchRequest(from_id = 1, to_id = 2)
-    dean_to_javiar = MatchRequest(from_id = 3, to_id = 2)
-    angela_to_javiar = MatchRequest(from_id = 4, to_id = 2)
+    ivan_to_javiar = MatchRequest(from_id=1, to_id=2)
+    dean_to_javiar = MatchRequest(from_id=3, to_id=2)
+    angela_to_javiar = MatchRequest(from_id=4, to_id=2)
 
     db.session.add(ivan_to_javiar)
     db.session.add(dean_to_javiar)
@@ -88,11 +103,7 @@ with app.app_context():
     mc_q1_a4 = MC_Answer_Option(
         mc_answer='I would prefer to keep my opinion on cats private.', mc_question_id=1)
 
-    db.session.add(mc_q1)
-    db.session.add(mc_q1_a1)
-    db.session.add(mc_q1_a2)
-    db.session.add(mc_q1_a3)
-    db.session.add(mc_q1_a4)
+    mc_qa_1 = {'q': mc_q1, 'a': [mc_q1_a1, mc_q1_a2, mc_q1_a3, mc_q1_a4]}
 
 #   MC_Q2
     mc_q2 = MC_Question(mc_question='How do you feel about dogs?')
@@ -103,11 +114,7 @@ with app.app_context():
     mc_q2_a4 = MC_Answer_Option(
         mc_answer='I would prefer to keep my opinion on dogs private.', mc_question_id=2)
 
-    db.session.add(mc_q2)
-    db.session.add(mc_q2_a1)
-    db.session.add(mc_q2_a2)
-    db.session.add(mc_q2_a3)
-    db.session.add(mc_q2_a4)
+    mc_qa_2 = {'q': mc_q2, 'a': [mc_q2_a1, mc_q2_a2, mc_q2_a3, mc_q2_a4]}
 
 #   MC_Q3
     mc_q3 = MC_Question(mc_question='How do you feel about iguanas?')
@@ -118,11 +125,18 @@ with app.app_context():
     mc_q3_a4 = MC_Answer_Option(
         mc_answer='I would prefer to keep my opinion on iguanas private.', mc_question_id=3)
 
-    db.session.add(mc_q3)
-    db.session.add(mc_q3_a1)
-    db.session.add(mc_q3_a2)
-    db.session.add(mc_q3_a3)
-    db.session.add(mc_q3_a4)
+    mc_qa_3 = {'q': mc_q3, 'a': [mc_q3_a1, mc_q3_a2, mc_q3_a3, mc_q3_a4]}
+
+# ADD MC
+
+    mc_qa_list = [mc_qa_1, mc_qa_2, mc_qa_3]
+
+    for mc_qa in mc_qa_list:
+        q = mc_qa['q']
+        db.session.add(q)
+        a_list = mc_qa['a']
+        for a in a_list:
+            db.session.add(a)
 
 ####################################################
 # SEED MC RESPONSE TABLE
@@ -131,23 +145,22 @@ with app.app_context():
         user_id=1, mc_answer_id=1, mc_question_id=1, question_weight=2, unacceptable_answers=[2, 3])
     u1_mc_q2_res = MC_Response(
         user_id=1, mc_answer_id=8, mc_question_id=2)
-    db.session.add(u1_mc_q1_res)
-    db.session.add(u1_mc_q2_res)
 
     u2_mc_q1_res = MC_Response(user_id=2, mc_answer_id=1, mc_question_id=1)
     u2_mc_q2_res = MC_Response(user_id=2, mc_answer_id=5, mc_question_id=2)
     u2_mc_q3_res = MC_Response(
         user_id=2, mc_answer_id=12, mc_question_id=3)
-    db.session.add(u2_mc_q1_res)
-    db.session.add(u2_mc_q2_res)
-    db.session.add(u2_mc_q3_res)
 
     u3_mc_q1_res = MC_Response(user_id=3, mc_answer_id=1, mc_question_id=1)
     u3_mc_q2_res = MC_Response(user_id=3, mc_answer_id=5, mc_question_id=2)
-    db.session.add(u3_mc_q1_res)
-    db.session.add(u3_mc_q2_res)
 
 
+# ADD MC RESPONSES
+    mc_res_list = [u1_mc_q1_res, u1_mc_q2_res, u2_mc_q1_res, u2_mc_q2_res,
+                   u2_mc_q3_res, u2_mc_q3_res, u3_mc_q1_res, u3_mc_q2_res]
+
+    for mc_res in mc_res_list:
+        db.session.add(mc_res)
 
 
 ####################################################
@@ -181,13 +194,11 @@ with app.app_context():
         alt='The thing you live by'
     )
 
-    db.session.add(fr_q1)
-    db.session.add(fr_q2)
-    db.session.add(fr_q3)
-    db.session.add(fr_q4)
-    db.session.add(fr_q5)
-    db.session.add(fr_q6)
+# ADD FR QUESTIONS
+    fr_q_list = [fr_q1, fr_q2, fr_q3, fr_q4, fr_q5, fr_q6]
 
+    for fr_q in fr_q_list:
+        db.session.add(fr_q)
 
 ####################################################
 # SEED FR RESPONSE TABLE
@@ -196,13 +207,14 @@ with app.app_context():
         user_id=1, fr_answer='I have 17 but dream of the day I have 50.', fr_question_id=1)
     u1_fr_q2_res = FR_Response(
         user_id=1, fr_answer='Idk try turning it off.', fr_question_id=2)
-    u3_fr_q1_res = FR_Response(user_id=3, fr_answer='My name is Dean and I would like to have as many cats as I have toes.', fr_question_id=1)
+    u3_fr_q1_res = FR_Response(
+        user_id=3, fr_answer='My name is Dean and I would like to have as many cats as I have toes.', fr_question_id=1)
 
-    db.session.add(u1_fr_q1_res)
-    db.session.add(u1_fr_q2_res)
-    db.session.add(u3_fr_q1_res)
+# ADD FR RESPONSES
+    fr_res_list = [u1_fr_q1_res, u1_fr_q2_res, u3_fr_q1_res]
 
-
+    for fr_res in fr_res_list:
+        db.session.add(fr_res)
 
 ####################################################
 ####################################################
@@ -220,8 +232,10 @@ with app.app_context():
 ####################################################
 # SEED MESSAGE TABLE
 ####################################################
-    msg1 = Message(message='hello Ian it is your friend, Javier.', from_id=2, match_id=1)
-    msg2 = Message(message='Hey, Javier! Nice to meet you!', from_id=1, match_id=1)
+    msg1 = Message(message='hello Ian it is your friend, Javier.',
+                   from_id=2, match_id=1)
+    msg2 = Message(message='Hey, Javier! Nice to meet you!',
+                   from_id=1, match_id=1)
     db.session.add(msg1)
     db.session.add(msg2)
 
