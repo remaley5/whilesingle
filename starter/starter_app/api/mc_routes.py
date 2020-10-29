@@ -20,7 +20,7 @@ def answered_mc_questions(id):
     mc_responses = MC_Response.query.filter(
         MC_Response.user_id == id).join(MC_Question, MC_Answer_Option).options(
             db.joinedload(MC_Response.mc_question), db.joinedload(
-                MC_Response.mc_answer_options)).all()
+                MC_Response.mc_answer)).all()
     # print(mc_responses)
     data = []
     if mc_responses:
