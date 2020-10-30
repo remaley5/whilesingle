@@ -1,9 +1,15 @@
 from starter_app.models import User, MC_Response, MC_Question, MC_Answer_Option, FR_Response, FR_Question, Match, Message, MatchRequest, Preference, Gender, Pronoun, Photo
 from starter_app import app, db
 from faker import Faker
+from random import randrange
 from dotenv import load_dotenv
 load_dotenv()
+fake = Faker()
+# use this so same fake data generated each time
+Faker.seed(420)
 
+# num_fake_users must be at least 4
+num_fake_users = 100
 
 with app.app_context():
     db.drop_all()
@@ -39,7 +45,6 @@ with app.app_context():
     genders = [g1, g2, g3, g4, g5, g6, g7, g8]
     for gender in genders:
         db.session.add(gender)
-
 ####################################################
 # SEED PRONOUNS TABLE
 ####################################################
@@ -52,6 +57,7 @@ with app.app_context():
     for pronoun in pronouns:
         db.session.add(pronoun)
 
+<<<<<<< HEAD
 
 ####################################################
 # SEED PHOTO TABLE
@@ -65,6 +71,11 @@ with app.app_context():
     db.session.add(two)
     db.session.add(three)
     db.session.add(four)
+=======
+# commit preferences, genders, and pronouns so we can use them in generating random users
+    db.session.commit()
+
+>>>>>>> 1aecb0fcbc54ca9c9ab46bb3dc92ffa020b5dd14
 ####################################################
 # SEED USER TABLE
 ####################################################
@@ -89,6 +100,45 @@ with app.app_context():
     db.session.add(alissa)
 
 ####################################################
+# GENERATE RANDOM USERS WITH FAKER
+####################################################
+    # use this list later when adding fake mc/fr responses
+    fake_user_list = []
+    total_pref = len(preferences)
+    for _ in range(num_fake_users):
+        first_name = fake.first_name()
+        last_name = fake.last_name()
+        email = fake.unique.email()
+        password = 'password'
+
+        gender_id = genders[randrange(len(genders))].id
+        pronoun_id = pronouns[randrange(len(pronouns))].id
+
+        location = f'{fake.city()}, {fake.state_abbr(include_territories=False)}'
+
+        bio = fake.text(max_nb_chars=200)
+
+        preference_list = []
+        # number of preferences to include
+        num_preferences = randrange(1, total_pref)
+        for i in range(num_preferences):
+            pref_num = randrange(total_pref)
+            pref_to_add = preferences[pref_num]
+            while pref_to_add in preference_list:
+                pref_num = randrange(total_pref)
+                pref_to_add = preferences[pref_num]
+            preference_list.append(pref_to_add)
+
+        user_info = {'first_name': first_name, 'last_name': last_name,
+                     'email': email, 'password': password, 'gender_id': gender_id, 'pronoun_id': pronoun_id, 'location': location, 'preferences': preference_list, 'bio': bio}
+        fake_user = User(**user_info)
+        fake_user_list.append(fake_user)
+        db.session.add(fake_user)
+
+    # commit fake users so we can use ids in match request and other tables
+    db.session.commit()
+
+####################################################
 # SEED MATCHREQUEST TABLE
 ####################################################
     ivan_to_javiar = MatchRequest(from_id=1, to_id=2)
@@ -98,6 +148,61 @@ with app.app_context():
     db.session.add(ivan_to_javiar)
     db.session.add(dean_to_javiar)
     db.session.add(angela_to_javiar)
+
+####################################################
+# SEED MATCHREQUEST AND MATCH WITH FAKES
+####################################################
+    num_fake_users = len(fake_user_list)
+    # keep track of match history - no requests if users matched
+    # also - only one user in a pair should send a request
+    # initialize match_history object with all user ids as keys and empty array values
+    match_history = {fake_user.id: [] for fake_user in fake_user_list}
+    # generate fake matches
+    #   power should be between 0 and 1!!!!
+    #   If power is 1 a user will match with everyone
+
+    def make_fake_match_and_match_req(match_history, power, table):
+        for fake_user in fake_user_list:
+            fake_user_id = fake_user.id
+            # get match array from match history if it exists
+            # otherwise, its an empty array
+            fake_user_match_array = match_history[fake_user_id]
+
+            num_fake_matches = randrange(1, int(num_fake_users**0.5))
+            i = 0
+            # j is just in case there's a problem we don't get stuck in inf loop
+            j = 0
+            while i in range(num_fake_matches) and j in range(num_fake_matches):
+                fake_match = fake_user_list[randrange(num_fake_users)]
+                # make sure the match is not same as user
+                while fake_user_id == fake_match.id:
+                    fake_match = fake_user_list[randrange(num_fake_users)]
+                # make sure that match not already made
+                fake_match_match_array = match_history[fake_match.id]
+                if fake_user_id in fake_match_match_array or fake_match.id in fake_user_match_array:
+                    j += 1
+                    continue
+                # if match not already made, make it and add to history
+                fake_user_match_array.append(fake_match.id)
+                fake_match_match_array.append(fake_user.id)
+                match_history[fake_match.id] = [*fake_match_match_array]
+                i += 1
+                j += 1
+
+                data = {'from_id': fake_match.id, 'to_id': fake_user.id} if table == MatchRequest else {
+                    'users': [fake_user, fake_match], 'status': True}
+                fake_match = table(**data)
+                db.session.add(fake_match)
+            # we update fake_user's match array here so set attr isn't called as often
+            match_history[fake_user_id] = [*fake_user_match_array]
+        return match_history
+
+    # generate fake matches and match requests
+    # match_history here is used in generating fake messages - users must be matched in order to message
+    fake_match_history = {**make_fake_match_and_match_req(
+        match_history, 0.5, Match)}
+    make_fake_match_and_match_req(match_history, 0.2, MatchRequest)
+
 
 ####################################################
 ####################################################
@@ -152,6 +257,9 @@ with app.app_context():
         for a in a_list:
             db.session.add(a)
 
+    # commit so we can use mc questions for fake users
+    db.session.commit()
+
 ####################################################
 # SEED MC RESPONSE TABLE
 ####################################################
@@ -176,6 +284,33 @@ with app.app_context():
     for mc_res in mc_res_list:
         db.session.add(mc_res)
 
+####################################################
+# SEED MC_RESPONSES WITH FAKES
+####################################################
+
+    # go through all fake users
+    for fake_user in fake_user_list:
+        user_id = fake_user.id
+        # go through all mc questions
+        for mc_qa in mc_qa_list:
+            q_id = mc_qa['q'].id
+            a_ids = [a.id for a in mc_qa['a']]
+            num_answers = len(a_ids)
+            # select a random answer
+            a_id = a_ids[randrange(num_answers)]
+            # add random unacceptable answers
+            unacceptable_as = []
+            for _ in range(randrange(num_answers)):
+                unacceptable_a = a_ids[randrange(num_answers)]
+                while unacceptable_a in unacceptable_as:
+                    unacceptable_a = a_ids[randrange(num_answers)]
+                unacceptable_as.append(unacceptable_a)
+            # pick random weight between 1 and 3
+            # that's what I have on MC page right now; may change.
+            weight = randrange(1, 4)
+            fake_res = MC_Response(user_id=user_id, mc_answer_id=a_id, mc_question_id=q_id,
+                                   unacceptable_answers=unacceptable_as, question_weight=weight)
+            db.session.add(fake_res)
 
 ####################################################
 ####################################################
@@ -214,6 +349,9 @@ with app.app_context():
     for fr_q in fr_q_list:
         db.session.add(fr_q)
 
+    # commit so we can use fr questions for fake users
+    db.session.commit()
+
 ####################################################
 # SEED FR RESPONSE TABLE
 ####################################################
@@ -229,6 +367,23 @@ with app.app_context():
 
     for fr_res in fr_res_list:
         db.session.add(fr_res)
+
+####################################################
+# SEED FR_RESPONSES WITH FAKES
+####################################################
+
+    # go through all fake users
+    for fake_user in fake_user_list:
+        user_id = fake_user.id
+        # go through all fr questions
+        for fr_q in fr_q_list:
+            # answer fr questions randomly
+            if fake.boolean():
+                fr_question_id = fr_q.id
+                fr_answer = fake.text()
+                fake_res = FR_Response(
+                    user_id=user_id, fr_question_id=fr_question_id, fr_answer=fr_answer)
+                db.session.add(fake_res)
 
 ####################################################
 ####################################################
@@ -253,6 +408,37 @@ with app.app_context():
     db.session.add(msg1)
     db.session.add(msg2)
 
+    # num_messages is the AVERAGE number of messages sent
+    def make_fake_messages(avg_num_messages, users, match_history):
+        # send messages for each user
+        for user in users:
+            id1 = user.id
+            # user_matches is an array of all matches - the user they send messages to must be in this array
+            user_matches = match_history[id1]
+            user_matches_from_db = Match.query.join(Match.users).filter(User.id == id1).all()
+            print(user_matches_from_db)
+            for _ in range(avg_num_messages):
+                rand_idx = randrange(len(user_matches))
+                id2 = user_matches[rand_idx]
+                # make sure user not messaging themself
+                while id2 == id1:
+                    rand_idx = randrange(len(user_matches))
+                    id2 = user_matches[rand_idx]
+                message = fake.text(max_nb_chars=50)
+                # alternate between sending/receiving
+                from_id = id1 if fake.boolean() else id2
+                match_id = None
+                for match in user_matches_from_db:
+                    pair_id_list = [user.id for user in match.users]
+                    if id2 in pair_id_list:
+                        match_id = match.id
+                        # every now and then it won't find the match id... buggy because I slapped it together.
+                        # with msg in this if statement we are guaranteed to have a match id
+                        msg = Message(message=message, from_id=from_id, match_id=match_id)
+                        db.session.add(msg)
+                        break
+
+    make_fake_messages(100, fake_user_list, fake_match_history)
 
 ####################################################
 # COMMIT DB CHANGES
