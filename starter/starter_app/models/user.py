@@ -3,24 +3,6 @@ from . import utcnow
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
-user_preferences = db.Table(
-    'user_preferences',
-    db.Model.metadata,
-    db.Column('user_id', db.Integer, db.ForeignKey(
-        'users.id'), primary_key=True),
-    db.Column('preference_id', db.Integer, db.ForeignKey(
-        'preferences.id'), primary_key=True)
-)
-
-# user_genders = db.Table(
-#     'user_geners',
-#     db.Model.metadata,
-#     db.Column('user_id', db.Integer, db.ForeignKey(
-#         'users.id'), primary_key=True),
-#     db.Column('gender_id', db.Integer, db.ForeignKey(
-#         'genders.id'), primary_key=True)
-# )
-
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
@@ -55,8 +37,14 @@ class User(db.Model, UserMixin):
 
     bio = db.Column(db.Text)
 
+    # rejects = db.relationship('Reject', foreign_keys=[id], back_populates='users')
+
     def to_dict(self):
         preferences = [pref.preference for pref in self.preferences]
+        # rejects = [reject.reject_id for reject in self.rejects]
+        gender = self.genders.gender if self.genders else ''
+        pronouns = self.pronouns.pronoun if self.pronouns else ''
+
         return {
             "id": self.id,
             "first_name": self.first_name,
@@ -65,8 +53,9 @@ class User(db.Model, UserMixin):
             'location': self.location,
             'preferences': preferences,
             'bio': self.bio,
-            'gender': self.genders.gender,
-            'pronouns': self.pronouns.pronoun
+            'gender': gender,
+            'pronouns': pronouns,
+            # 'rejects': rejects
         }
 
     @property
@@ -115,14 +104,6 @@ class Photo(db.Model):
         'created_at': self.created_at }
 
 
-class Preference(db.Model):
-    __tablename__ = 'preferences'
-
-    id = db.Column(db.Integer, primary_key=True)
-    preference = db.Column(db.String(40))
-    users = db.relationship(
-        'User', secondary='user_preferences', back_populates='preferences')
-
 
 class Gender(db.Model):
     __tablename__ = 'genders'
@@ -140,3 +121,36 @@ class Pronoun(db.Model):
     pronoun = db.Column(db.String(40))
     users = db.relationship(
         'User', back_populates='pronouns')
+
+class Preference(db.Model):
+    __tablename__ = 'preferences'
+
+    id = db.Column(db.Integer, primary_key=True)
+    preference = db.Column(db.String(40))
+    users = db.relationship(
+        'User', secondary='user_preferences', back_populates='preferences')
+
+
+user_preferences = db.Table(
+    'user_preferences',
+    db.Model.metadata,
+    db.Column('user_id', db.Integer, db.ForeignKey(
+        'users.id'), primary_key=True),
+    db.Column('preference_id', db.Integer, db.ForeignKey(
+        'preferences.id'), primary_key=True)
+)
+
+
+class Reject(db.Model):
+    __tablename__ = 'rejects'
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    reject_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+
+    # user = db.relationship('User', foreign_keys=[user_id])
+    # reject = db.relationship('User', foreign_keys=[reject_id])
+
+    rejected_people = db.relationship(
+        'User', foreign_keys=[reject_id], backref='rejects')
+    user = db.relationship('User', foreign_keys=[user_id])
