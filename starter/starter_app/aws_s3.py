@@ -2,14 +2,14 @@ import time
 import boto3
 import os
 
+S3_BUCKET=os.environ.get('S3_BUCKET')
 S3_KEY=os.environ.get('AWS_ACCESS_KEY_ID')
 S3_SECRET=os.environ.get('AWS_SECRET_ACCESS_KEY')
-S3_BUCKET=os.environ.get('S3_BUCKET')
 
 # s3 credentials to be stored as env variables in a config file
 
 s3 = boto3.client(
-    "s3",
+    's3',
     aws_access_key_id=S3_KEY,
     aws_secret_access_key=S3_SECRET
 )
