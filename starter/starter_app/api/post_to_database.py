@@ -15,10 +15,11 @@ def upload(userId):
 
     # B
     f = request.files['file']
+    print('f----------------------->', f)
     f.filename = change_name(f.filename)
     print('os.path ==========', os.path)
     # f.save(os.path.join('uploads', f.filename))
-    photo_url = upload_file_to_s3(f, 'while-single-bucket')
+    photo_url = upload_file_to_s3(f, 'while-single-two')
     """
         These attributes are also available
 

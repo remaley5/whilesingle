@@ -60,7 +60,7 @@ export const McContextProvider = (props) => {
 	// make sure context loaded before rendering children
   for (let i = 0; i < mcLoading.length; i++) {
     if (mcLoading[i]) {
-      return 'Loading...';
+      return 'where is it?';
     }
 	}
 

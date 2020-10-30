@@ -1,0 +1,61 @@
+/*
+mc-con
+    mc-side-bar
+        side-bar-head
+        side-bar-info
+        side-bar-btn answered
+        side-bar-btn new
+    mc-ques-con
+        ques-con
+            ques-head
+                mc-sel
+                mc-sel-label
+*/
+
+.mc-con {
+    width: 80%;
+    margin: auto;
+    padding: 30px;
+    display: flex;
+    gap: 50px;
+}
+
+.mc-side-bar {
+    background-color: rgb(223, 238, 255);
+    width: 150px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 6px gray;
+}
+
+.mc-ques-con {
+    box-shadow: 0 0 6px gray;
+    width: 60%;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.ques-con {
+    width: 100%;
+    background-color: rgb(241, 239, 239);
+    box-shadow: 0 0 6px gray;
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+.ques-head {
+
+}
+
+.mc-sel {
+
+}
+
+.mc-sel-label {
+
+}

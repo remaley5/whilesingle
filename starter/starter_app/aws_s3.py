@@ -10,19 +10,25 @@ S3_BUCKET=os.environ.get('S3_BUCKET')
 
 s3 = boto3.client(
     "s3",
-    aws_access_key_id=S3_KEY,
-    aws_secret_access_key=S3_SECRET
+    aws_access_key_id='AKIARASXTV3LLH54LIOI',
+    aws_secret_access_key='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'
 )
 
 #This function posts to aws and returns a photo url
 def upload_file_to_s3(f, bucket_name, acl="public-read"):
-    print('bucket and file', f, bucket_name)
+    print('bucket and file ------------------------', f, bucket_name)
 
     try:
-        s3_client = boto3.client('s3')
-        response = s3_client.upload_fileobj(f, bucket_name, f.filename)
+        # s3_client = boto3.client('s3')
+        response = s3.upload_fileobj(
+            f, bucket_name, f.filename,
+            ExtraArgs={
+                "ACL": acl,
+                "ContentType": f.content_type
+            }
+        )
         photoUrl = "{}{}".format(
-            'https://while-single-bucket.s3-us-west-2.amazonaws.com/', f.filename)
+            'https://while-single-two.s3-us-west-2.amazonaws.com/', f.filename)
         return photoUrl
 
     except Exception as e:

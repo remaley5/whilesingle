@@ -30,7 +30,7 @@ export const UserProfileContextProvider = (props) => {
 	const [userProfile, userProfileLoading] = useFetch(`/api/users/${user_id}`, user_id);
 
 	if (userProfileLoading) {
-		return "Loading...";
+		return "where's your stuff?";
 	}
   return (
     <UserProfileContext.Provider value={userProfile}>

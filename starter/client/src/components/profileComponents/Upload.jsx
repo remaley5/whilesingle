@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import AuthContext from '../../auth'
 
 function Upload({open, setOpen}) {
@@ -57,7 +57,9 @@ function Upload({open, setOpen}) {
 				{
 					(photos.length >= 1) ?
 						photos.map((photo) => (
+							<div className='added-photo-con'>
 							<img className='added-photo' src={photo.photo_url} alt='phot' />
+							</div>
 						)) : <div></div>
 				}
 			</div>

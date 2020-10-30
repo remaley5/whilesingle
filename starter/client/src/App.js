@@ -1,18 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { Switch, useLocation } from "react-router-dom";
 
-import UserList from "./components/UsersList";
-import Messages from "./components/messengerComponents/Messages";
-import Fr from "./views/Fr";
-import Mc from "./views/Mc";
-import Login from "./components/Login";
-import Signup from "./components/Signup";
-import Home from "./components/Home";
-import Upload from "./components/profileComponents/Upload";
 import ProfileContainer from "./components/profileComponents/ProfileContainer";
-import AuthContext from "./auth";
-import NavBar from "./components/NavBar";
-import { ProtectedRoute, AuthRoute } from "./Routes";
+import EditProfileContainer from "./components/profileComponents/EditProfileContainer";
+import Profile from './components/profileComponents/Profile'
+
+import UserList from './components/UsersList';
+import Messages from './components/messengerComponents/Messages'
+import Fr from './views/Fr'
+import Mc from './views/Mc'
+import Login from './components/Login';
+import Signup from './components/Signup';
+import Home from './components/Home';
+import Upload from './components/profileComponents/Upload'
+import AuthContext from './auth';
+import NavBar from './components/NavBar'
+import McBase from './components/mc_questions/McBase'
+import { ProtectedRoute, AuthRoute } from './Routes';
 
 function App() {
   let location = useLocation();

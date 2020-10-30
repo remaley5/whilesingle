@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext, useState, useEffect} from 'react';
+import AuthContext from '../auth'
 
 let user = {
   username: 'Sophie',
@@ -8,11 +9,25 @@ let user = {
 }
 
 function Home(props) {
+
+  const { currentUserId } = useContext(AuthContext);
+  const [userBank, setUserBank] = useState()
+  const [viewingUser, setViewingUser] = useState();
+
+  useEffect(() => {
+    (async () => {
+      const res = await fetch(`/api/matches/swipe/${currentUserId}`)
+      const data = await res.json();
+      setUserBank(data)
+      setViewingUser(data[0])
+    })()
+  }, []);
+
   return (
     <>
       <div className='swipe-con'>
         <div className='swipe-img-con'>
-          <img className='swipe-img' src='https://while-single-bucket.s3-us-west-2.amazonaws.com/default.jpg' />
+          <img className='swipe-img' src='https://while-single-bucket.s3-us-west-2.amazonaws.com/default.jpg' alt='person'/>
         </div>
         <div className='swipe__info'>
           <h3 className='swipe-info__head'>{user.username}</h3>
