@@ -90,11 +90,11 @@ class MatchRequest(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     to_id = db.Column(db.Integer, db.ForeignKey(
         "users.id"), nullable=True)
-    from_id = db.Column(db.Integer)
+    from_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     created_at = db.Column('created_at', db.DateTime, default=utcnow())
 
-    user = db.relationship("User")
-
+    to_user = db.relationship('User', foreign_keys=[to_id])
+    from_user = db.relationship('User', foreign_keys=[from_id])
 
 class Photo(db.Model):
     __tablename__ = 'photos'
