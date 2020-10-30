@@ -14,6 +14,7 @@ import Profile from './components/profileComponents/Profile'
 import AuthContext from './auth';
 import NavBar from './components/NavBar'
 import McBase from './components/mc_questions/McBase'
+import SetPreferences from './components/loginComponents/SetPreferences'
 import { ProtectedRoute, AuthRoute } from './Routes';
 
 
@@ -81,6 +82,7 @@ function App() {
             <ProtectedRoute path='/mc_questions' exact component={Mc} currentUserId={currentUserId}/>
             <ProtectedRoute path='/upload_images' exact component={Upload} currentUserId={currentUserId}/>
             <ProtectedRoute path={`/profile`} exact component={EditProfileContainer} currentUserId={currentUserId} />
+            <ProtectedRoute path={`/set_preferences`} exact component={SetPreferences} currentUserId={currentUserId} />
             {/* <AuthRoute path="/login" component={Login} />
             <AuthRoute path="/signup" component={Signup} /> */}
         <ProtectedRoute

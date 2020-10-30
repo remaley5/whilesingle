@@ -1,0 +1,12 @@
+.test-page {
+    width: 60%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.section {
+    padding: 40px;
+    box-shadow: 0 0 6px gray;
+}
