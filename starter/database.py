@@ -57,7 +57,7 @@ with app.app_context():
     for pronoun in pronouns:
         db.session.add(pronoun)
 
-<<<<<<< HEAD
+    db.session.commit()
 
 ####################################################
 # SEED PHOTO TABLE
@@ -71,11 +71,8 @@ with app.app_context():
     db.session.add(two)
     db.session.add(three)
     db.session.add(four)
-=======
 # commit preferences, genders, and pronouns so we can use them in generating random users
-    db.session.commit()
 
->>>>>>> 1aecb0fcbc54ca9c9ab46bb3dc92ffa020b5dd14
 ####################################################
 # SEED USER TABLE
 ####################################################
