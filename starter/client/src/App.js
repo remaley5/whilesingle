@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Switch, useLocation } from "react-router-dom";
 
 import ProfileContainer from "./components/profileComponents/ProfileContainer";
-import EditProfileContainer from "./components/profileComponents/EditProfileContainer";
-import Profile from './components/profileComponents/Profile'
 
 import UserList from './components/UsersList';
 import Messages from './components/messengerComponents/Messages'

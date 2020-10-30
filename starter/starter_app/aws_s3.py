@@ -10,8 +10,8 @@ S3_BUCKET=os.environ.get('S3_BUCKET')
 
 s3 = boto3.client(
     "s3",
-    aws_access_key_id='AKIARASXTV3LLH54LIOI',
-    aws_secret_access_key='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'
+    aws_access_key_id=S3_KEY,
+    aws_secret_access_key=S3_SECRET
 )
 
 #This function posts to aws and returns a photo url
