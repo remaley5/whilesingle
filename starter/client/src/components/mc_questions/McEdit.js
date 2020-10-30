@@ -1,7 +1,8 @@
 import React, { useState, useContext, useEffect, useRef } from "react";
 import AuthContext from "../../auth";
+import McEditSelect from './McEditSelect'
 
-export default function McUserForm({ mcObj }) {
+export default function McEdit({ mcObj }) {
   const { fetchWithCSRF, currentUserId: user_id } = useContext(AuthContext);
   const [changed, setChanged] = useState(0);
   const {
@@ -68,34 +69,35 @@ export default function McUserForm({ mcObj }) {
 	// there's gotta be a better way but whatever - this works.
   useEffect(() => {
     handleSubmit();
-  }, [changed]);
+	}, [changed]);
+
+	const weightProps = {
+		handleChange: handleWeight,
+		name: `${mc_question_id}`,
+		id: `weight-${mc_question_id}`,
+		value: weightRef.current,
+		options: [['1', 'Less Important'], ['2', 'Neutral'], ['3', 'More Important']]
+	}
 
   return (
-    <div>
-      <div>
-        <span>{mc_question}</span>
+    <div className="pro-body__con">
+      <span >
+				<h3 className="pro-body__head">{mc_question}</h3>
         <span>
-          <select
-            onChange={handleWeight}
-            name={mc_question_id}
-            id={`weight-${mc_question_id}`}
-            value={weightRef.current}
-          >
-            <option value="1">Less Important</option>
-            <option value="2">Neutral</option>
-            <option value="3">More Important</option>
-          </select>
+					{/* I think the McEditSelect should be on the same line as the question prompt - flexbox? */}
+					<McEditSelect props={weightProps} />
         </span>
-      </div>
-      <div>
+      </span>
+      <div className='pro-body__cont'>
         {mc_answer_options.map(({ mc_answer, mc_answer_id }, idx) => {
           return (
-            <div key={idx}>
+            <div key={idx} >
               <input
                 required
                 type="radio"
                 name={mc_question_id}
-                id={`answer-${mc_answer_id}`}
+								id={`answer-${mc_answer_id}`}
+
                 defaultChecked={
                   user_mc_answer_id === mc_answer_id ? true : false
                 }
