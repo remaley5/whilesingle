@@ -12,17 +12,20 @@ export default function FrUserForm({ frObj }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const url = `/api/questions/fr/${user_id}/answer`;
-    const body = JSON.stringify({
-      question_id: fr_question_id,
-      response,
-    });
+    let url = `/api/questions/fr/${user_id}/answer`;
+    let body = { question_id: fr_question_id, response };
+
+    if (fr_question_id === 'bio') {
+			url = `/api/users/${user_id}`
+			body = {bio: response}
+    }
+
     const options = {
       method: "post",
       headers: {
         "Content-Type": "application/json",
       },
-      body,
+      body: JSON.stringify(body),
     };
     fetchWithCSRF(url, options);
   };
@@ -37,7 +40,7 @@ export default function FrUserForm({ frObj }) {
         <h3 className="pro-body__head">{fr_question}</h3>
         <p className={response ? "pro-body__cont" : "pro-body__alt-cont"}>
           <TextareaAutosize
-						className='textarea'
+            className="textarea"
             aria-label="minimum height"
             rowsMin={2}
             placeholder={fr_alt}
