@@ -1,7 +1,8 @@
 import React, { useState, useContext, useEffect, useRef } from "react";
 import AuthContext from "../../auth";
+import McEditSelect from "./McEditSelect";
 
-export default function McUserForm({ mcObj }) {
+export default function McEdit({ mcObj }) {
   const { fetchWithCSRF, currentUserId: user_id } = useContext(AuthContext);
   const [changed, setChanged] = useState(0);
   const {
@@ -64,34 +65,35 @@ export default function McUserForm({ mcObj }) {
     fetchWithCSRF(url, options);
   };
 
-	// post response whenever a change is made
-	// there's gotta be a better way but whatever - this works.
+  // post response whenever a change is made
+  // there's gotta be a better way but whatever - this works.
   useEffect(() => {
     handleSubmit();
   }, [changed]);
 
+  const weightProps = {
+    handleChange: handleWeight,
+    name: `${mc_question_id}`,
+    id: `weight-${mc_question_id}`,
+    value: weightRef.current,
+    options: [
+      ["1", "Less Important"],
+      ["2", "Neutral"],
+      ["3", "More Important"],
+    ],
+  };
+
   return (
-    <div>
-      <div>
-        <span>{mc_question}</span>
-        <span>
-          <select
-            onChange={handleWeight}
-            name={mc_question_id}
-            id={`weight-${mc_question_id}`}
-            value={weightRef.current}
-          >
-            <option value="1">Less Important</option>
-            <option value="2">Neutral</option>
-            <option value="3">More Important</option>
-          </select>
-        </span>
-      </div>
+    <div className="ques-con">
+      <h4 className="ques-head">{mc_question}</h4>
+      {/* I think the McEditSelect should be on the same line as the question prompt - flexbox? */}
+      <McEditSelect props={weightProps} />
       <div>
         {mc_answer_options.map(({ mc_answer, mc_answer_id }, idx) => {
           return (
             <div key={idx}>
               <input
+								className='mc-sel mc-sel-radio'
                 required
                 type="radio"
                 name={mc_question_id}
@@ -101,9 +103,10 @@ export default function McUserForm({ mcObj }) {
                 }
                 onChange={handleAnswer}
               />
-              <label htmlFor={mc_question_id}>{mc_answer}</label>
+              <label className='mc-sel-label' htmlFor={mc_question_id}>{mc_answer}</label>
               <input
-                type="checkbox"
+								type="checkbox"
+								className='mc-sel mc-sel-check'
                 checked={unacceptableRef.current.indexOf(mc_answer_id) !== -1}
                 name={mc_question_id}
                 id={`unacceptable-${mc_answer_id}`}

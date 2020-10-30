@@ -1,5 +1,5 @@
 from flask import Blueprint, redirect, render_template, url_for, request, jsonify
-from ..models import (db, User, Match, MatchRequest, Photo)
+from ..models import (db, User, Match, MatchRequest, Photo, Reject)
 from pprint import pprint
 from flask_login import login_required
 import itertools
@@ -16,14 +16,20 @@ def query_matches(user_id):
 @match_routes.route("/swipe/<user_id_param>")
 @login_required
 def get_users(user_id_param):
+    rejects = [id for id, in Reject.query.filter(Reject.user_id == user_id_param).with_entities(Reject.reject_id)]
+
+    right_swipes = [id for id, in MatchRequest.query.filter(MatchRequest.from_id == user_id_param).with_entities(MatchRequest.to_id)]
+
+    print(rejects, '=================================')
     matches = query_matches(user_id_param)
     user_id = int(user_id_param)
     matched_id = list(itertools.chain(*[[m.id for m in f.users if m.id != user_id] for f in matches]))
+    matched_id.append(user_id)
+    matched_id += rejects
+    matched_id += right_swipes
     users = User.query.options(joinedload("photos")).filter(User.id.notin_(matched_id)).limit(10)
-
-    users = [{"user_id": m.id, "first_name": m.first_name, "last_name": m.last_name, "photos": [photo.to_dict() for photo in m.photos] } for m in users if m.id != user_id]
-    # photos = [photo.to_dict() for photo in users.photos]
-    return jsonify(users)
+    data = [{'user':{**user.to_dict(), 'photos':[photo.to_dict() for photo in user.photos]}} for user in users]
+    return jsonify(data)
 
 # Get all your existing matches:
 # -------------------------------
@@ -57,3 +63,15 @@ def add_match(user_id_params):
         db.session.add(newRequest)
         db.session.commit()
         return "Sent request!"
+
+
+@match_routes.route("/reject/<user_id_params>", methods=['POST'])
+@login_required
+def reject_user(user_id_params):
+    user_id = int(user_id_params)
+    reject_id = int(request.json['user_id'])
+    reject = Reject(user_id=user_id, reject_id=reject_id)
+    db.session.add(reject)
+    db.session.commit()
+    print('===========================================================================================', user_id, reject_id, '===========================================================================================')
+    return 'ok'

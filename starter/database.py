@@ -1,4 +1,4 @@
-from starter_app.models import User, MC_Response, MC_Question, MC_Answer_Option, FR_Response, FR_Question, Match, Message, MatchRequest, Preference, Gender, Pronoun, Photo
+from starter_app.models import User, MC_Response, MC_Question, MC_Answer_Option, FR_Response, FR_Question, Match, Message, MatchRequest, Preference, Gender, Pronoun, Photo, Reject
 from starter_app import app, db
 from faker import Faker
 from random import randrange
@@ -76,6 +76,7 @@ with app.app_context():
 ####################################################
 # SEED USER TABLE
 ####################################################
+
     ian = User(first_name='Ian', last_name='Dude', email='ian@aa.io',
                password='password', preferences=[p1, p3, p5], genders=g1, pronouns=n1)
     javier = User(first_name='Javier', last_name='Dude',
@@ -89,12 +90,24 @@ with app.app_context():
     alissa = User(first_name='Alissa', last_name='Dude',
                   email='alissa@aa.io', password='password')
 
+
     db.session.add(ian)
     db.session.add(javier)
     db.session.add(dean)
     db.session.add(angela)
     db.session.add(soonmi)
     db.session.add(alissa)
+    db.session.commit()
+
+    test_reject5 = Reject(user_id=1, reject_id=5)
+    test_reject4 = Reject(user_id=1, reject_id=4)
+    test_reject3 = Reject(user_id=1, reject_id=3)
+
+    db.session.add(test_reject5)
+    db.session.add(test_reject4)
+    db.session.add(test_reject3)
+
+
 
 ####################################################
 # GENERATE RANDOM USERS WITH FAKER

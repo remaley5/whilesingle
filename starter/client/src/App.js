@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Switch, useLocation } from "react-router-dom";
 
+import ProfileContainer from "./components/profileComponents/ProfileContainer";
+
 import UserList from './components/UsersList';
 import Messages from './components/messengerComponents/Messages'
 import Fr from './views/Fr'
@@ -9,14 +11,11 @@ import Login from './components/Login';
 import Signup from './components/Signup';
 import Home from './components/Home';
 import Upload from './components/profileComponents/Upload'
-import EditProfileContainer from "./components/profileComponents/EditProfileContainer";
-import Profile from './components/profileComponents/Profile'
 import AuthContext from './auth';
 import NavBar from './components/NavBar'
 import McBase from './components/mc_questions/McBase'
 import SetPreferences from './components/loginComponents/SetPreferences'
 import { ProtectedRoute, AuthRoute } from './Routes';
-
 
 function App() {
   let location = useLocation();
@@ -31,43 +30,43 @@ function App() {
   };
 
   useEffect(() => {
-      async function restoreCSRF() {
-          const response = await fetch('/api/csrf/restore', {
-              method: "GET",
-              credentials: 'include'
-          });
-          if (response.ok){
-              const authData = await response.json();
-              setFetchWithCSRF(() => {
-                  return (resource, init) => {
-                      if(init.headers) {
-                          init.headers['X-CSRFToken'] = authData.csrf_token;
-                      } else {
-                          init.headers = {
-                              'X-CSRFToken': authData.csrf_token
-                          }
-                      }
-                      return fetch(resource, init)
-                  }
-              });
-              if(authData.current_user_id){
-                  setCurrentUserId(authData.current_user_id)
-              }
-  				}
-        setLoading(false);
+    async function restoreCSRF() {
+      const response = await fetch("/api/csrf/restore", {
+        method: "GET",
+        credentials: "include",
+      });
+      if (response.ok) {
+        const authData = await response.json();
+        setFetchWithCSRF(() => {
+          return (resource, init) => {
+            if (init.headers) {
+              init.headers["X-CSRFToken"] = authData.csrf_token;
+            } else {
+              init.headers = {
+                "X-CSRFToken": authData.csrf_token,
+              };
+            }
+            return fetch(resource, init);
+          };
+        });
+        if (authData.current_user_id) {
+          setCurrentUserId(authData.current_user_id);
+        }
       }
-      restoreCSRF();
-	}, []);
+      setLoading(false);
+    }
+    restoreCSRF();
+  }, []);
 
-	if(loading) {
-		return null
-	}
+  if (loading) {
+    return null;
+  }
 
   return (
     <AuthContext.Provider value={authContextValue}>
-      {location.pathname !== "/login" &&
-      location.pathname !== "/signup" ? (
+      {location.pathname !== "/login" && location.pathname !== "/signup" ? (
         <nav>
+<<<<<<< HEAD
             <NavBar currentUserId={currentUserId} />
         </nav>) : null}
         <Switch>
@@ -84,6 +83,72 @@ function App() {
             <ProtectedRoute path={`/profile`} exact component={EditProfileContainer} currentUserId={currentUserId} />
             <ProtectedRoute path={`/set_preferences`} exact component={SetPreferences} currentUserId={currentUserId} />
             {/* <AuthRoute path="/login" component={Login} />
+=======
+          <NavBar currentUserId={currentUserId} />
+        </nav>
+      ) : null}
+      <Switch>
+        <ProtectedRoute
+          path="/messenger"
+          exact
+          component={Messages}
+          currentUserId={currentUserId}
+        />
+        <ProtectedRoute
+          path="/profile/:id"
+          exact
+          component={ProfileContainer}
+          currentUserId={currentUserId}
+        />
+        <ProtectedRoute path="/settings" exact currentUserId={currentUserId} />
+        <ProtectedRoute
+          path="/quiz"
+          exact
+          currentUserId={currentUserId}
+					component={Mc}
+        />
+        <ProtectedRoute
+          path="/users"
+          exact
+          component={UserList}
+          currentUserId={currentUserId}
+        />
+        <AuthRoute
+          path="/login"
+          component={Login}
+          currentUserId={currentUserId}
+        />
+        <AuthRoute
+          path="/signup"
+          component={Signup}
+          currentUserId={currentUserId}
+        />
+        <ProtectedRoute
+          path="/fr_questions"
+          exact
+          component={Fr}
+          currentUserId={currentUserId}
+        />
+        <ProtectedRoute
+          path="/mc_questions"
+          exact
+          component={Mc}
+          currentUserId={currentUserId}
+        />
+        <ProtectedRoute
+          path="/upload_images"
+          exact
+          component={Upload}
+          currentUserId={currentUserId}
+        />
+        <ProtectedRoute
+          path="/profile"
+          exact
+          component={ProfileContainer}
+          currentUserId={currentUserId}
+        />
+        {/* <AuthRoute path="/login" component={Login} />
+>>>>>>> eb1dd2b9dcd55e67c2f334e553dcb7666555a1bb
             <AuthRoute path="/signup" component={Signup} /> */}
         <ProtectedRoute
           path="/"

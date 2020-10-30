@@ -13,14 +13,26 @@ def index():
     response = User.query.all()
     return {"users": [user.to_dict() for user in response]}
 
-@user_routes.route('/', methods = ["POST"])
+
+@user_routes.route('/', methods=["POST"])
 def createUser():
     email, password, firstName, lastName = request.json.values()
-    user = User(email=email, password=password, first_name=firstName, last_name=lastName)
+    user = User(email=email, password=password,
+                first_name=firstName, last_name=lastName)
     db.session.add(user)
     db.session.commit()
     login_user(user)
     return {"current_user_id": current_user.id}
+
+@user_routes.route('/<int:id>', methods=["POST"])
+def updateUser(id):
+    user = User.query.get(id)
+    if request.json['bio'] and request.json['bio'] != '':
+        user.bio = request.json['bio']
+    db.session.add(user)
+    db.session.commit()
+    return 'ok'
+
 
 @user_routes.route('/<int:id>')
 def getUser(id):
@@ -29,6 +41,7 @@ def getUser(id):
     if user:
         data = user.to_dict()
     return {'user': data}
+
 
 @user_routes.route('/photos/<int:user_id_param>')
 def getPhotos(user_id_param):

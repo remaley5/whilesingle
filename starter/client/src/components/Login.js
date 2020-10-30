@@ -108,6 +108,7 @@ function Login(props) {
   }
 
   async function loginUser(email, password) {
+		console.log(email, password)
     const response = await fetchWithCSRF('/login', {
       method: 'POST',
       headers: {
@@ -199,7 +200,6 @@ function Login(props) {
             >JOIN while(single):</Button>
           </div>
         </div>
-        <img src='https://while-single-bucket.s3-us-west-2.amazonaws.com/WedOct281609032020.png' alt='home'/>
       </LoginWrapper>
   );
 }
