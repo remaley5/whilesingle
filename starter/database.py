@@ -8,6 +8,7 @@ fake = Faker()
 # use this so same fake data generated each time
 Faker.seed(420)
 
+num_fake_users = 10
 
 with app.app_context():
     db.drop_all()
@@ -87,7 +88,7 @@ with app.app_context():
     # use this list later when adding fake mc/fr responses
     fake_user_list = []
     total_pref = len(preferences)
-    for i in range(5):
+    for _ in range(num_fake_users):
         first_name = fake.unique.first_name()
         last_name = fake.unique.last_name()
         email = fake.unique.email()
@@ -117,6 +118,9 @@ with app.app_context():
         fake_user_list.append(fake_user)
         db.session.add(fake_user)
 
+    # commit fake users so we can use ids in match request and other tables
+    db.session.commit()
+
 ####################################################
 # SEED MATCHREQUEST TABLE
 ####################################################
@@ -127,6 +131,21 @@ with app.app_context():
     db.session.add(ivan_to_javiar)
     db.session.add(dean_to_javiar)
     db.session.add(angela_to_javiar)
+
+####################################################
+# SEED MATCHREQUEST WITH FAKES
+####################################################
+    num_fake_users = len(fake_user_list)
+    for fake_user in fake_user_list:
+        fake_user_id = fake_user.id
+        num_fake_matches = randrange(1, int(num_fake_users**0.5))
+        for _ in range(num_fake_matches):
+            fake_match_id = fake_user_list[randrange(num_fake_users)].id
+            while fake_user_id == fake_match_id:
+                fake_match_id = fake_user_list[randrange(num_fake_users)].id
+            fake_match = MatchRequest(
+                from_id=fake_match_id, to_id=fake_user_id)
+            db.session.add(fake_match)
 
 ####################################################
 ####################################################
@@ -181,6 +200,9 @@ with app.app_context():
         for a in a_list:
             db.session.add(a)
 
+    # commit so we can use mc questions for fake users
+    db.session.commit()
+
 ####################################################
 # SEED MC RESPONSE TABLE
 ####################################################
@@ -205,6 +227,29 @@ with app.app_context():
     for mc_res in mc_res_list:
         db.session.add(mc_res)
 
+    # go through all fake users
+    for fake_user in fake_user_list:
+        user_id = fake_user.id
+        # go through all mc questions
+        for mc_qa in mc_qa_list:
+            q_id = mc_qa['q'].id
+            a_ids = [a.id for a in mc_qa['a']]
+            num_answers = len(a_ids)
+            # select a random answer
+            a_id = a_ids[randrange(num_answers)]
+            # add random unacceptable answers
+            unacceptable_as = []
+            for _ in range(randrange(num_answers)):
+                unacceptable_a = a_ids[randrange(num_answers)]
+                while unacceptable_a in unacceptable_as:
+                    unacceptable_a = a_ids[randrange(num_answers)]
+                unacceptable_as.append(unacceptable_a)
+            # pick random weight between 1 and 3
+            # that's what I have on MC page right now; may change.
+            weight = randrange(1, 4)
+            fake_res = MC_Response(user_id=user_id, mc_answer_id=a_id, mc_question_id=q_id,
+                                   unacceptable_answers=unacceptable_as, question_weight=weight)
+            db.session.add(fake_res)
 
 ####################################################
 ####################################################
