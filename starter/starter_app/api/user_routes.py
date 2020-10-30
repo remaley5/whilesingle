@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from starter_app.models import User, Photo, db
+from starter_app.models import User, Photo, db, Preference, Gender, Pronoun
 from flask_login import current_user, login_required, login_user
 
 user_routes = Blueprint('users', __name__)
@@ -49,3 +49,17 @@ def getPhotos(user_id_param):
     photoList = [photo.to_dict() for photo in photos]
     print('-------------------', photoList)
     return jsonify({'photos': photoList})
+
+# pronouns genders preferences
+
+@user_routes.route('/info_options')
+def getUserInfoOptions():
+    pronouns = Pronoun.query.all()
+    pronounList = [pronoun.pronoun for pronoun in pronouns]
+    genders = Gender.query.all()
+    genderList = [gender.gender for gender in genders]
+    preferences = Preference.query.all()
+    preferenceList = [preference.preference for preference in preferences]
+    return {'pronouns': pronounList,
+            'genders': genderList,
+            'preferences': preferenceList}

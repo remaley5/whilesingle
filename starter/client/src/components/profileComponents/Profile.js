@@ -6,6 +6,8 @@ import { UserProfileContext } from "../../context/user_profile_context";
 import Fr from "../../views/Fr";
 import FrView from "../fr_questions/FrView";
 import FrEdit from "../fr_questions/FrEdit";
+import UserInfoView from "./UserInfoView";
+import UserInfoEdit from "./UserInfoEdit";
 
 import EditIcon from "@material-ui/icons/Edit";
 
@@ -43,9 +45,9 @@ function Profile() {
   }
   if (!bio) {
     bio = "Tell us about yourself";
-  } else if (bio === ' '){
-		bio = null;
-	}
+  } else if (bio === " ") {
+    bio = null;
+  }
   if (!gender) {
     gender = "Human";
   }
@@ -75,6 +77,16 @@ function Profile() {
     fr_question_id: "bio",
   };
 
+  const userInfoObj = {
+    first_name,
+    last_name,
+    location,
+    gender,
+    pronouns,
+    preferencesString,
+  };
+  console.log(userInfoObj);
+
   return (
     <>
       <button onClick={changeEdit}>
@@ -86,13 +98,11 @@ function Profile() {
             className="pro-head__img"
             src="https://while-single-bucket.s3-us-west-2.amazonaws.com/default.jpg"
           />
-          <div className="pro-head__cont">
-            <h2 className="pro-head__username">{`${first_name} ${last_name}`}</h2>
-            <h4 className="pro-head__location">{location}</h4>
-            <p className="pro-head__pref">Identifies as: {gender}</p>
-            <p className="pro-head__pref">Pronouns: {pronouns} pronouns</p>
-            <p className="pro-head__pref">Interested in: {preferencesString}</p>
-          </div>
+          {edit ? (
+            <UserInfoEdit userInfoObj={userInfoObj} />
+          ) : (
+            <UserInfoView userInfoObj={userInfoObj} />
+          )}
         </div>
         <div className="pro-body-outer">
           <div className="pro-body">
