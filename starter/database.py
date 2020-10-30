@@ -227,6 +227,10 @@ with app.app_context():
     for mc_res in mc_res_list:
         db.session.add(mc_res)
 
+####################################################
+# SEED MC_RESPONSES WITH FAKES
+####################################################
+
     # go through all fake users
     for fake_user in fake_user_list:
         user_id = fake_user.id
@@ -288,6 +292,9 @@ with app.app_context():
     for fr_q in fr_q_list:
         db.session.add(fr_q)
 
+    # commit so we can use fr questions for fake users
+    db.session.commit()
+
 ####################################################
 # SEED FR RESPONSE TABLE
 ####################################################
@@ -303,6 +310,22 @@ with app.app_context():
 
     for fr_res in fr_res_list:
         db.session.add(fr_res)
+
+####################################################
+# SEED FR_RESPONSES WITH FAKES
+####################################################
+
+    # go through all fake users
+    for fake_user in fake_user_list:
+        user_id = fake_user.id
+        # go through all fr questions
+        for fr_q in fr_q_list:
+            # answer fr questions randomly
+            if fake.boolean():
+                fr_question_id = fr_q.id
+                fr_answer = fake.text()
+                fake_res = FR_Response(user_id=user_id, fr_question_id=fr_question_id, fr_answer=fr_answer)
+                db.session.add(fake_res)
 
 ####################################################
 ####################################################
