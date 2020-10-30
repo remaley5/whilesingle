@@ -1,8 +1,12 @@
 from starter_app.models import User, MC_Response, MC_Question, MC_Answer_Option, FR_Response, FR_Question, Match, Message, MatchRequest, Preference, Gender, Pronoun
 from starter_app import app, db
 from faker import Faker
+from random import randrange
 from dotenv import load_dotenv
 load_dotenv()
+fake = Faker()
+# use this so same fake data generated each time
+Faker.seed(420)
 
 
 with app.app_context():
@@ -39,7 +43,6 @@ with app.app_context():
     genders = [g1, g2, g3, g4, g5, g6, g7, g8]
     for gender in genders:
         db.session.add(gender)
-
 ####################################################
 # SEED PRONOUNS TABLE
 ####################################################
@@ -51,6 +54,9 @@ with app.app_context():
     pronouns = [n1, n2, n3]
     for pronoun in pronouns:
         db.session.add(pronoun)
+
+# commit preferences, genders, and pronouns so we can use them in generating random users
+    db.session.commit()
 
 ####################################################
 # SEED USER TABLE
@@ -74,6 +80,42 @@ with app.app_context():
     db.session.add(angela)
     db.session.add(soonmi)
     db.session.add(alissa)
+
+####################################################
+# GENERATE RANDOM USERS WITH FAKER
+####################################################
+    # use this list later when adding fake mc/fr responses
+    fake_user_list = []
+    total_pref = len(preferences)
+    for i in range(5):
+        first_name = fake.unique.first_name()
+        last_name = fake.unique.last_name()
+        email = fake.unique.email()
+        password = 'password'
+
+        gender_id = genders[randrange(len(genders))].id
+        pronoun_id = pronouns[randrange(len(pronouns))].id
+
+        location = f'{fake.city()}, {fake.state_abbr(include_territories=False)}'
+
+        bio = fake.text(max_nb_chars=200)
+
+        preference_list = []
+        # number of preferences to include
+        num_preferences = randrange(1, total_pref)
+        for i in range(num_preferences):
+            pref_num = randrange(total_pref)
+            pref_to_add = preferences[pref_num]
+            while pref_to_add in preference_list:
+                pref_num = randrange(total_pref)
+                pref_to_add = preferences[pref_num]
+            preference_list.append(pref_to_add)
+
+        user_info = {'first_name': first_name, 'last_name': last_name,
+                     'email': email, 'password': password, 'gender_id': gender_id, 'pronoun_id': pronoun_id, 'location': location, 'preferences': preference_list, 'bio': bio}
+        fake_user = User(**user_info)
+        fake_user_list.append(fake_user)
+        db.session.add(fake_user)
 
 ####################################################
 # SEED MATCHREQUEST TABLE
