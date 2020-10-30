@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect, useRef } from "react";
 import AuthContext from "../../auth";
-import McEditSelect from './McEditSelect'
+import McEditSelect from "./McEditSelect";
 
 export default function McEdit({ mcObj }) {
   const { fetchWithCSRF, currentUserId: user_id } = useContext(AuthContext);
@@ -65,47 +65,48 @@ export default function McEdit({ mcObj }) {
     fetchWithCSRF(url, options);
   };
 
-	// post response whenever a change is made
-	// there's gotta be a better way but whatever - this works.
+  // post response whenever a change is made
+  // there's gotta be a better way but whatever - this works.
   useEffect(() => {
     handleSubmit();
-	}, [changed]);
+  }, [changed]);
 
-	const weightProps = {
-		handleChange: handleWeight,
-		name: `${mc_question_id}`,
-		id: `weight-${mc_question_id}`,
-		value: weightRef.current,
-		options: [['1', 'Less Important'], ['2', 'Neutral'], ['3', 'More Important']]
-	}
+  const weightProps = {
+    handleChange: handleWeight,
+    name: `${mc_question_id}`,
+    id: `weight-${mc_question_id}`,
+    value: weightRef.current,
+    options: [
+      ["1", "Less Important"],
+      ["2", "Neutral"],
+      ["3", "More Important"],
+    ],
+  };
 
   return (
-    <div className="pro-body__con">
-      <span >
-				<h3 className="pro-body__head">{mc_question}</h3>
-        <span>
-					{/* I think the McEditSelect should be on the same line as the question prompt - flexbox? */}
-					<McEditSelect props={weightProps} />
-        </span>
-      </span>
-      <div className='pro-body__cont'>
+    <div className="ques-con">
+      <h4 className="ques-head">{mc_question}</h4>
+      {/* I think the McEditSelect should be on the same line as the question prompt - flexbox? */}
+      <McEditSelect props={weightProps} />
+      <div>
         {mc_answer_options.map(({ mc_answer, mc_answer_id }, idx) => {
           return (
-            <div key={idx} >
+            <div key={idx}>
               <input
+								className='mc-sel mc-sel-radio'
                 required
                 type="radio"
                 name={mc_question_id}
-								id={`answer-${mc_answer_id}`}
-
+                id={`answer-${mc_answer_id}`}
                 defaultChecked={
                   user_mc_answer_id === mc_answer_id ? true : false
                 }
                 onChange={handleAnswer}
               />
-              <label htmlFor={mc_question_id}>{mc_answer}</label>
+              <label className='mc-sel-label' htmlFor={mc_question_id}>{mc_answer}</label>
               <input
-                type="checkbox"
+								type="checkbox"
+								className='mc-sel mc-sel-check'
                 checked={unacceptableRef.current.indexOf(mc_answer_id) !== -1}
                 name={mc_question_id}
                 id={`unacceptable-${mc_answer_id}`}
