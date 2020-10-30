@@ -13,6 +13,7 @@ import EditProfileContainer from "./components/profileComponents/EditProfileCont
 import Profile from './components/profileComponents/Profile'
 import AuthContext from './auth';
 import NavBar from './components/NavBar'
+import McBase from './components/mc_questions/McBase'
 import { ProtectedRoute, AuthRoute } from './Routes';
 
 
@@ -72,7 +73,7 @@ function App() {
 			<ProtectedRoute path="/messenger" exact component={Messages} currentUserId={currentUserId} />
             <ProtectedRoute path="/profile/:id" exact component={Profile} currentUserId={currentUserId}/>
             <ProtectedRoute path="/settings" exact currentUserId={currentUserId}/>
-            <ProtectedRoute path="/quiz" exact currentUserId={currentUserId} render={() => <Mc view={'edit'}/>}/>
+            <ProtectedRoute path="/quiz" exact component={McBase} currentUserId={currentUserId} />
             <ProtectedRoute path="/users" exact component={UserList} currentUserId={currentUserId} />
             <AuthRoute path="/login" component={Login} currentUserId={currentUserId} />
             <AuthRoute path="/signup" component={Signup} currentUserId={currentUserId} />

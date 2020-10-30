@@ -59,7 +59,7 @@ export const FrContextProvider = (props) => {
 	// make sure context loaded before rendering children
   for (let i = 0; i < frLoading.length; i++) {
     if (frLoading[i]) {
-      return 'Loading...';
+      return 'idk....';
     }
 	}
 

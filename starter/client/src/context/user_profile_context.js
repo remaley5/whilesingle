@@ -52,7 +52,7 @@ export const UserProfileContextProvider = (props) => {
   // }
 
 	if (userProfileLoading) {
-		return "Loading...";
+		return "where's your stuff?";
 	}
   return (
     <UserProfileContext.Provider value={userProfile}>
