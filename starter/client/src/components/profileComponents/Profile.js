@@ -4,6 +4,8 @@ import Button from "@material-ui/core/Button";
 // import { withStyles } from '@material-ui/core/styles';
 import { UserProfileContext } from "../../context/user_profile_context";
 import Fr from "../../views/Fr";
+import FrView from "../fr_questions/FrView";
+import FrEdit from "../fr_questions/FrEdit";
 
 import EditIcon from "@material-ui/icons/Edit";
 
@@ -41,7 +43,9 @@ function Profile() {
   }
   if (!bio) {
     bio = "Tell us about yourself";
-  }
+  } else if (bio === ' '){
+		bio = null;
+	}
   if (!gender) {
     gender = "Human";
   }
@@ -62,6 +66,13 @@ function Profile() {
 
   const changeEdit = () => {
     edit ? setEdit(false) : setEdit(true);
+  };
+
+  const bioObj = {
+    fr_question: "About Me",
+    fr_answer: bio,
+    fr_alt: "Tell us about yourself",
+    fr_question_id: "bio",
   };
 
   return (
@@ -85,10 +96,7 @@ function Profile() {
         </div>
         <div className="pro-body-outer">
           <div className="pro-body">
-            <div className="pro-body__con">
-              <h3 className="pro-body__head">about me</h3>
-              <p className="pro-body__cont">{bio}</p>
-            </div>
+            {edit ? <FrEdit frObj={bioObj} /> : <FrView frObj={bioObj} />}
             <div className="pro-body__img-con">
               {/* <Button variant="outlined" color="primary" onClick={handleClickOpen}>edit photos</Button> */}
               {edit ? (

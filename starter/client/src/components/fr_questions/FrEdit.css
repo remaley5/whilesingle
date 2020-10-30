@@ -4,6 +4,7 @@
   background-color: transparent;
 	resize: none;
 	outline: none;
+	padding: inherit;
 	/* overflow-y: visible; */
 	/* grab styling from parent */
   color: inherit;
