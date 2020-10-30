@@ -19,6 +19,8 @@ class User(db.Model, UserMixin):
     matches = db.relationship(
         "Match", secondary="match_users", back_populates="users")
 
+    photos = db.relationship("Photo", backref="users")
+
     def to_dict(self):
         return {
             "id": self.id,
@@ -63,4 +65,10 @@ class Photo(db.Model):
     photo_url = db.Column(db.String, nullable=False, unique=True)
     created_at = db.Column('created_at', db.DateTime, default=utcnow())
 
-    user = db.relationship("User")
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "user_id": self.user_id,
+            "photo_url": self.photo_url,
+            "created_at": self.created_at
+        }
