@@ -90,8 +90,8 @@ with app.app_context():
     fake_user_list = []
     total_pref = len(preferences)
     for _ in range(num_fake_users):
-        first_name = fake.unique.first_name()
-        last_name = fake.unique.last_name()
+        first_name = fake.first_name()
+        last_name = fake.last_name()
         email = fake.unique.email()
         password = 'password'
 
@@ -169,7 +169,7 @@ with app.app_context():
                 # if match not already made, make it and add to history
                 fake_user_match_array.append(fake_match.id)
                 fake_match_match_array.append(fake_user.id)
-                match_history[fake_match.id] = fake_match_match_array
+                match_history[fake_match.id] = [*fake_match_match_array]
                 i += 1
                 j += 1
 
@@ -178,10 +178,13 @@ with app.app_context():
                 fake_match = table(**data)
                 db.session.add(fake_match)
             # we update fake_user's match array here so set attr isn't called as often
-            match_history[fake_user_id] = fake_user_match_array
+            match_history[fake_user_id] = [*fake_user_match_array]
+        return match_history
 
     # generate fake matches and match requests
-    make_fake_match_and_match_req(match_history, 0.5, Match)
+    # match_history here is used in generating fake messages - users must be matched in order to message
+    fake_match_history = {**make_fake_match_and_match_req(
+        match_history, 0.5, Match)}
     make_fake_match_and_match_req(match_history, 0.2, MatchRequest)
 
 
@@ -389,6 +392,37 @@ with app.app_context():
     db.session.add(msg1)
     db.session.add(msg2)
 
+    # num_messages is the AVERAGE number of messages sent
+    def make_fake_messages(avg_num_messages, users, match_history):
+        # send messages for each user
+        for user in users:
+            id1 = user.id
+            # user_matches is an array of all matches - the user they send messages to must be in this array
+            user_matches = match_history[id1]
+            user_matches_from_db = Match.query.join(Match.users).filter(User.id == id1).all()
+            print(user_matches_from_db)
+            for _ in range(avg_num_messages):
+                rand_idx = randrange(len(user_matches))
+                id2 = user_matches[rand_idx]
+                # make sure user not messaging themself
+                while id2 == id1:
+                    rand_idx = randrange(len(user_matches))
+                    id2 = user_matches[rand_idx]
+                message = fake.text(max_nb_chars=50)
+                # alternate between sending/receiving
+                from_id = id1 if fake.boolean() else id2
+                match_id = None
+                for match in user_matches_from_db:
+                    pair_id_list = [user.id for user in match.users]
+                    if id2 in pair_id_list:
+                        match_id = match.id
+                        # every now and then it won't find the match id... buggy because I slapped it together.
+                        # with msg in this if statement we are guaranteed to have a match id
+                        msg = Message(message=message, from_id=from_id, match_id=match_id)
+                        db.session.add(msg)
+                        break
+
+    make_fake_messages(100, fake_user_list, fake_match_history)
 
 ####################################################
 # COMMIT DB CHANGES
