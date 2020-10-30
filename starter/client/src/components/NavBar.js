@@ -70,9 +70,6 @@ const NavBar = () => {
                         <NavLink to={`/profile`} className='menu-link'>
                             <MenuItem>Profile</MenuItem>
                         </NavLink>
-                        <NavLink to='/settings' className='menu-link'>
-                            <MenuItem >Friend Account</MenuItem>
-                        </NavLink>
                         <MenuItem onClick={logoutUser}>Logout</MenuItem>
                     </Menu>
                 </div>

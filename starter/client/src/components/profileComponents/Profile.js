@@ -24,6 +24,7 @@ const styles = (theme) => ({
 
 function Profile() {
   const user = useContext(UserProfileContext);
+  console.log(user)
   let {
     first_name,
     last_name,
@@ -32,6 +33,7 @@ function Profile() {
     preferences,
     gender,
     pronouns,
+    photos,
   } = user;
 
   // we're going to add a second level of validation (beyond logging in) that requires user to enter location, preferences, gender, and bio before viewing the full site. Use placeholders for now
@@ -75,6 +77,9 @@ function Profile() {
     fr_question_id: "bio",
   };
 
+  const photoElements = photos.map((photo) =>
+  <img className='pro-body__img' src={photo.photo_url} alt='profile picture' key={photo.photo_url}/>)
+
   return (
     <>
       <button onClick={changeEdit}>
@@ -84,7 +89,8 @@ function Profile() {
         <div className="pro-head">
           <img
             className="pro-head__img"
-            src="https://while-single-bucket.s3-us-west-2.amazonaws.com/default.jpg"
+            src={photos[photos.length -1].photo_url}
+            alt='profile picture'
           />
           <div className="pro-head__cont">
             <h2 className="pro-head__username">{`${first_name} ${last_name}`}</h2>
@@ -103,30 +109,7 @@ function Profile() {
                 <EditIcon className="edit-icon" onClick={handleClickOpen} />
               ) : null}
               <div className="pro-body__imgs">
-                <img
-                  className="pro-body__img"
-                  src="https://while-single-bucket.s3-us-west-2.amazonaws.com/default.jpg"
-                />
-                <img
-                  className="pro-body__img"
-                  src="https://while-single-bucket.s3-us-west-2.amazonaws.com/default.jpg"
-                />
-                <img
-                  className="pro-body__img"
-                  src="https://while-single-bucket.s3-us-west-2.amazonaws.com/default.jpg"
-                />
-                <img
-                  className="pro-body__img"
-                  src="https://while-single-bucket.s3-us-west-2.amazonaws.com/default.jpg"
-                />
-                <img
-                  className="pro-body__img"
-                  src="https://while-single-bucket.s3-us-west-2.amazonaws.com/default.jpg"
-                />
-                <img
-                  className="pro-body__img"
-                  src="https://while-single-bucket.s3-us-west-2.amazonaws.com/default.jpg"
-                />
+                {photoElements}
               </div>
             </div>
             <Fr edit={edit} />

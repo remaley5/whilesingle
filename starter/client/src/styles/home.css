@@ -22,7 +22,7 @@ swipe-con: swipe container
 .swipe-img-con {
     display: flex;
     flex-direction: row;
-    max-height: 300px;
+    max-height: 250px;
     max-width: 300px;
     overflow-x: scroll;
     overflow-y: hidden;
@@ -31,7 +31,6 @@ swipe-con: swipe container
 .swipe-img-con::-webkit-scrollbar {
     display: none;
 }
-
 
 .swipe-img {
     height: 100%;
@@ -42,4 +41,12 @@ swipe-con: swipe container
 .swipe-info {
     display: flex;
     flex-direction: column;
+}
+
+.preferences{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.percent-match{
+    font-family: Arial, Helvetica, sans-serif;
 }
