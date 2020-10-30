@@ -86,7 +86,7 @@ function App() {
           path="/quiz"
           exact
           currentUserId={currentUserId}
-					component={()=><Mc edit={true} />}
+					component={Mc}
         />
         <ProtectedRoute
           path="/users"
