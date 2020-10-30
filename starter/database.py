@@ -133,19 +133,54 @@ with app.app_context():
     db.session.add(angela_to_javiar)
 
 ####################################################
-# SEED MATCHREQUEST WITH FAKES
+# SEED MATCHREQUEST AND MATCH WITH FAKES
 ####################################################
     num_fake_users = len(fake_user_list)
+    # keep track of match history so we don't make a request if users are already matched, or so we don't have each user sending a request.
+    # initialize match_history object with all user ids as keys and empty array values
+    match_history = {fake_user.id: [] for fake_user in fake_user_list}
+    print(match_history)
     for fake_user in fake_user_list:
         fake_user_id = fake_user.id
+        # get match array from match history if it exists
+        # otherwise, its an empty array
+        fake_user_match_array = match_history[fake_user_id]
+
         num_fake_matches = randrange(1, int(num_fake_users**0.5))
-        for _ in range(num_fake_matches):
-            fake_match_id = fake_user_list[randrange(num_fake_users)].id
-            while fake_user_id == fake_match_id:
-                fake_match_id = fake_user_list[randrange(num_fake_users)].id
-            fake_match = MatchRequest(
-                from_id=fake_match_id, to_id=fake_user_id)
+        i = 0
+        while i in range(num_fake_matches):
+            fake_match = fake_user_list[randrange(num_fake_users)]
+            # make sure the match is not same as user
+            while fake_user_id == fake_match.id:
+                fake_match = fake_user_list[randrange(num_fake_users)]
+            # make sure that match not already made
+            fake_match_match_array = match_history[fake_match.id]
+            if fake_user_id in fake_match_match_array or fake_match.id in fake_user_match_array:
+                continue
+            # if match not already made, make it and add to history
+            fake_user_match_array.append(fake_match.id)
+            fake_match_match_array.append(fake_user.id)
+            match_history[fake_match.id] = fake_match_match_array
+            i += 1
+            fake_match = Match(users=[fake_user, fake_match])
             db.session.add(fake_match)
+        # we update fake_user's match array here so set attr isn't called as often
+        match_history[fake_user_id] = fake_user_match_array
+    print(match_history)
+
+
+
+
+
+
+            # # 80% of the time we add users as a match
+            # # 20% of the time we add users as a match request
+            # if fake.boolean(chance_of_getting_true=20):
+            #     fake_match_req = MatchRequest(
+            #         from_id=fake_match.id, to_id=fake_user_id)
+            #     db.session.add(fake_match_req)
+            # else:
+
 
 ####################################################
 ####################################################
@@ -324,7 +359,8 @@ with app.app_context():
             if fake.boolean():
                 fr_question_id = fr_q.id
                 fr_answer = fake.text()
-                fake_res = FR_Response(user_id=user_id, fr_question_id=fr_question_id, fr_answer=fr_answer)
+                fake_res = FR_Response(
+                    user_id=user_id, fr_question_id=fr_question_id, fr_answer=fr_answer)
                 db.session.add(fake_res)
 
 ####################################################
