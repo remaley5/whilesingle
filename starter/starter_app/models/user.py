@@ -106,15 +106,6 @@ class Photo(db.Model):
     photo_url = db.Column(db.String, nullable=False, unique=True)
     created_at = db.Column('created_at', db.DateTime, default=utcnow())
 
-<<<<<<< HEAD
-    def to_dict(self):
-        return {
-            "id": self.id,
-            "user_id": self.user_id,
-            "photo_url": self.photo_url,
-            "created_at": self.created_at
-        }
-=======
     user = db.relationship("User")
 
     def to_dict(self):
@@ -149,4 +140,3 @@ class Pronoun(db.Model):
     pronoun = db.Column(db.String(40))
     users = db.relationship(
         'User', back_populates='pronouns')
->>>>>>> debac1a2914181a2273665b47c7276afa65363a3
