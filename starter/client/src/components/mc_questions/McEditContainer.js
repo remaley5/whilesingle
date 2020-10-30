@@ -1,14 +1,46 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 
 import { McContext } from "../../context/mc_context";
 import McEdit from "./McEdit";
 
 export default function McEditContainer() {
   const mcContext = useContext(McContext);
-
   const { userAnsweredMc, userUnansweredMc } = mcContext;
+  let mcArr = [...userAnsweredMc, ...userUnansweredMc];
 
-  const mcArr = [...userAnsweredMc, ...userUnansweredMc];
+  const [view, setView] = useState("all");
+
+  const handleClick = (e) => {
+    const newView = e.target.id.slice(3);
+    setView(newView);
+  };
+
+  if (view === "unanswered") {
+    mcArr = [...userUnansweredMc];
+  } else if (view === "answered") {
+    mcArr = [...userAnsweredMc];
+  } else {
+    mcArr = [...userAnsweredMc, ...userUnansweredMc];
+  }
+
+	let mc_questions;
+
+  if (mcArr.length === 0 || mcArr[0] === undefined) {
+		if (view === 'unanswered') {
+			mc_questions = "Good job, you've answered everything!"
+		} else {
+			mc_questions = "You haven't answered anything - get going!"
+		}
+  } else {
+		mc_questions = mcArr.map((mcObj, idx) => (
+      <McEdit key={idx} mcObj={mcObj} />
+		));
+  }
+
+	if(!mc_questions) {
+		return null;
+	}
+
   return (
     <div className="mc-con">
       <div className="mc-side-bar">
@@ -16,13 +48,33 @@ export default function McEditContainer() {
         <p className="side-bar-info">
           answer more questions and get a good match
         </p>
-        <button className="side-bar-btn answered">answered</button>
-        <button className="side-bar-btn new">new</button>
+        <button
+          id="mc-all"
+          className="side-bar-btn answered"
+          onClick={handleClick}
+        >
+          all
+        </button>
+        <button
+          id="mc-answered"
+          className="side-bar-btn answered"
+          onClick={handleClick}
+        >
+          answered
+        </button>
+        <button
+          id="mc-unanswered"
+          className="side-bar-btn new"
+          onClick={handleClick}
+        >
+          new
+        </button>
       </div>
       <div className="mc-ques-con">
-        {mcArr.map((mcObj, idx) => (
+        {mc_questions}
+				{/* {mcArr.map((mcObj, idx) => (
           <McEdit key={idx} mcObj={mcObj} />
-        ))}
+        ))} */}
       </div>
     </div>
   );
