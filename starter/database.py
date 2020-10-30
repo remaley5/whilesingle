@@ -1,4 +1,4 @@
-from starter_app.models import User, MC_Response, MC_Question, MC_Answer_Option, FR_Response, FR_Question, Match, Message, MatchRequest, Preference, Gender, Pronoun
+from starter_app.models import User, MC_Response, MC_Question, MC_Answer_Option, FR_Response, FR_Question, Match, Message, MatchRequest, Preference, Gender, Pronoun, Photo
 from starter_app import app, db
 from faker import Faker
 from dotenv import load_dotenv
@@ -52,6 +52,19 @@ with app.app_context():
     for pronoun in pronouns:
         db.session.add(pronoun)
 
+
+####################################################
+# SEED PHOTO TABLE
+####################################################
+    one = Photo(photo_url='https://while-single-bucket.s3-us-west-2.amazonaws.com/rita-wilson-photo-u24.jpeg', user_id= 1)
+    two = Photo(photo_url='https://while-single-bucket.s3-us-west-2.amazonaws.com/ThuOct291654392020.png', user_id= 1)
+    three = Photo(photo_url='https://while-single-bucket.s3-us-west-2.amazonaws.com/ThuOct291519152020.png', user_id= 1)
+    four = Photo(photo_url='https://while-single-bucket.s3-us-west-2.amazonaws.com/ThuOct291710322020.png', user_id= 1)
+
+    db.session.add(one)
+    db.session.add(two)
+    db.session.add(three)
+    db.session.add(four)
 ####################################################
 # SEED USER TABLE
 ####################################################

@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from starter_app.models import User, db
+from starter_app.models import User, Photo, db
 from flask_login import current_user, login_required, login_user
 
 user_routes = Blueprint('users', __name__)
@@ -29,3 +29,10 @@ def getUser(id):
     if user:
         data = user.to_dict()
     return {'user': data}
+
+@user_routes.route('/photos/<int:user_id_param>')
+def getPhotos(user_id_param):
+    photos = Photo.query.filter(Photo.user_id == user_id_param)
+    photoList = [photo.to_dict() for photo in photos]
+    print('-------------------', photoList)
+    return jsonify({'photos': photoList})

@@ -107,6 +107,12 @@ class Photo(db.Model):
 
     user = db.relationship("User")
 
+    def to_dict(self):
+        return {
+        'photo_url': self.photo_url,
+        'user_id': self.user_id,
+        'created_at': self.created_at }
+
 
 class Preference(db.Model):
     __tablename__ = 'preferences'
