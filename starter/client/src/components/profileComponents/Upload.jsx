@@ -1,19 +1,33 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 
-//This is an example to show the flow of data and mainly
-//How to create form data for posting a photo.
 import AuthContext from '../../auth'
 
-function Upload() {
+function Upload({open, setOpen}) {
 	const [photoFile, setPhotoFile] = useState(null);
-	const [userName, setUserName] = useState('');
-	const {fetchWithCSRF, currentUserId} = useContext(AuthContext);
+	const [photos, setPhotos] = useState([])
+	const { fetchWithCSRF, currentUserId } = useContext(AuthContext);
 
 	const handleChange = (e) => {
-		e.target.id === 'username'
-			? setUserName(e.target.value)
-			: setPhotoFile(e.target.files[0]);
+		e.preventDefault()
+		setPhotoFile(e.target.files[0]);
 	};
+
+	useEffect(() => {
+		console.log('photofile', photoFile)
+		photoFile ?
+			setPhotos([...photos, photoFile])
+			: console.log('no photo')
+	}, [photoFile])
+
+	useEffect(() => {
+		(async () => {
+			const response = await fetch(`/api/users/photos/${currentUserId}`);
+			const responseData = await response.json();
+			let photos = responseData.photos
+			setPhotos(photos);
+			console.log(photos)
+		})()
+	}, []);
 
 	const postPhoto = async (formData) => {
 		//just hard coded a user id for example:
@@ -28,6 +42,7 @@ function Upload() {
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
+		setOpen(false)
 		const formData = new FormData();
 		// formData.append('userName', userName);
 		// console.log('Photofile', photoFile)
@@ -37,25 +52,28 @@ function Upload() {
 	};
 
 	return (
-		<div>
-			<form>
-				<p>Enter user name!</p>
+		<div className='upload-con'>
+			<div className='added-photos-con'>
+				{
+					(photos.length >= 1) ?
+						photos.map((photo) => (
+							<img className='added-photo' src={photo.photo_url} alt='phot' />
+						)) : <div></div>
+				}
+			</div>
+			<form className='sel-photo-form'>
+				<label htmlFor="file-upload" className="sel-btn choose">
+					choose files
+				</label>
 				<input
-					id='username'
-					type='text'
-					value={userName}
-					onChange={handleChange}
-				></input>
-				<p>Select a photo to upload!</p>
-				<input
-					id='photoname'
+					id='file-upload'
 					onChange={handleChange}
 					type='file'
 					name='file'
 				></input>
 				<br />
-				<button className='upload-form__button' onClick={handleSubmit}>
-					Upload
+				<button className='sel-btn upload' onClick={handleSubmit}>
+					save
 				</button>
 			</form>
 		</div>

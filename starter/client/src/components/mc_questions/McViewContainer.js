@@ -12,7 +12,6 @@ export default function McViewContainer() {
   const { userAnsweredMc, matchAnsweredMc } = mcContext;
 
 	const mcArr = [...userAnsweredMc];
-	console.log(mcArr)
   return (
     <>
       {mcArr.map((mcObj, idx) => (
