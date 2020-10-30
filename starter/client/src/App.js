@@ -9,8 +9,7 @@ import Login from "./components/Login";
 import Signup from "./components/Signup";
 import Home from "./components/Home";
 import Upload from "./components/profileComponents/Upload";
-import EditProfileContainer from "./components/profileComponents/EditProfileContainer";
-import Profile from "./components/profileComponents/Profile";
+import ProfileContainer from "./components/profileComponents/ProfileContainer";
 import AuthContext from "./auth";
 import NavBar from "./components/NavBar";
 import { ProtectedRoute, AuthRoute } from "./Routes";
@@ -77,7 +76,7 @@ function App() {
         <ProtectedRoute
           path="/profile/:id"
           exact
-          component={Profile}
+          component={ProfileContainer}
           currentUserId={currentUserId}
         />
         <ProtectedRoute path="/settings" exact currentUserId={currentUserId} />
@@ -122,9 +121,9 @@ function App() {
           currentUserId={currentUserId}
         />
         <ProtectedRoute
-          path={`/profile`}
+          path="/profile"
           exact
-          component={EditProfileContainer}
+          component={ProfileContainer}
           currentUserId={currentUserId}
         />
         {/* <AuthRoute path="/login" component={Login} />
