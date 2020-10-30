@@ -1,9 +1,9 @@
 from flask import Blueprint, redirect, render_template, url_for, request, jsonify
-from ..models import (db, User, Match, MatchRequest)
+from ..models import (db, User, Match, MatchRequest, Photo)
 from pprint import pprint
 from flask_login import login_required
 import itertools
-
+from sqlalchemy.orm import joinedload
 
 match_routes = Blueprint("match_routes", __name__)
 
@@ -19,8 +19,10 @@ def get_users(user_id_param):
     matches = query_matches(user_id_param)
     user_id = int(user_id_param)
     matched_id = list(itertools.chain(*[[m.id for m in f.users if m.id != user_id] for f in matches]))
-    users = User.query.filter(User.id.notin_(matched_id))
-    users = [{"user_id": m.id, "first_name": m.first_name, "last_name": m.last_name} for m in users if m.id != user_id]
+    users = User.query.options(joinedload("photos")).filter(User.id.notin_(matched_id)).limit(10)
+
+    users = [{"user_id": m.id, "first_name": m.first_name, "last_name": m.last_name, "photos": [photo.to_dict() for photo in m.photos] } for m in users if m.id != user_id]
+    # photos = [photo.to_dict() for photo in users.photos]
     return jsonify(users)
 
 # Get all your existing matches:

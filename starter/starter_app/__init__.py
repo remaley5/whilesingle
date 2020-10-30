@@ -29,7 +29,8 @@ from flask_socketio import SocketIO, send
 
 app = Flask(__name__)
 socketio = SocketIO(app)
-socketio.run(app)
+if __name__ == '__main__':
+    socketio.run(app)
 
 app.config.from_object(Config)
 app.register_blueprint(user_routes, url_prefix='/api/users')

@@ -37,6 +37,7 @@ class User(db.Model, UserMixin):
     matches = db.relationship(
         "Match", secondary="match_users", back_populates="users")
 
+    photos = db.relationship("Photo", backref="users")
     location = db.Column(db.String(60))
 
     preferences = db.relationship(

@@ -18,7 +18,7 @@ const Messages = () => {
     const [match, setMatch] = useState();
     const [messages, setMessages] = useState([])
 
-    const { currentUserId, fetchWithCSRF } = useContext(AuthContext);
+    const { currentUserId } = useContext(AuthContext);
 
     const messageRef = useRef()
 
