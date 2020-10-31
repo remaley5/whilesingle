@@ -21,7 +21,6 @@ export default function FrEdit({ frObj, setUpdatedFr, updatedFr }) {
       <h3 className="pro-body__head">{fr_question}</h3>
       <p className={response ? "pro-body__cont" : "pro-body__alt-cont"}>
         <TextareaAutosize
-          style={{ "whiteSpace": "pre" }}
           className="textarea"
           aria-label="minimum height"
           rowsMin={2}
