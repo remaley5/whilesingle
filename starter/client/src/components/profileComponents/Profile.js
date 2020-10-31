@@ -92,6 +92,7 @@ function Profile() {
   const photoElements = photos.map((photo) =>
   <img className='pro-body__img' src={photo.photo_url} alt='profile picture' key={photo.photo_url}/>)
 
+  const defaultPhoto = [<div className='default-image'></div>]
   return (
     <>
       <Button onClick={changeEdit}>
@@ -99,11 +100,14 @@ function Profile() {
       </Button>
       <div className="pro-con">
         <div className="pro-head">
+          { photos.length > 0 ?
           <img
             className="pro-head__img"
             src={photos[photos.length -1].photo_url}
             alt='profile picture'
           />
+          : defaultPhoto
+          }
           {edit ? (
             <UserInfoEdit />
           ) : (
