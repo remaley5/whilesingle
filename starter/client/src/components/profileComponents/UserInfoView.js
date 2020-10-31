@@ -42,7 +42,7 @@ export default function UserInfoView({ edit, user }) {
         {edit ? (
           <>
             <EditIcon className="edit-icon" onClick={handleClickOpen} />
-            {edit ? <EditInfo open={infoOpen} setOpen={setInfoOpen} /> : null}
+            {edit ? <EditInfo open={infoOpen} setOpen={setInfoOpen} user={user}/> : null}
           </>
         ) : null}
       </div>

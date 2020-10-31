@@ -112,7 +112,7 @@ export default function Profile() {
           ) : (
             defaultPhoto
           )}
-          <UserInfoView user={user} />
+          <UserInfoView edit={edit} user={user} />
         </div>
         <div className="pro-body-outer">
           <div className="pro-body">
