@@ -5,14 +5,15 @@ import McEdit from "./McEdit";
 
 export default function McEditContainer() {
   const mcContext = useContext(McContext);
-  const { userAnsweredMc, userUnansweredMc } = mcContext;
+  const { userAnsweredMc, userUnansweredMc, setUpdated } = mcContext;
   let mcArr = [...userAnsweredMc, ...userUnansweredMc];
 
   const [view, setView] = useState("all");
 
   const handleClick = (e) => {
     const newView = e.target.id.slice(3);
-    setView(newView);
+		setView(newView);
+		setUpdated(false)
   };
 
   if (view === "unanswered") {

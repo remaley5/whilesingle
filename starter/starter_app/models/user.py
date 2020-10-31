@@ -40,10 +40,10 @@ class User(db.Model, UserMixin):
     # rejects = db.relationship('Reject', foreign_keys=[id], back_populates='users')
 
     def to_dict(self):
-        preferences = [pref.preference for pref in self.preferences]
+        preferences = [[pref.id, pref.preference] for pref in self.preferences]
         # rejects = [reject.reject_id for reject in self.rejects]
-        gender = self.genders.gender if self.genders else ''
-        pronouns = self.pronouns.pronoun if self.pronouns else ''
+        gender = [self.genders.id, self.genders.gender] if self.genders else ''
+        pronouns = [self.pronouns.id, self.pronouns.pronoun] if self.pronouns else ''
 
         return {
             "id": self.id,

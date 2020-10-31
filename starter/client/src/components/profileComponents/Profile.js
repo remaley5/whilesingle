@@ -3,6 +3,8 @@ import AddPhotos from "./AddPhotos";
 import Button from "@material-ui/core/Button";
 // import { withStyles } from '@material-ui/core/styles';
 import { UserProfileContext } from "../../context/user_profile_context";
+import { FrContext } from "../../context/fr_context";
+
 import Fr from "../../views/Fr";
 import FrView from "../fr_questions/FrView";
 import FrEdit from "../fr_questions/FrEdit";
@@ -25,38 +27,40 @@ const styles = (theme) => ({
 });
 
 function Profile() {
-  const user = useContext(UserProfileContext);
+	const user = useContext(UserProfileContext);
+	const {setUpdated: setFrUpdated} = useContext(FrContext)
+	console.log(setFrUpdated)
   console.log(user)
   let {
     first_name,
     last_name,
     bio,
-    location,
-    preferences,
-    gender,
-    pronouns,
+    // location,
+    // preferences,
+    // gender,
+		// pronouns,
     photos,
+		setUpdated: setProfileUpdated,
   } = user;
 
   // we're going to add a second level of validation (beyond logging in) that requires user to enter location, preferences, gender, and bio before viewing the full site. Use placeholders for now
-  if (!location) {
-    location = "Planet Earth";
-  }
-  if (!preferences) {
-    preferences = ["All of them"];
-  }
-  if (!bio) {
-    bio = "Tell us about yourself";
-  } else if (bio === " ") {
-    bio = null;
-  }
-  if (!gender) {
-    gender = "Human";
-  }
-  if (!pronouns) {
-    pronouns = "They/Them";
-  }
-  const preferencesString = preferences.join(", ");
+  // if (!location) {
+  //   location = "Planet Earth";
+  // }
+  // if (!preferences) {
+  //   preferences = ["All of them"];
+  // }
+  // if (!bio) {
+  //   bio = "Tell us about yourself";
+  // } else if (bio === " ") {
+  //   bio = null;
+  // }
+  // if (!gender) {
+  //   gender = "Human";
+  // }
+  // if (!pronouns) {
+  //   pronouns = "They/Them";
+  // }
 
   const [open, setOpen] = React.useState(false);
   const handleClickOpen = () => {
@@ -69,7 +73,13 @@ function Profile() {
   const [edit, setEdit] = useState(false);
 
   const changeEdit = () => {
-    edit ? setEdit(false) : setEdit(true);
+		if (edit === true) {
+			setProfileUpdated(false)
+			setFrUpdated(false)
+			setEdit(false)
+		} else {
+			setEdit(true)
+		}
   };
 
   const bioObj = {
@@ -81,21 +91,12 @@ function Profile() {
 
   const photoElements = photos.map((photo) =>
   <img className='pro-body__img' src={photo.photo_url} alt='profile picture' key={photo.photo_url}/>)
-  const userInfoObj = {
-    first_name,
-    last_name,
-    location,
-    gender,
-    pronouns,
-    preferencesString,
-  };
-  console.log(userInfoObj);
 
   return (
     <>
-      <button onClick={changeEdit}>
+      <Button onClick={changeEdit}>
         {edit ? "View Profile" : "Edit Profile"}
-      </button>
+      </Button>
       <div className="pro-con">
         <div className="pro-head">
           <img
@@ -104,9 +105,9 @@ function Profile() {
             alt='profile picture'
           />
           {edit ? (
-            <UserInfoEdit userInfoObj={userInfoObj} />
+            <UserInfoEdit />
           ) : (
-            <UserInfoView userInfoObj={userInfoObj} />
+            <UserInfoView />
           )}
         </div>
         <div className="pro-body-outer">
