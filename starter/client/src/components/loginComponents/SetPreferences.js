@@ -1,8 +1,10 @@
 import React, {useContext, useEffect, useState} from 'react';
 import SetGender from './SetGender'
 import SetPronouns from './SetPronouns'
+import SetOrientation from './SetOrientation'
 import SetBio from './SetBio'
 import SetPhotos from './SetPhotos'
+import SetConnections from './SetConnections'
 import SetFreeResponse from './SetFreeResponse'
 import SetBirthday from './SetBirthday'
 import AuthContext from '../../auth'
@@ -26,15 +28,15 @@ function SetPreferences(props) {
     }, [])
 
     return (
-        <div className='test-page'>
+        <div className='preferences'>
             <SetGender genders={genders}/> {/* Pronouns, gender identity, gender preferences,  */}
             <SetPronouns pronouns={pronouns}/>
+            <SetConnections preferences={preferences}/>
+            <SetOrientation genders={genders}/>
             <SetBio />
             <SetBirthday />
             <SetPhotos />
-            <SetFreeResponse />
-            {/* <SetConnections preferences={preferences}/> */}
-            {/* <SetOrientation genders={genders}/> */}
+            {/* <SetFreeResponse /> */}
         </div>
     );
 }

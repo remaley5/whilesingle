@@ -1,10 +1,13 @@
 import React from 'react';
+import pluralize from 'pluralize';
 
-
-function SetBio(props) {
+function SetBio() {
     return (
         <div className='section'>
-            SetBio
+            <h2 className='pref-form-head'>About me:</h2>
+            <form className='txt-form'>
+                <textarea name='bio' className='txt-inpt'/>
+            </form>
         </div>
     );
 }

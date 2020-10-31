@@ -1,25 +1,31 @@
-.test-page {
+.preferences {
     width: 100%;
     margin: auto;
     display: flex;
     flex-direction: column;
-    gap: 40px;
+    gap: 120px;
     background-color: rgb(236, 244, 248);
+    font-size: 17px;
+    top: 0px;
+    margin-top: 0;
 }
 
-.section {
+/* .section {
     padding: 40px;
     box-shadow: 0 0 6px gray;
-}
+} */
 
 .pref-form-head {
     width: 100%;
     text-align: center;
     font-size: 35px;
+    margin-bottom: 80px;
+    font-family: 'Times New Roman';
+    letter-spacing: 2px;
 }
 
 .chkbx-form {
-    width: 200px;
+    width: 300px;
     margin: auto;
     background-color: white;
     border-radius: 10px;
@@ -28,14 +34,13 @@
     text-transform: uppercase;
     font-family: Arial, Helvetica, sans-serif;
     color: gray;
-    font-size: 15px;
 }
 
 .chck-sel {
     width: 100%;
     display: flex;
     justify-content: space-between;
-    padding-top: 10px;
+    padding-top: 20px;
 }
 
 input[type='checkbox']:hover {
@@ -58,9 +63,9 @@ input[type='checkbox']:hover {
 
 .drpdwn-def {
     width: 100%;
-    height: 45px;
+    padding: 20px;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 15px;
+    font-size: 20px;
     color: gray;
     text-transform: uppercase;
     border: 1px solid rgb(170, 168, 168);
@@ -70,13 +75,13 @@ input[type='checkbox']:hover {
 .drpdwn-opt {
     padding-left: 20px;
     text-align: left;
-    height: 45px;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 15px;
+    font-size: 20px;
     color: gray;
     text-transform: uppercase;
     border: 1px solid rgb(235, 235, 235);
     background-color: white;
+    padding: 20px;
 }
 
 .drpdwn-opt:hover {
@@ -98,12 +103,15 @@ input[type='checkbox']:hover {
 }
 
 .sel {
-display: none;
-position: absolute;
-background-color: #f9f9f9;
-min-width: 160px;
-box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-z-index: 1;
+    height: 300px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    width: 100%;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
 }
 
 .sel-prefs:hover .sel {
@@ -118,4 +126,21 @@ z-index: 1;
 }
 
 .drpdwn-sel-bot {
+}
+
+.txt-form {
+    width: 500px;
+    background-color: white;
+    box-shadow: 0 0 6px gray;
+    margin: auto;
+    padding: 20px;
+    border-radius: 7px;
+    height: 300px
+}
+
+.txt-inpt {
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    border: 1px solid rgb(219, 219, 219);
 }

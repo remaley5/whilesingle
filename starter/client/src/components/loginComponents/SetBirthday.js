@@ -8,7 +8,7 @@ function SetBirthday(props) {
 
     return (
         <div className='section'>
-            <h2 className='pref-form-head'>When were you born?</h2>
+            <h2 className='pref-form-head'>My birthday:</h2>
             <div className='drpdwn-sel'>
                 <div className='drpdwn-sel-top'>
                     <div className='sel-prefs'>
