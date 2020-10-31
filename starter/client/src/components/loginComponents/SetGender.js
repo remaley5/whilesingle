@@ -12,9 +12,9 @@ function SetGender({ genders, setMyGender }) {
             <div className='chkbx-form'>
                 {genders.map((gender) => (
                     <div className='chck-sel'>
-                        <input type="radio" name="radio" value={gender} />
+                        <input type="radio" name="radio" value={gender[0]} />
                         <span class="checkmark"></span>
-                        <label class="container chk-sel-lbl">{gender}
+                        <label class="container chk-sel-lbl">{gender[1]}
                         </label>
                     </div>
                 ))

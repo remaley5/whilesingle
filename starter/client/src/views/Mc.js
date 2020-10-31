@@ -4,8 +4,7 @@ import React from 'react';
 import {McContextProvider} from '../context/mc_context';
 
 // import mc components to show in the view
-import McViewContainer from '../components/mc_questions/McViewContainer';
-import McEditContainer from '../components/mc_questions/McEditContainer';
+import McContainer from '../components/mc_questions/McContainer';
 
 
 export default function Mc() { //{edit}
@@ -15,7 +14,7 @@ export default function Mc() { //{edit}
 	const edit = true
 	return (
 		<McContextProvider>
-			{edit ? <McEditContainer/> : <McViewContainer/>}
+			<McContainer edit={edit}/>
 		</McContextProvider>
 	)
 }

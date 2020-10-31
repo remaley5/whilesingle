@@ -13,8 +13,8 @@ function SetConnections({ preferences, setMyConnections }) {
             <form className='chkbx-form'>
                 {preferences.map((preference) => (
                     <div className='chck-sel'>
-                        <label for={preference} className='chck-sel-lbl'>{preference}</label>
-                        <div className='chk-sel-bx'><input type='checkbox' id={preference} value={preference} /></div>
+                        <label for={preference} className='chck-sel-lbl'>{preference[1]}</label>
+                        <div className='chk-sel-bx'><input type='checkbox' id={preference} value={preference[0]} /></div>
                     </div>
                 ))
 

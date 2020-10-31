@@ -7,8 +7,8 @@ function SetPronouns({pronouns}) {
             <form className='chkbx-form'>
                 { pronouns.map((pronoun) => (
                     <div className='chck-sel'>
-                        <label for={pronoun} className='chck-sel-lbl'>{pronoun}</label>
-                        <div className='chk-sel-bx'><input type='checkbox' id={pronoun} value={pronoun} /></div>
+                        <label for={pronoun} className='chck-sel-lbl'>{pronoun[1]}</label>
+                        <div className='chk-sel-bx'><input type='checkbox' id={pronoun} value={pronoun[0]} /></div>
                     </div>
                 ))
 

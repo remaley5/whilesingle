@@ -4,8 +4,7 @@ import React from 'react';
 import {FrContextProvider} from '../context/fr_context';
 
 // import fr components to show in the view
-import FrViewContainer from '../components/fr_questions/FrViewContainer';
-import FrEditContainer from '../components/fr_questions/FrEditContainer';
+import FrContainer from '../components/fr_questions/FrContainer';
 
 
 export default function Fr({edit}) {
@@ -15,7 +14,7 @@ export default function Fr({edit}) {
 
 	return (
 		<FrContextProvider>
-			{edit ? <FrEditContainer/> : <FrViewContainer/>}
+			<FrContainer edit={edit} />
 		</FrContextProvider>
 	)
 }

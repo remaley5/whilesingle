@@ -1,6 +1,9 @@
 import React, { useContext, useState } from "react";
 import AddPhotos from "./AddPhotos";
 import Button from "@material-ui/core/Button";
+import AuthContext from "../../auth";
+import AuthContext from '../../auth'
+
 // import { withStyles } from '@material-ui/core/styles';
 import { UserProfileContext } from "../../context/user_profile_context";
 import { FrContext } from "../../context/fr_context";
@@ -28,7 +31,8 @@ const styles = (theme) => ({
 
 function Profile() {
 	const user = useContext(UserProfileContext);
-	const {setUpdated: setFrUpdated} = useContext(FrContext)
+  const {setUpdated: setFrUpdated} = useContext(FrContext)
+  const { fetchWithCSRF, currentUserId:user_id } = useContext(AuthContext);
 	console.log(setFrUpdated)
   console.log(user)
   let {
@@ -62,6 +66,38 @@ function Profile() {
   //   pronouns = "They/Them";
   // }
 
+  const handleFrUpdate = () => {
+    // e.preventDefault();
+    let url = `/api/questions/fr/${user_id}/answers`;
+    let body = {}
+
+    const responseList = Object.entries(updatedFr)
+
+    responseList.forEach(([question_id, response])=>{
+      body[question_id] = response;
+    })
+
+    // let body = { question_id: fr_question_id, response };
+
+    // if (fr_question_id === "bio") {
+    //   url = `/api/users/${user_id}`;
+    //   body = { bio: response };
+    // }
+
+    const options = {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    };
+    fetchWithCSRF(url, options);
+    // clear updatedFr on submit!
+    setUpdatedFr({})
+  };
+
+  console.log(updatedFr)
+
   const [open, setOpen] = React.useState(false);
   const handleClickOpen = () => {
     setOpen(true);
@@ -71,14 +107,19 @@ function Profile() {
   };
 
   const [edit, setEdit] = useState(false);
+  const [updatedFr, setUpdatedFr] = useState({})
 
   const changeEdit = () => {
 		if (edit === true) {
-			setProfileUpdated(false)
+      console.log(updatedFr)
+      // send updated responses
+      handleFrUpdate()
+      setProfileUpdated(false)
 			setFrUpdated(false)
 			setEdit(false)
 		} else {
-			setEdit(true)
+      setEdit(true)
+
 		}
   };
 
@@ -104,11 +145,7 @@ function Profile() {
             src={photos[photos.length -1].photo_url}
             alt='profile picture'
           />
-          {edit ? (
-            <UserInfoEdit />
-          ) : (
-            <UserInfoView />
-          )}
+          <UserInfoView />
         </div>
         <div className="pro-body-outer">
           <div className="pro-body">

@@ -24,35 +24,6 @@ const styles = (theme) => ({
     },
 });
 
-
-let user = {
-    username: 'Sophie',
-    location: 'Portland, OR',
-    bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis consequat nulla eget nunc tempor laoreet. Quisque ac gravida enim, at viverra lorem. Nulla quis magna leo. Donec quis ante vel magna sodales luctus ac sed ipsum. Nulla consequat varius finibus. Sed non fermentum ex. Fusce dignis',
-    preferences: 'Gay, Androgynous, Single, Monogamy or Non-Monogamy'
-}
-
-let questions = [
-    {
-        question: 'I could probably beat you at',
-        alt: 'Go ahead and brag a little, champ'
-    },
-    {
-        question: 'My golden rule',
-        alt: 'The thing you live by'
-    }
-]
-let answeredQuestions = [
-    {
-        question: 'My current goal',
-        answer: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis consequat nulla eget nunc tempor laoreet. Quisque ac gravida enim, at viverra lorem. '
-    },
-    {
-        question: 'My favorite furry friend',
-        answer: 'Lorem ipsum dolor sit amet.'
-    }
-]
-
 function AddPhotos({open, setOpen}) {
     const handleClose = () => {
         setOpen(false);

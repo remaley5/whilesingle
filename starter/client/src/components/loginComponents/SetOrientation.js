@@ -8,8 +8,8 @@ function SetOrientation({genders}) {
             <form className='chkbx-form'>
                 { genders.map((gender) => (
                     <div className='chck-sel'>
-                        <label for={gender} className='chck-sel-lbl'>{gender}</label>
-                        <div className='chk-sel-bx'><input type='checkbox' id={gender} value={gender} /></div>
+                        <label for={gender} className='chck-sel-lbl'>{gender[1]}</label>
+                        <div className='chk-sel-bx'><input type='checkbox' id={gender} value={gender[0]} /></div>
                     </div>
                 ))
 
