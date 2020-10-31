@@ -4,13 +4,10 @@ import FrEdit from "./FrEdit";
 import FrView from "./FrView";
 import AuthContext from "../../auth";
 
-export default function FrContainer({ edit, updatedFr, setUpdatedFr, loadFr, setLoadFr }) {
+export default function FrContainer({ edit, updatedFr, setUpdatedFr, loadingFr, setLoadingFr }) {
   const { currentUserId } = useContext(AuthContext);
 
-//---------------------------------
-  const [loading, setLoading] = useState(true);
-
-  const useFetch = (url, loadFn) => {
+  const useFetch = (url, setLoadingFr) => {
     const [data, setData] = useState([]);
     useEffect(() => {
       // console.log('hits use effect')
@@ -20,24 +17,19 @@ export default function FrContainer({ edit, updatedFr, setUpdatedFr, loadFr, set
         // call returns object with one key - we only want its value (an array)
         const data = json[Object.keys(json)];
 				setData(data);
-				if(loadFn) {
-					loadFn(false)
+				if(setLoadingFr) {
+					setLoadingFr(false)
 				}
-        // setLoading(false);
       }
       fetchData();
-    }, [currentUserId, loadFr]);
+    }, [currentUserId, loadingFr]);
     return data;
   };
 
   const userAnsweredFr = useFetch(`/api/questions/fr/answered/${currentUserId}`);
-  const userUnansweredFr = useFetch(`/api/questions/fr/unanswered/${currentUserId}`, setLoading);
+  const userUnansweredFr = useFetch(`/api/questions/fr/unanswered/${currentUserId}`, setLoadingFr);
 
-	// useEffect(()=>{
-	// 	console.log('hist')
-	// }, [frUpdated])
-
-  if (loading || loadFr) {
+  if (loadingFr) {
     return "waiting...";
   }
 

@@ -29,7 +29,7 @@ import EditIcon from "@material-ui/icons/Edit";
 
 function Profile() {
   const user = useContext(UserProfileContext);
-	const [loadFr, setLoadFr] = useState(true)
+	const [loadingFr, setLoadingFr] = useState(true)
 
   // const { setUpdated: setFrUpdated } = useContext(FrContext);
   let { fetchWithCSRF, currentUserId: user_id } = useContext(AuthContext);
@@ -88,11 +88,11 @@ function Profile() {
       // send updated responses
       handleFrUpdate();
 			setProfileUpdated(false);
-			setLoadFr(true)
+			setLoadingFr(true)
       setEdit(false);
     } else {
 			setEdit(true);
-			setLoadFr(false)
+			setLoadingFr(false)
     }
   };
 
@@ -140,7 +140,7 @@ function Profile() {
               ) : null}
               <div className="pro-body__imgs">{photoElements}</div>
             </div>
-            <FrContainer edit={edit} updatedFr={updatedFr} setUpdatedFr={setUpdatedFr} loadFr={loadFr} setLoadFr={setLoadFr}/>
+            <FrContainer edit={edit} updatedFr={updatedFr} setUpdatedFr={setUpdatedFr} loadingFr={loadingFr} setLoadingFr={setLoadingFr}/>
           </div>
         </div>
       </div>
