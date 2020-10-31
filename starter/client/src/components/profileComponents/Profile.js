@@ -27,13 +27,15 @@ const styles = (theme) => ({
 function Profile() {
   const user = useContext(UserProfileContext);
   let {
+		id,
     first_name,
     last_name,
     bio,
     location,
     preferences,
     gender,
-    pronouns,
+		pronouns,
+		setUpdated
   } = user;
 
   // we're going to add a second level of validation (beyond logging in) that requires user to enter location, preferences, gender, and bio before viewing the full site. Use placeholders for now
@@ -66,7 +68,12 @@ function Profile() {
   const [edit, setEdit] = useState(false);
 
   const changeEdit = () => {
-    edit ? setEdit(false) : setEdit(true);
+		if (edit === true) {
+			setEdit(false)
+			setUpdated(false)
+		} else {
+			setEdit(true)
+		}
   };
 
   const bioObj = {

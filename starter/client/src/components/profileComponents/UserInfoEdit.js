@@ -14,6 +14,7 @@ import Chip from "@material-ui/core/Chip";
 import { TextField, NativeSelect, Select } from "@material-ui/core";
 
 import MultipleSelect from './UserInfoEditMultiSelect'
+import SingleSelect from './UserInfoEditSelect'
 
 export default function UserInfoEdit({ userInfoObj }) {
   // change so you can... edit
@@ -68,10 +69,13 @@ export default function UserInfoEdit({ userInfoObj }) {
       </div>
       <div className="pro-head__pref">
         <NativeSelect options={pronounOptions} />
+				<SingleSelect options={pronounOptions} selected={pronouns} label='Pronouns'/>
         Pronouns: {pronouns} pronouns
       </div>
       <div className="pro-head__pref">
         <NativeSelect options={genderOptions} />
+				<SingleSelect options={genderOptions} selected={gender} label='Gender'/>
+
         Interested in: {preferences}
       </div>
     </div>
