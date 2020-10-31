@@ -41,3 +41,81 @@
 input[type='checkbox']:hover {
     box-shadow: 0 0 6px inset rgb(185, 185, 185);
 }
+
+.drpdwn-sel {
+    width: 320px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-content: center;
+}
+
+.drpdwn-sel-top {
+    display: flex;
+    gap: 20px;
+}
+
+.drpdwn-def {
+    width: 100%;
+    height: 45px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    color: gray;
+    text-transform: uppercase;
+    border: 1px solid rgb(170, 168, 168);
+    background-color: white;
+}
+
+.drpdwn-opt {
+    padding-left: 20px;
+    text-align: left;
+    height: 45px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    color: gray;
+    text-transform: uppercase;
+    border: 1px solid rgb(235, 235, 235);
+    background-color: white;
+}
+
+.drpdwn-opt:hover {
+    color: black;
+    background-color: rgb(247, 247, 247);
+}
+
+.sm {
+    width: 150px;
+}
+
+.lg {
+    width: 320px;
+}
+
+.sel-prefs {
+    position: relative;
+    display: inline-block;
+}
+
+.sel {
+display: none;
+position: absolute;
+background-color: #f9f9f9;
+min-width: 160px;
+box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+z-index: 1;
+}
+
+.sel-prefs:hover .sel {
+    display: flex;
+    flex-direction: column;
+}
+
+.sel-prefs:hover .drpdwn-def {
+    background-color: #ffffff;
+    color: rgb(206, 206, 206);
+    border: 1px solid rgb(245, 245, 245);
+}
+
+.drpdwn-sel-bot {
+}

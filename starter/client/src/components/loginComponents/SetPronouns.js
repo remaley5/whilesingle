@@ -1,14 +1,14 @@
 import React from 'react';
 
-function SetGender({genders}) {
+function SetPronouns({pronouns}) {
     return (
         <div className='section'>
             <h2 className='pref-form-head'>I am...</h2>
             <form className='chkbx-form'>
-                { genders.map((gender) => (
+                { pronouns.map((pronoun) => (
                     <div className='chck-sel'>
-                        <label for={gender} className='chck-sel-lbl'>{gender}</label>
-                        <div className='chk-sel-bx'><input type='checkbox' id={gender} value={gender} /></div>
+                        <label for={pronoun} className='chck-sel-lbl'>{pronoun}</label>
+                        <div className='chk-sel-bx'><input type='checkbox' id={pronoun} value={pronoun} /></div>
                     </div>
                 ))
 
@@ -17,4 +17,4 @@ function SetGender({genders}) {
         </div>
     );
 }
-export default SetGender;
+export default SetPronouns;
