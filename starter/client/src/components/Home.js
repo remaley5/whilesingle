@@ -94,7 +94,7 @@ function Home(props) {
       </div>
       )
       if(photos.length <= 0){
-        photos = [<img className='swipe-img' src={defaultImage} alt='person'/>]
+        photos = [<div className='default-image'></div>]
       }
       return (
         <div className='swipe-con' key={user.id}>
