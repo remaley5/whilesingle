@@ -54,7 +54,6 @@ function Profile() {
   if (!pronouns) {
     pronouns = "They/Them";
   }
-  const preferencesString = preferences.join(", ");
 
   const [open, setOpen] = React.useState(false);
   const handleClickOpen = () => {
@@ -83,7 +82,7 @@ function Profile() {
     location,
     gender,
     pronouns,
-    preferencesString,
+    preferences,
   };
   console.log(userInfoObj);
 

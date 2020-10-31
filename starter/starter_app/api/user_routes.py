@@ -27,8 +27,33 @@ def createUser():
 @user_routes.route('/<int:id>', methods=["POST"])
 def updateUser(id):
     user = User.query.get(id)
-    if request.json['bio'] and request.json['bio'] != '':
-        user.bio = request.json['bio']
+    print(user.preferences)
+    data = request.json
+    try:
+        preferences = data['preferences']
+        if len(preferences) > 0:
+            prefList = Preference.query.filter(Preference.id.in_(preferences)).all();
+            print(prefList)
+            user.preferences = prefList
+    except KeyError:
+        pass
+    try:
+        bio = data['bio']
+        if bio != '':
+            user.bio = bio
+    except KeyError:
+        pass
+    try:
+        gender_id = data['gender_id']
+        user.gender_id = gender_id
+    except KeyError:
+        pass
+    try:
+        pronoun_id = data['pronoun_id']
+        user.pronoun_id = pronoun_id
+    except KeyError:
+        pass
+
     db.session.add(user)
     db.session.commit()
     return 'ok'
@@ -55,11 +80,11 @@ def getPhotos(user_id_param):
 @user_routes.route('/info_options')
 def getUserInfoOptions():
     pronouns = Pronoun.query.all()
-    pronounList = [pronoun.pronoun for pronoun in pronouns]
+    pronounList = [[pronoun.id, pronoun.pronoun] for pronoun in pronouns]
     genders = Gender.query.all()
-    genderList = [gender.gender for gender in genders]
+    genderList = [[gender.id, gender.gender] for gender in genders]
     preferences = Preference.query.all()
-    preferenceList = [preference.preference for preference in preferences]
+    preferenceList = [[preference.id, preference.preference] for preference in preferences]
     return {'pronouns': pronounList,
             'genders': genderList,
             'preferences': preferenceList}
