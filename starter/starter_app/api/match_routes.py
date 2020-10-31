@@ -19,8 +19,6 @@ def get_users(user_id_param):
     rejects = [id for id, in Reject.query.filter(Reject.user_id == user_id_param).with_entities(Reject.reject_id)]
 
     right_swipes = [id for id, in MatchRequest.query.filter(MatchRequest.from_id == user_id_param).with_entities(MatchRequest.to_id)]
-
-    print(rejects, '=================================')
     matches = query_matches(user_id_param)
     user_id = int(user_id_param)
     matched_id = list(itertools.chain(*[[m.id for m in f.users if m.id != user_id] for f in matches]))
@@ -47,8 +45,9 @@ def get_matches(user_id_params):
 @match_routes.route("/add-match/<user_id_params>", methods=["GET", "POST"])
 @login_required
 def add_match(user_id_params):
-    friend_id = request.get_json().get('user_id', '')
+    friend_id = int(request.json['user_id'])
     user_id = int(user_id_params)
+    print(request.json, '=======================================')
     if(MatchRequest.query.filter(MatchRequest.to_id == user_id).filter(MatchRequest.from_id == friend_id).delete()):
         db.session.commit()
         users = User.query.filter(User.id.in_([user_id, friend_id])).all()
@@ -75,3 +74,9 @@ def reject_user(user_id_params):
     db.session.commit()
     print('===========================================================================================', user_id, reject_id, '===========================================================================================')
     return 'ok'
+
+
+# @match_routes.route("/remove-match/<user_id_params>")
+# @login_required
+# def match_remove(user_id_params):
+#     user_id = int(user_id_params)
