@@ -112,7 +112,11 @@ export default function Profile() {
           ) : (
             defaultPhoto
           )}
+<<<<<<< HEAD
           <UserInfoView user={user} edit={edit} />
+=======
+          <UserInfoView edit={edit} user={user} />
+>>>>>>> bafbfbf5742d76623d7b3c7a8b012ae20cedbacf
         </div>
         <div className="pro-body-outer">
           <div className="pro-body">

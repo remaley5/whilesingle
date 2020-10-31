@@ -9,8 +9,47 @@ import SetBirthday from './SetBirthday'
 import SetLocation from './SetLocation'
 import AuthContext from '../../auth'
 
+  ///start from isaac--------------------------------
 
+function SetPreferences({ edit, handleClose, user}) {
+  
+
+		let currentGenders=[];
+		// let currentPreferences=[];
+		let currentPronouns=[];
+		let currentConnections=[];
+		let currentOrientation = [];
+		let currentBio='';
+		let currentBirthday = []
+		if (user) {
+			currentGenders = user.gender;
+			// currentPreferences = user.preferences;
+			currentPronouns = user.pronouns;
+			currentConnections = user.connections
+			currentOrientation = user.myOrientation
+			currentBio = user.bio
+			currentBirthday = user.birthday
+		}
+
+
+    const { currentUserId } = useContext(AuthContext);
+    const [genders, setGenders] = useState([])
+    const [preferences, SetPreferences] = useState([])
+    const [pronouns, setPronouns] = useState([])
+    const [myGender, setMyGender] = useState(currentGenders || [])
+    const [myPronouns, setMyPronouns] = useState(currentPronouns || [])
+    const [myConnections, setMyConnections] = useState(currentConnections || [])
+    const [myOrientation, setMyOrientation] = useState(currentOrientation || [])
+    const [myBio, setMyBio] = useState(currentBio || '')
+    const [myBirthday, setMyBirthday] = useState(currentBirthday || [])
+///end from isaac--------------------------------
+    
+///start from main--------------------------------
+
+<<<<<<< HEAD
 function SetPreferences({ edit, handleClose }) {
+=======
+>>>>>>> bafbfbf5742d76623d7b3c7a8b012ae20cedbacf
     const { fetchWithCSRF, currentUserId } = useContext(AuthContext);
     const [genders, setGenders] = useState([])
     const [preferences, SetPreferences] = useState([])
@@ -22,6 +61,8 @@ function SetPreferences({ edit, handleClose }) {
     const [myBio, setMyBio] = useState('')
     const [myBirthday, setMyBirthday] = useState([])
     const [myLocation, setMyLocation] = useState('')
+///end from main--------------------------------
+    
 
     // const handleClose = () => {
     //     setOpen(false);
