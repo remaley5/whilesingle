@@ -106,12 +106,12 @@ function App() {
           component={Signup}
           currentUserId={currentUserId}
         />
-        <ProtectedRoute
+        {/* <ProtectedRoute
           path="/fr_questions"
           exact
-          component={Fr}
+          component={FrContainer}
           currentUserId={currentUserId}
-        />
+        /> */}
         <ProtectedRoute
           path="/mc_questions"
           exact

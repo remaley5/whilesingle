@@ -7,7 +7,6 @@ export default function FrEdit({ frObj, setUpdatedFr, updatedFr }) {
   fr_question_id = parseInt(fr_question_id,10)
   if (!fr_answer) {
     fr_answer = ''
-    console.log(key, updatedFr)
   }
   const [response, setResponse] = useState(fr_answer || "");
 
