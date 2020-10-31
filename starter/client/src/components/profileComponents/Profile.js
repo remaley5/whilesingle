@@ -2,7 +2,6 @@ import React, { useContext, useState } from "react";
 import AddPhotos from "./AddPhotos";
 import Button from "@material-ui/core/Button";
 import AuthContext from "../../auth";
-import AuthContext from '../../auth'
 
 // import { withStyles } from '@material-ui/core/styles';
 import { UserProfileContext } from "../../context/user_profile_context";
@@ -96,14 +95,9 @@ function Profile() {
     setUpdatedFr({})
   };
 
-  console.log(updatedFr)
-
   const [open, setOpen] = React.useState(false);
   const handleClickOpen = () => {
     setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
   };
 
   const [edit, setEdit] = useState(false);
@@ -149,11 +143,7 @@ function Profile() {
           />
           : defaultPhoto
           }
-          {edit ? (
-            <UserInfoEdit />
-          ) : (
-            <UserInfoView />
-          )}
+            <UserInfoView edit={edit} />
         </div>
         <div className="pro-body-outer">
           <div className="pro-body">

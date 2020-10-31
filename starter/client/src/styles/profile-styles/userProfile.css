@@ -68,6 +68,10 @@ img {
 }
 
 /* HEADER: */
+.pro-head__top {
+    display: flex;
+    justify-content: space-between;
+}
 .pro-head {
     display: flex;
     width: 80%;

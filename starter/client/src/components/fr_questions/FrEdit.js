@@ -11,13 +11,14 @@ export default function FrEdit({ frObj, key, setUpdatedFr, updatedFr }) {
 
   if (!fr_answer) {
     fr_answer = ''
+    console.log(key, updatedFr)
   }
   // const [response, setResponse] = useState(fr_answer || "");
 
 
 
   const handleChange = (e) => {
-    setUpdatedFr(updatedFr[key] = e.target.value)
+    // setUpdatedFr(updatedFr[key] = e.target.value)
     // setResponse(e.target.value);
   };
 
@@ -35,7 +36,7 @@ export default function FrEdit({ frObj, key, setUpdatedFr, updatedFr }) {
           onChange={handleChange}
         />
       </p>
-      {/* <Button onClick={handleClick}>Write</Button> */}
+      <Button >Write</Button>
     </div>
   );
 }

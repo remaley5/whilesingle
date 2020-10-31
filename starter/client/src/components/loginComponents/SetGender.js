@@ -13,7 +13,6 @@ function SetGender({ genders, setMyGender }) {
                 {genders.map((gender) => (
                     <div className='chck-sel'>
                         <input type="radio" name="radio" value={gender[0]} />
-                        <span class="checkmark"></span>
                         <label class="container chk-sel-lbl">{gender[1]}
                         </label>
                     </div>

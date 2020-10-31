@@ -7,7 +7,8 @@ import FrView from "./FrView";
 
 export default function FrContainer({edit, updatedFr, setUpdatedFr}) {
   const frContext = useContext(FrContext);
-
+  console.log('in frContainer', updatedFr)
+  console.log('in frContainer', )
 
   const { userAnsweredFr, userUnansweredFr, matchAnsweredFr } = frContext;
 

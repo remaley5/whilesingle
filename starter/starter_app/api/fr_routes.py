@@ -34,27 +34,29 @@ def unanswered_fr_questions(user_id):
     return {'fr_unanswered': [question.to_dict() for question in unanswered]}
 
 
-@fr_routes.route('/<int:id>/answer', methods=['POST'])
+@fr_routes.route('/<int:id>/answers', methods=['POST'])
 @login_required
 # id is user_id
 def update_fr_response(id):
     data = request.json
-    question_id = data['question_id']
-    response = data['response']
-    old_response = FR_Response.query.filter(FR_Response.user_id == id).filter(
-        FR_Response.fr_question_id == question_id).one_or_none()
-    # if old response exists, update/delete it based on if response not empty
-    if old_response:
-        if response != '':
-            old_response.fr_answer = response
-            db.session.add(old_response)
-        else:
-            db.session.delete(old_response)
-    # if old response doesn't exist, create it if response not empty
-    elif response != '':
-        fr_response = FR_Response(
-            user_id=id, fr_question_id=question_id, fr_answer=response)
-        db.session.add(fr_response)
+    for obj in data:
+        question_id = obj['question_id']
+        response = obj['response']
+
+        old_response = FR_Response.query.filter(FR_Response.user_id == id).filter(
+            FR_Response.fr_question_id == question_id).one_or_none()
+        # if old response exists, update/delete it based on if response not empty
+        if old_response:
+            if response != '':
+                old_response.fr_answer = response
+                db.session.add(old_response)
+            else:
+                db.session.delete(old_response)
+        # if old response doesn't exist, create it if response not empty
+        elif response != '':
+            fr_response = FR_Response(
+                user_id=id, fr_question_id=question_id, fr_answer=response)
+            db.session.add(fr_response)
 
     db.session.commit()
     return 'ok'
