@@ -29,7 +29,7 @@ import EditIcon from "@material-ui/icons/Edit";
 
 function Profile() {
   const user = useContext(UserProfileContext);
-	const [frUpdated, setFrUpdated] = useState(true)
+	const [loadFr, setLoadFr] = useState(true)
 
   // const { setUpdated: setFrUpdated } = useContext(FrContext);
   let { fetchWithCSRF, currentUserId: user_id } = useContext(AuthContext);
@@ -40,8 +40,6 @@ function Profile() {
     <div className="default-image" key="default-image"></div>,
   ];
 
-  // console.log(setFrUpdated)
-  // console.log(user)
   let {
     first_name,
     last_name,
@@ -54,24 +52,6 @@ function Profile() {
     setUpdated: setProfileUpdated,
   } = user;
 
-  // we're going to add a second level of validation (beyond logging in) that requires user to enter location, preferences, gender, and bio before viewing the full site. Use placeholders for now
-  // if (!location) {
-  //   location = "Planet Earth";
-  // }
-  // if (!preferences) {
-  //   preferences = ["All of them"];
-  // }
-  // if (!bio) {
-  //   bio = "Tell us about yourself";
-  // } else if (bio === " ") {
-  //   bio = null;
-  // }
-  // if (!gender) {
-  //   gender = "Human";
-  // }
-  // if (!pronouns) {
-  //   pronouns = "They/Them";
-  // }
 
   const handleFrUpdate = () => {
     // e.preventDefault();
@@ -94,9 +74,7 @@ function Profile() {
       body: JSON.stringify(body),
     };
 		fetchWithCSRF(url, options);
-		setFrUpdated(false);
 
-    // clear updatedFr on submit!
     setUpdatedFr({});
   };
 
@@ -106,13 +84,15 @@ function Profile() {
 
   const changeEdit = () => {
     if (edit === true) {
-      console.log(updatedFr);
+			console.log(updatedFr);
       // send updated responses
       handleFrUpdate();
-      setProfileUpdated(false);
+			setProfileUpdated(false);
+			setLoadFr(true)
       setEdit(false);
     } else {
-      setEdit(true);
+			setEdit(true);
+			setLoadFr(false)
     }
   };
 
@@ -160,7 +140,7 @@ function Profile() {
               ) : null}
               <div className="pro-body__imgs">{photoElements}</div>
             </div>
-            <FrContainer edit={edit} updatedFr={updatedFr} setUpdatedFr={setUpdatedFr} frUpdated={frUpdated}/>
+            <FrContainer edit={edit} updatedFr={updatedFr} setUpdatedFr={setUpdatedFr} loadFr={loadFr} setLoadFr={setLoadFr}/>
           </div>
         </div>
       </div>

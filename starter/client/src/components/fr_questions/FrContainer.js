@@ -4,7 +4,7 @@ import FrEdit from "./FrEdit";
 import FrView from "./FrView";
 import AuthContext from "../../auth";
 
-export default function FrContainer({ edit, updatedFr, setUpdatedFr, frUpdated }) {
+export default function FrContainer({ edit, updatedFr, setUpdatedFr, loadFr, setLoadFr }) {
   const { currentUserId } = useContext(AuthContext);
 
 //---------------------------------
@@ -26,7 +26,7 @@ export default function FrContainer({ edit, updatedFr, setUpdatedFr, frUpdated }
         // setLoading(false);
       }
       fetchData();
-    }, [currentUserId, frUpdated]);
+    }, [currentUserId, loadFr]);
     return data;
   };
 
@@ -37,7 +37,7 @@ export default function FrContainer({ edit, updatedFr, setUpdatedFr, frUpdated }
 	// 	console.log('hist')
 	// }, [frUpdated])
 
-  if (loading) {
+  if (loading || loadFr) {
     return "waiting...";
   }
 
