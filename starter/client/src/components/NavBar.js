@@ -48,11 +48,6 @@ const NavBar = () => {
                         <NavLink to="/quiz"><AssessmentIcon className={navClass.home} /></NavLink>
                     </div>
                 </Tooltip>
-                <Tooltip title='Matches'>
-                    <div>
-                        <NavLink to="/users"><SupervisorAccountRoundedIcon className={navClass.matches} /></NavLink>
-                    </div>
-                </Tooltip>
                 <Tooltip title='Messages'>
                     <div>
                         <NavLink to="/messenger"><QuestionAnswerRoundedIcon className={navClass.messages}/></NavLink>

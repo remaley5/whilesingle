@@ -22,8 +22,9 @@ swipe-con: swipe container
 .swipe-img-con {
     display: flex;
     flex-direction: row;
-    max-height: 250px;
-    max-width: 300px;
+    max-height: 300px;
+    min-width: 250px;
+    max-width: 250px;
     overflow-x: scroll;
     overflow-y: hidden;
     box-shadow: 0 0 10px rgb(196, 193, 193);

@@ -40,7 +40,7 @@ function Home(props) {
       setIndex(0)
   }
 
-  const handleSwipe = () =>{
+  const handleSwipe = async() =>{
     const swipe_id = viewingUser[0].user.id;
     if(index >= userBank.length - 1){
       getMoreSwipes()
@@ -48,11 +48,15 @@ function Home(props) {
       setIndex(index + 1)
       setViewingUser([userBank[index + 1]])
     }
+    const resForPercent = await fetch(`/api/questions/mc/user/${currentUserId}/match/${swipe_id}`)
+    const dataForPercent = await resForPercent.json()
+    setMatchPercent(dataForPercent.match_percent)
     return swipe_id
   }
 
   const updateDatabase = (url, user_id) => {
-    const body = JSON.stringify({user_id});
+    console.log(user_id)
+    const body = JSON.stringify({'user_id': user_id});
     const options = {
       method: "post",
       headers: {
@@ -63,19 +67,19 @@ function Home(props) {
     fetchWithCSRF(url, options);
   }
 
-  const reject = () => {
-    const reject_id = handleSwipe()
+  const reject = async() => {
+    const reject_id = await handleSwipe()
     const url = `/api/matches/reject/${currentUserId}`;
     updateDatabase(url, reject_id)
   }
 
-  const accept = () => {
-    const accept_id = handleSwipe()
+  const accept = async() => {
+    const accept_id = await handleSwipe()
     const url = `/api/matches/add-match/${currentUserId}`;
     updateDatabase(url, accept_id)
   }
 
-  let user = '<div>no more matches</div>'
+  let user = 'Loading.....'
   console.log(viewingUser)
   if (viewingUser[0]) {
     user = viewingUser.map(({user}) => {
@@ -90,7 +94,7 @@ function Home(props) {
       </div>
       )
       if(photos.length <= 0){
-        photos = [<img className='swipe-img1' src={defaultImage} alt='person'/>]
+        photos = [<img className='swipe-img' src={defaultImage} alt='person'/>]
       }
       return (
         <div className='swipe-con' key={user.id}>
