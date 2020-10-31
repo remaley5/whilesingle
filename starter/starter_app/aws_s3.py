@@ -9,11 +9,7 @@ S3_SECRET=os.environ.get('AWS_SECRET_ACCESS_KEY')
 # s3 credentials to be stored as env variables in a config file
 
 s3 = boto3.client(
-<<<<<<< HEAD
     "s3",
-=======
-    's3',
->>>>>>> eb1dd2b9dcd55e67c2f334e553dcb7666555a1bb
     aws_access_key_id=S3_KEY,
     aws_secret_access_key=S3_SECRET
 )

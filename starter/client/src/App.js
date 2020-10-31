@@ -13,7 +13,6 @@ import Home from './components/Home';
 import Upload from './components/profileComponents/Upload'
 import AuthContext from './auth';
 import NavBar from './components/NavBar'
-import McBase from './components/mc_questions/McBase'
 import SetPreferences from './components/loginComponents/SetPreferences'
 import { ProtectedRoute, AuthRoute } from './Routes';
 
@@ -66,10 +65,9 @@ function App() {
     <AuthContext.Provider value={authContextValue}>
       {location.pathname !== "/login" && location.pathname !== "/signup" ? (
         <nav>
-<<<<<<< HEAD
             <NavBar currentUserId={currentUserId} />
         </nav>) : null}
-        <Switch>
+        {/* <Switch>
 			<ProtectedRoute path="/messenger" exact component={Messages} currentUserId={currentUserId} />
             <ProtectedRoute path="/profile/:id" exact component={Profile} currentUserId={currentUserId}/>
             <ProtectedRoute path="/settings" exact currentUserId={currentUserId}/>
@@ -83,10 +81,9 @@ function App() {
             <ProtectedRoute path={`/profile`} exact component={EditProfileContainer} currentUserId={currentUserId} />
             <ProtectedRoute path={`/set_preferences`} exact component={SetPreferences} currentUserId={currentUserId} />
             {/* <AuthRoute path="/login" component={Login} />
-=======
           <NavBar currentUserId={currentUserId} />
         </nav>
-      ) : null}
+        ) : null} */}
       <Switch>
         <ProtectedRoute
           path="/messenger"
@@ -147,8 +144,13 @@ function App() {
           component={ProfileContainer}
           currentUserId={currentUserId}
         />
+         <ProtectedRoute
+          path="/set_preferences"
+          exact
+          component={SetPreferences}
+          currentUserId={currentUserId}
+        />
         {/* <AuthRoute path="/login" component={Login} />
->>>>>>> eb1dd2b9dcd55e67c2f334e553dcb7666555a1bb
             <AuthRoute path="/signup" component={Signup} /> */}
         <ProtectedRoute
           path="/"
