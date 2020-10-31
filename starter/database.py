@@ -9,7 +9,8 @@ fake = Faker()
 Faker.seed(420)
 
 # num_fake_users must be at least 4
-num_fake_users = 20
+num_fake_users = 30
+num_fake_messages = 30
 
 with app.app_context():
     db.drop_all()
@@ -448,7 +449,7 @@ with app.app_context():
                         db.session.add(msg)
                         break
 
-    make_fake_messages(10, fake_user_list, fake_match_history)
+    make_fake_messages(num_fake_messages, fake_user_list, fake_match_history)
 
 ####################################################
 # COMMIT DB CHANGES
