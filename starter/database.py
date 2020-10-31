@@ -9,7 +9,7 @@ fake = Faker()
 Faker.seed(420)
 
 # num_fake_users must be at least 4
-num_fake_users = 30
+num_fake_users = 50
 num_fake_messages = 30
 
 with app.app_context():
