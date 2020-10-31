@@ -7,10 +7,6 @@ export default function FrEdit({ frObj, setUpdatedFr, updatedFr }) {
   fr_question_id = parseInt(fr_question_id,10)
   if (!fr_answer) {
     fr_answer = ''
-<<<<<<< HEAD
-    console.log(updatedFr)
-=======
->>>>>>> 8fe35944b67193dd7cee016ceb2411ac898c3abd
   }
   const [response, setResponse] = useState(fr_answer || "");
 
@@ -25,7 +21,6 @@ export default function FrEdit({ frObj, setUpdatedFr, updatedFr }) {
       <h3 className="pro-body__head">{fr_question}</h3>
       <p className={response ? "pro-body__cont" : "pro-body__alt-cont"}>
         <TextareaAutosize
-          style={{ "whiteSpace": "pre" }}
           className="textarea"
           aria-label="minimum height"
           rowsMin={2}
