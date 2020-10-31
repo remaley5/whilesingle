@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import SetGender from './SetGender'
 import SetPronouns from './SetPronouns'
 import SetOrientation from './SetOrientation'
@@ -6,10 +6,10 @@ import SetBio from './SetBio'
 import SetPhotos from './SetPhotos'
 import SetConnections from './SetConnections'
 import SetBirthday from './SetBirthday'
-import AuthContext from '../../auth'
+// import AuthContext from '../../auth'
 
 function SetPreferences(props) {
-    const { currentUserId} = useContext(AuthContext);
+    // const { currentUserId} = useContext(AuthContext);
     const [genders, setGenders] = useState([])
     const [preferences, SetPreferences] = useState([])
     const [pronouns, setPronouns] = useState([])

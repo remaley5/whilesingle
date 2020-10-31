@@ -4,7 +4,6 @@ import { NavLink } from 'react-router-dom';
 import AuthContext from '../auth'
 import AssessmentIcon from '@material-ui/icons/Assessment';
 import QuestionAnswerRoundedIcon from '@material-ui/icons/QuestionAnswerRounded';
-import SupervisorAccountRoundedIcon from '@material-ui/icons/SupervisorAccountRounded';
 import Tooltip from '@material-ui/core/Tooltip';
 import navStyles from '../styles/navbarThemes';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -13,7 +12,7 @@ import MoreVertRoundedIcon from '@material-ui/icons/MoreVertRounded';
 
 const NavBar = () => {
 
-    const { fetchWithCSRF, setCurrentUserId } = useContext(AuthContext);
+    const { fetchWithCSRF, setCurrentUserId, currentUserId } = useContext(AuthContext);
 
     const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -53,7 +52,6 @@ const NavBar = () => {
                         <NavLink to="/messenger"><QuestionAnswerRoundedIcon className={navClass.messages}/></NavLink>
                     </div>
                 </Tooltip>
-                <NavLink to='/set_preferences'>set_preferences</NavLink>
                 <div>
                     <MoreVertRoundedIcon onClick={handleClick} className={navClass.matches} />
                     <Menu
@@ -63,7 +61,7 @@ const NavBar = () => {
                         open={Boolean(anchorEl)}
                         onClose={handleClose}
                     >
-                        <NavLink to={`/profile`} className='menu-link'>
+                        <NavLink to={`/profile/${currentUserId}`} className='menu-link'>
                             <MenuItem>Profile</MenuItem>
                         </NavLink>
                         <MenuItem onClick={logoutUser}>Logout</MenuItem>

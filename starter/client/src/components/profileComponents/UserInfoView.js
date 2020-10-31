@@ -4,15 +4,15 @@ import { UserProfileContext } from "../../context/user_profile_context";
 export default function UserInfoView() {
   const user = useContext(UserProfileContext);
   let {
-    id,
+    // id,
     first_name,
     last_name,
-    bio,
+    // bio,
     location,
     preferences,
     gender,
     pronouns,
-    setUpdated,
+    // setUpdated,
   } = user;
 
   let preferencesString = "";

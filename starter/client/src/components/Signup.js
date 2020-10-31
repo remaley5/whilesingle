@@ -65,7 +65,7 @@ function Signup(props) {
       setErrors(responseData.errors);
     } else {
       setCurrentUserId(responseData.current_user_id)
-      history.push('/')
+      history.push('/set_preferences')
     }
   };
 

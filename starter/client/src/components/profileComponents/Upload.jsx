@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import HighlightOffIcon from '@material-ui/icons/HighlightOff';
+// import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import AuthContext from '../../auth'
 
 function Upload({open, setOpen}) {

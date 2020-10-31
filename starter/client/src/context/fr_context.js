@@ -14,7 +14,7 @@ export const FrContextProvider = (props) => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     useEffect(() => {
-			console.log('hits use effect')
+			// console.log('hits use effect')
       async function fetchData() {
         const res = await fetch(url);
         const json = await res.json();
@@ -25,7 +25,7 @@ export const FrContextProvider = (props) => {
       }
 			fetchData();
 			setUpdated(true)
-    }, [id, url, updated]);
+    }, [id, url, updated])
     return [data, loading ];
   };
 
