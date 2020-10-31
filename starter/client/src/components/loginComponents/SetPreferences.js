@@ -10,7 +10,7 @@ import SetLocation from './SetLocation'
 import AuthContext from '../../auth'
 
 
-function SetPreferences({ edit }) {
+function SetPreferences({ edit, handleClose }) {
     const { fetchWithCSRF, currentUserId } = useContext(AuthContext);
     const [genders, setGenders] = useState([])
     const [preferences, SetPreferences] = useState([])
@@ -22,6 +22,10 @@ function SetPreferences({ edit }) {
     const [myBio, setMyBio] = useState('')
     const [myBirthday, setMyBirthday] = useState([])
     const [myLocation, setMyLocation] = useState('')
+
+    // const handleClose = () => {
+    //     setOpen(false);
+    // };
 
     useEffect(() => {
         async function get_options() {
@@ -53,6 +57,7 @@ function SetPreferences({ edit }) {
             body: JSON.stringify(preferences)
         })
         console.log(response.json)
+        handleClose()
     }
 
     return (

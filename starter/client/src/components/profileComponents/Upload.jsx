@@ -14,9 +14,9 @@ function Upload({open, setOpen}) {
 
 	useEffect(() => {
 		console.log('photofile', photoFile)
-		photoFile ?
-			setPhotos([...photos, photoFile])
-			: console.log('no photo')
+		const formData = new FormData();
+		formData.append("file", photoFile);
+		postPhoto(formData);
 	}, [photoFile])
 
 	useEffect(() => {
@@ -25,7 +25,6 @@ function Upload({open, setOpen}) {
 			const responseData = await response.json();
 			let photos = responseData.photos
 			setPhotos(photos);
-			console.log(photos)
 		})()
 	}, []);
 
@@ -36,19 +35,17 @@ function Upload({open, setOpen}) {
 			body: formData,
 		});
 		if (response.ok) {
-			return "response is good"
+			const data = await response.json()
+			setPhotos([...photos, data])
 		}
 	};
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
 		setOpen(false)
-		const formData = new FormData();
-		// formData.append('userName', userName);
-		// console.log('Photofile', photoFile)
-		formData.append("file", photoFile);
-		//depending on how you set up your fetch.
-		postPhoto(formData);
+		// const formData = new FormData();
+		// formData.append("file", photoFile);
+		// postPhoto(formData);
 	};
 
 	return (
@@ -65,7 +62,7 @@ function Upload({open, setOpen}) {
 			</div>
 			<form className='sel-photo-form'>
 				<label htmlFor="file-upload" className="sel-btn choose">
-					choose files
+					choose file
 				</label>
 				<input
 					id='file-upload'

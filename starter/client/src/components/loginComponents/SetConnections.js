@@ -27,7 +27,6 @@ function SetConnections({ preferences, myConnections, setMyConnections }) {
                         <div className='chk-sel-bx'><input type='checkbox' onChange={onChange} id={preference} value={preference[0]} /></div>
                     </div>
                 ))
-
                 }
             </form>
         </div>

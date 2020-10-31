@@ -3,6 +3,7 @@ import Dialog from '@material-ui/core/Dialog';
 import SetPreferences from '../loginComponents/SetPreferences'
 
 function EditInfo({open, setOpen}) {
+
     const handleClose = () => {
         setOpen(false);
     };
@@ -13,7 +14,7 @@ function EditInfo({open, setOpen}) {
             <div>
                 <Dialog className='edit-popup' onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
                     <div className='edit-info-popup'>
-                        <SetPreferences edit='true'/>
+                        <SetPreferences edit='true' handleClose={handleClose} />
                     </div>
                 </Dialog>
             </div>
