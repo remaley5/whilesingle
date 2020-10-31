@@ -6,6 +6,7 @@ import SetBio from './SetBio'
 import SetPhotos from './SetPhotos'
 import SetConnections from './SetConnections'
 import SetBirthday from './SetBirthday'
+import SetLocation from './SetLocation'
 import AuthContext from '../../auth'
 
 function SetPreferences({ edit }) {
@@ -13,12 +14,13 @@ function SetPreferences({ edit }) {
     const [genders, setGenders] = useState([])
     const [preferences, SetPreferences] = useState([])
     const [pronouns, setPronouns] = useState([])
-    const [myGender, setMyGender] = useState([])
+    const [myGender, setMyGender] = useState('')
     const [myPronouns, setMyPronouns] = useState([])
     const [myConnections, setMyConnections] = useState([])
     const [myOrientation, setMyOrientation] = useState([])
     const [myBio, setMyBio] = useState('')
     const [myBirthday, setMyBirthday] = useState([])
+    const [myLocation, setMyLocation] = useState('')
 
     useEffect(() => {
         async function get_options() {
@@ -32,8 +34,17 @@ function SetPreferences({ edit }) {
         get_options()
     }, [])
 
-    const handleSubmit = e => {
-        console.log(myGender, myPronouns, myConnections, myOrientation, myBio, myBirthday)
+    const handleSubmit = () => {
+        const preferences = {
+            'gender': myGender,
+            'pronouns': myPronouns,
+            'preferences': myConnections,
+            'orientation': myOrientation,
+            'bio': myBio,
+            'birthday': myBirthday,
+            'location': myLocation
+        }
+        console.log(preferences)
     }
 
     return (
@@ -45,6 +56,7 @@ function SetPreferences({ edit }) {
             <SetPronouns pronouns={pronouns} myPronouns={myPronouns} setMyPronouns={setMyPronouns} />
             <SetConnections preferences={preferences} myConnections={myConnections} setMyConnections={setMyConnections} />
             <SetOrientation genders={genders} myOrientation={myOrientation} setMyOrientation={setMyOrientation} />
+            <SetLocation myLocation={myLocation} setMyLocation={setMyLocation} />
             { !edit ?
                 <>
                     <SetBio myBio={myBio} setMyBio={setMyBio} />
