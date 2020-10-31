@@ -17,7 +17,7 @@ function SetPronouns({pronouns, myPronouns, setMyPronouns}) {
                         </label>
                     </div>
                 ))
-                }
+                }!
             </div>
         </div>
     );

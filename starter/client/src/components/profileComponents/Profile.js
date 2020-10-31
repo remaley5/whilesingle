@@ -2,33 +2,19 @@ import React, { useContext, useState } from "react";
 import AddPhotos from "./AddPhotos";
 import Button from "@material-ui/core/Button";
 import AuthContext from "../../auth";
-// import { withStyles } from '@material-ui/core/styles';
 import { UserProfileContext } from "../../context/user_profile_context";
-import { FrContext } from "../../context/fr_context";
-
 import FrContainer from "../fr_questions/FrContainer";
 import FrView from "../fr_questions/FrView";
 import FrEdit from "../fr_questions/FrEdit";
 import UserInfoView from "./UserInfoView";
-// import UserInfoEdit from "./UserInfoEdit";
-
 import EditIcon from "@material-ui/icons/Edit";
 
-// const styles = (theme) => ({
-//   root: {
-//     margin: 0,
-//     padding: theme.spacing(2),
-//   },
-//   closeButton: {
-//     position: "absolute",
-//     right: theme.spacing(1),
-//     top: theme.spacing(1),
-//     color: theme.palette.grey[500],
-//   },
-// });
+export default function Profile() {
+	const defaultPhoto = [
+    <div className="default-image" key="default-image"></div>,
+	];
 
-function Profile() {
-  const user = useContext(UserProfileContext);
+	const user = useContext(UserProfileContext);
 	const [loadingFr, setLoadingFr] = useState(true)
 
   // const { setUpdated: setFrUpdated } = useContext(FrContext);
@@ -36,9 +22,7 @@ function Profile() {
   const [updatedFr, setUpdatedFr] = useState({});
   const [open, setOpen] = useState(false);
   const [edit, setEdit] = useState(false);
-  const defaultPhoto = [
-    <div className="default-image" key="default-image"></div>,
-  ];
+
 
   let {
     first_name,
@@ -148,5 +132,3 @@ function Profile() {
     </>
   );
 }
-
-export default Profile;

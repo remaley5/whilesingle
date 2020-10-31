@@ -51,7 +51,8 @@ export default function FrContainer({ edit, updatedFr, setUpdatedFr, loadingFr, 
     );
     // if user viewing their profile
   } else {
-    const frArr = [...userAnsweredFr];
+		const frArr = [...userAnsweredFr];
+		console.log('hits FrContainer edit false - FrView components rendered, should be SAME and otherUser')
     return (
       <>
         {frArr.map((frObj, idx) => (

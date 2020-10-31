@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
-
 import FrMatchContainer from "../fr_questions/FrMatchContainer";
 import FrView from "../fr_questions/FrView";
-
 import UserInfoView from "./UserInfoView";
 
 export default function ProfileMatch({ otherUserId }) {
