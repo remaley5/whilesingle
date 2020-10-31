@@ -7,8 +7,10 @@ import FrView from "./FrView";
 
 export default function FrContainer({edit, updatedFr, setUpdatedFr}) {
   const frContext = useContext(FrContext);
+
   console.log('from FrContainer', updatedFr)
   const view_match = false
+
   const { userAnsweredFr, userUnansweredFr, matchAnsweredFr } = frContext;
 
   // if user editing their own answers

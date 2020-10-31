@@ -20,7 +20,7 @@ export default function UserInfoEdit() {
 
   return (
     <div className="pro-head__cont">
-      <h2 className="pro-head__username">
+      {/* <h2 className="pro-head__username">
         <TextField id="first_name" label="First Name" value={first_name} />
         <TextField id="last_name" label="Last Name" value={last_name} />
       </h2>
@@ -47,7 +47,7 @@ export default function UserInfoEdit() {
           selected={preferences}
           label="Preferences"
         />
-      </div>
+      </div> */}
     </div>
   );
 }

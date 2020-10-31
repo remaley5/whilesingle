@@ -102,12 +102,10 @@ function Profile({viewId}) {
       setUpdatedFr({})
     };
 
-    console.log(updatedFr)
 
     const handleClickOpen = () => {
       setOpen(true);
     };
-
 
     const changeEdit = () => {
       if (edit === true) {

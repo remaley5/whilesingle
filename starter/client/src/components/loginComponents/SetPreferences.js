@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import React, {useEffect, useState} from 'react';
+=======
+import React, { useContext, useEffect, useState } from 'react';
+>>>>>>> b5741416e37eea49bda0c35f2c66e65e5cc35ce6
 import SetGender from './SetGender'
 import SetPronouns from './SetPronouns'
 import SetOrientation from './SetOrientation'
@@ -8,8 +12,13 @@ import SetConnections from './SetConnections'
 import SetBirthday from './SetBirthday'
 // import AuthContext from '../../auth'
 
+<<<<<<< HEAD
 function SetPreferences(props) {
     // const { currentUserId} = useContext(AuthContext);
+=======
+function SetPreferences({ edit }) {
+    const { currentUserId } = useContext(AuthContext);
+>>>>>>> b5741416e37eea49bda0c35f2c66e65e5cc35ce6
     const [genders, setGenders] = useState([])
     const [preferences, SetPreferences] = useState([])
     const [pronouns, setPronouns] = useState([])
@@ -38,15 +47,23 @@ function SetPreferences(props) {
 
     return (
         <div className='preferences'>
-            <h2 className='pref-head'>Tell us about yourself</h2>
-            <SetGender genders={genders} myGender={myGender} setMyGender={setMyGender}/> {/* Pronouns, gender identity, gender preferences,  */}
-            <SetPronouns pronouns={pronouns} myPronouns={myPronouns} setMyPronouns={setMyPronouns}/>
-            <SetConnections preferences={preferences} myConnections={myConnections} setMyConnections={setMyConnections}/>
-            <SetOrientation genders={genders} myOrientation={myOrientation} setMyOrientation={setMyOrientation}/>
-            <SetBio myBio={myBio} setMyBio={setMyBio}/>
-            <SetBirthday myBirthday={myBirthday} setMyBirthday={setMyBirthday}/>
-            <SetPhotos />
-            <button type='submit' class='set-btn' onClick={handleSubmit}>I'm ready</button>
+            {!edit ?
+                <h2 className='pref-head'>Tell us about yourself</h2>
+                : null}
+            <SetGender genders={genders} myGender={myGender} setMyGender={setMyGender} /> {/* Pronouns, gender identity, gender preferences,  */}
+            <SetPronouns pronouns={pronouns} myPronouns={myPronouns} setMyPronouns={setMyPronouns} />
+            <SetConnections preferences={preferences} myConnections={myConnections} setMyConnections={setMyConnections} />
+            <SetOrientation genders={genders} myOrientation={myOrientation} setMyOrientation={setMyOrientation} />
+            { !edit ?
+                <>
+                    <SetBio myBio={myBio} setMyBio={setMyBio} />
+                    <SetBirthday myBirthday={myBirthday} setMyBirthday={setMyBirthday} />
+                    <SetPhotos />
+                    <button type='submit' class='set-btn' onClick={handleSubmit}>I'm ready</button>
+                </> :
+                <button type='submit' class='set-btn' onClick={handleSubmit}>save</button>
+
+            }
         </div>
     );
 }

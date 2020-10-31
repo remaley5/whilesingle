@@ -7,6 +7,7 @@ export default function FrEdit({ frObj, setUpdatedFr, updatedFr }) {
   fr_question_id = parseInt(fr_question_id,10)
   if (!fr_answer) {
     fr_answer = ''
+    console.log(key, updatedFr)
   }
   const [response, setResponse] = useState(fr_answer || "");
 
@@ -16,7 +17,6 @@ export default function FrEdit({ frObj, setUpdatedFr, updatedFr }) {
     newUpdatedFr[fr_question_id] = e.target.value
     setUpdatedFr(newUpdatedFr)
   }
-
   return (
     <div className="pro-body__con">
       <h3 className="pro-body__head">{fr_question}</h3>

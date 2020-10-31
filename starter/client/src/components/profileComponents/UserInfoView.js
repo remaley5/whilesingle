@@ -1,7 +1,11 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { UserProfileContext } from "../../context/user_profile_context";
+import EditIcon from "@material-ui/icons/Edit";
+import EditInfo from './EditInfo'
 
-export default function UserInfoView() {
+export default function UserInfoView({ edit }) {
+  const [infoOpen, setInfoOpen] = useState(false)
+
   const user = useContext(UserProfileContext);
   let {
     // id,
@@ -14,6 +18,10 @@ export default function UserInfoView() {
     pronouns,
     // setUpdated,
   } = user;
+
+  const handleClickOpen = () => {
+      setInfoOpen(true)
+  }
 
   let preferencesString = "";
   const numPref = preferences.length;
@@ -29,7 +37,15 @@ export default function UserInfoView() {
 
   return (
     <div className="pro-head__cont">
-      <h2 className="pro-head__username">{`${first_name} ${last_name}`}</h2>
+      <div className='pro-head__top'>
+        <h2 className="pro-head__username">{`${first_name} ${last_name}`}</h2>
+        {edit ? (
+          <>
+            <EditIcon className="edit-icon" onClick={handleClickOpen} />
+            {edit ? <EditInfo open={infoOpen} setOpen={setInfoOpen} /> : null}
+          </>
+        ) : null}
+      </div>
       <h4 className="pro-head__location">{location}</h4>
       <p className="pro-head__pref">Identifies as: {gender[1]}</p>
       <p className="pro-head__pref">Pronouns: {pronouns[1]} pronouns</p>
