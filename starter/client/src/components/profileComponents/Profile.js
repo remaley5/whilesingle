@@ -27,35 +27,32 @@ const styles = (theme) => ({
 function Profile() {
   const user = useContext(UserProfileContext);
   let {
-		id,
-    first_name,
-    last_name,
     bio,
-    location,
-    preferences,
-    gender,
-		pronouns,
+    // location,
+    // preferences,
+    // gender,
+		// pronouns,
 		setUpdated
   } = user;
 
   // we're going to add a second level of validation (beyond logging in) that requires user to enter location, preferences, gender, and bio before viewing the full site. Use placeholders for now
-  if (!location) {
-    location = "Planet Earth";
-  }
-  if (!preferences) {
-    preferences = ["All of them"];
-  }
-  if (!bio) {
-    bio = "Tell us about yourself";
-  } else if (bio === " ") {
-    bio = null;
-  }
-  if (!gender) {
-    gender = "Human";
-  }
-  if (!pronouns) {
-    pronouns = "They/Them";
-  }
+  // if (!location) {
+  //   location = "Planet Earth";
+  // }
+  // if (!preferences) {
+  //   preferences = ["All of them"];
+  // }
+  // if (!bio) {
+  //   bio = "Tell us about yourself";
+  // } else if (bio === " ") {
+  //   bio = null;
+  // }
+  // if (!gender) {
+  //   gender = "Human";
+  // }
+  // if (!pronouns) {
+  //   pronouns = "They/Them";
+  // }
 
   const [open, setOpen] = React.useState(false);
   const handleClickOpen = () => {
@@ -69,8 +66,8 @@ function Profile() {
 
   const changeEdit = () => {
 		if (edit === true) {
-			setEdit(false)
 			setUpdated(false)
+			setEdit(false)
 		} else {
 			setEdit(true)
 		}
@@ -83,21 +80,11 @@ function Profile() {
     fr_question_id: "bio",
   };
 
-  const userInfoObj = {
-    first_name,
-    last_name,
-    location,
-    gender,
-    pronouns,
-    preferences,
-  };
-  console.log(userInfoObj);
-
   return (
     <>
-      <button onClick={changeEdit}>
+      <Button onClick={changeEdit}>
         {edit ? "View Profile" : "Edit Profile"}
-      </button>
+      </Button>
       <div className="pro-con">
         <div className="pro-head">
           <img
@@ -105,9 +92,9 @@ function Profile() {
             src="https://while-single-bucket.s3-us-west-2.amazonaws.com/default.jpg"
           />
           {edit ? (
-            <UserInfoEdit userInfoObj={userInfoObj} />
+            <UserInfoEdit />
           ) : (
-            <UserInfoView userInfoObj={userInfoObj} />
+            <UserInfoView />
           )}
         </div>
         <div className="pro-body-outer">

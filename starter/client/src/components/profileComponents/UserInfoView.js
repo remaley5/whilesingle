@@ -1,14 +1,19 @@
-import React from "react";
+import React, {useContext} from "react";
+import { UserProfileContext } from "../../context/user_profile_context";
 
-export default function UserInfoView({ userInfoObj }) {
-  const {
+export default function UserInfoView() {
+	const user = useContext(UserProfileContext);
+	let {
+		id,
     first_name,
     last_name,
+    bio,
     location,
-    gender,
-    pronouns,
     preferences,
-  } = userInfoObj;
+    gender,
+		pronouns,
+		setUpdated
+  } = user;
 
   let preferencesString = "";
   for (let i = 0; i < preferences.length; i++) {
