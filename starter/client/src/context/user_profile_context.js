@@ -9,30 +9,33 @@ export const UserProfileContextProvider = (props) => {
 
 	// we'll also need a match id to load their answered questions only
   // const match_id = 2;
-
+	const [updated, setUpdated] = useState(true)
 	const [data, setData] = useState([]);
 	const [loading, setLoading] = useState(true);
-  const useFetch = (url, id = null) => {
+  const useFetch = (id) => {
     useEffect(() => {
       async function fetchData() {
-        const res = await fetch(url);
+        const res = await fetch(`/api/users/${user_id}`);
         const json = await res.json();
         // call returns object with one key - we only want its value (an array)
         const obj = json[Object.keys(json)];
         setData(obj);
         setLoading(false);
       }
-      fetchData();
-    }, [id, url]);
+			fetchData();
+			setUpdated(true)
+    }, [id, updated, updated]);
     return [data, loading];
   };
 
-	const [userProfile, userProfileLoading] = useFetch(`/api/users/${user_id}`, user_id);
+	const [userProfile, userProfileLoading] = useFetch(user_id);
 
 	if (userProfileLoading) {
 		return "where's your stuff?";
 	}
-  return (
+
+	userProfile.setUpdated = setUpdated
+	return (
     <UserProfileContext.Provider value={userProfile}>
       {props.children}
     </UserProfileContext.Provider>
