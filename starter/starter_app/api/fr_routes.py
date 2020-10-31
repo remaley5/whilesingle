@@ -18,6 +18,7 @@ def all_fr_questions():
 def answered_fr_questions(user_id):
     resArr = FR_Response.query.filter(FR_Response.user_id == user_id).join(
         FR_Question).options(db.joinedload(FR_Response.fr_question)).all()
+    print(resArr)
     return {'fr_answered': [fr_response.to_dict() for fr_response in resArr]}
 
 
@@ -39,16 +40,10 @@ def unanswered_fr_questions(user_id):
 # id is user_id
 def update_fr_response(id):
     data = request.json
-<<<<<<< HEAD
     for question_id, response in data.items():
         question_id = int(question_id)
         # response = obj['response']
-=======
-    for obj in data:
-        question_id = obj['question_id']
-        response = obj['response']
 
->>>>>>> b5741416e37eea49bda0c35f2c66e65e5cc35ce6
         old_response = FR_Response.query.filter(FR_Response.user_id == id).filter(
             FR_Response.fr_question_id == question_id).one_or_none()
         # if old response exists, update/delete it based on if response not empty

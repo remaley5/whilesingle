@@ -3,15 +3,15 @@ import { UserProfileContext } from "../../context/user_profile_context";
 import EditIcon from "@material-ui/icons/Edit";
 import EditInfo from './EditInfo'
 
-export default function UserInfoView({ edit }) {
+export default function UserInfoView({ edit, user }) {
   const [infoOpen, setInfoOpen] = useState(false)
 
-  const user = useContext(UserProfileContext);
+  // const user = useContext(UserProfileContext);
   let {
     // id,
     first_name,
     last_name,
-    // bio,
+    bio,
     location,
     preferences,
     gender,

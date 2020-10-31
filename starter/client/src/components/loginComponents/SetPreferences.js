@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import React, {useEffect, useState, useContext} from 'react';
+=======
+import React, { useContext, useEffect, useState } from 'react';
+>>>>>>> 8fe35944b67193dd7cee016ceb2411ac898c3abd
 import SetGender from './SetGender'
 import SetPronouns from './SetPronouns'
 import SetOrientation from './SetOrientation'
@@ -6,12 +10,19 @@ import SetBio from './SetBio'
 import SetPhotos from './SetPhotos'
 import SetConnections from './SetConnections'
 import SetBirthday from './SetBirthday'
+<<<<<<< HEAD
 import SetLocation from './SetLocation'
 import AuthContext from '../../auth'
 
 
 function SetPreferences({ edit }) {
     const { fetchWithCSRF, currentUserId } = useContext(AuthContext);
+=======
+import AuthContext from '../../auth'
+
+function SetPreferences({ edit }) {
+    const { currentUserId } = useContext(AuthContext);
+>>>>>>> 8fe35944b67193dd7cee016ceb2411ac898c3abd
     const [genders, setGenders] = useState([])
     const [preferences, SetPreferences] = useState([])
     const [pronouns, setPronouns] = useState([])
