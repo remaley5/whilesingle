@@ -6,9 +6,14 @@ import SetBio from './SetBio'
 import SetPhotos from './SetPhotos'
 import SetConnections from './SetConnections'
 import SetBirthday from './SetBirthday'
+import SetLocation from './SetLocation'
 import AuthContext from '../../auth'
 
+  ///start from isaac--------------------------------
+
 function SetPreferences({ edit, handleClose, user}) {
+  
+
 		let currentGenders=[];
 		// let currentPreferences=[];
 		let currentPronouns=[];
@@ -37,6 +42,23 @@ function SetPreferences({ edit, handleClose, user}) {
     const [myOrientation, setMyOrientation] = useState(currentOrientation || [])
     const [myBio, setMyBio] = useState(currentBio || '')
     const [myBirthday, setMyBirthday] = useState(currentBirthday || [])
+///end from isaac--------------------------------
+    
+///start from main--------------------------------
+
+    const { fetchWithCSRF, currentUserId } = useContext(AuthContext);
+    const [genders, setGenders] = useState([])
+    const [preferences, SetPreferences] = useState([])
+    const [pronouns, setPronouns] = useState([])
+    const [myGender, setMyGender] = useState('')
+    const [myPronouns, setMyPronouns] = useState([])
+    const [myConnections, setMyConnections] = useState([])
+    const [myOrientation, setMyOrientation] = useState([])
+    const [myBio, setMyBio] = useState('')
+    const [myBirthday, setMyBirthday] = useState([])
+    const [myLocation, setMyLocation] = useState('')
+///end from main--------------------------------
+    
 
     useEffect(() => {
         async function get_options() {
@@ -50,9 +72,24 @@ function SetPreferences({ edit, handleClose, user}) {
         get_options()
     }, [])
 
-    const handleSubmit = e => {
-				console.log(myGender, myPronouns, myConnections, myOrientation, myBio, myBirthday)
-				handleClose()
+    const handleSubmit = async() => {
+        const preferences = {
+            'gender': myGender,
+            'pronouns': myPronouns,
+            'preferences': myConnections,
+            'orientation': myOrientation,
+            'bio': myBio,
+            'birthday': myBirthday,
+            'location': myLocation
+        }
+        const response = await fetchWithCSRF(`/api/users/${currentUserId}`, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(preferences)
+        })
+        console.log(response.json)
     }
 
     return (
@@ -64,6 +101,7 @@ function SetPreferences({ edit, handleClose, user}) {
             <SetPronouns pronouns={pronouns} myPronouns={myPronouns} setMyPronouns={setMyPronouns} />
             <SetConnections preferences={preferences} myConnections={myConnections} setMyConnections={setMyConnections} />
             <SetOrientation genders={genders} myOrientation={myOrientation} setMyOrientation={setMyOrientation} />
+            <SetLocation myLocation={myLocation} setMyLocation={setMyLocation} />
             { !edit ?
                 <>
                     <SetBio myBio={myBio} setMyBio={setMyBio} />

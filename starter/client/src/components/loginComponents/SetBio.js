@@ -10,7 +10,7 @@ function SetBio({myBio, setMyBio}) {
         <div className='section' onChange={onChange}>
             <h2 className='pref-form-head'>About me:</h2>
             <form className='txt-form'>
-                <textarea name='bio' className='txt-inpt'/>
+                <textarea name='bio' value={myBio} onChange={onChange} className='txt-inpt'/>
             </form>
         </div>
     );

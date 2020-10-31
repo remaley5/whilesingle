@@ -32,11 +32,25 @@ def updateUser(id):
     data = request.json
     # there's gotta be a better way... but this works
     try:
+        user.gender_id = int(data['gender'])
+    except KeyError:
+        pass
+    try:
+        user.pronoun_id = int(data['pronouns'])
+    except KeyError:
+        pass
+    try:
         preferences = data['preferences']
         if len(preferences) > 0:
-            prefList = Preference.query.filter(Preference.id.in_(preferences)).all();
+            prefList = Preference.query.filter(Preference.id.in_(preferences)).all()
             print(prefList)
             user.preferences = prefList
+    except KeyError:
+        pass
+    try:
+        orientation = data['orientation']
+        if orientation != []:
+            user.orientation = orientation
     except KeyError:
         pass
     try:
@@ -46,23 +60,11 @@ def updateUser(id):
     except KeyError:
         pass
     try:
-        user.gender_id = data['gender_id']
-    except KeyError:
-        pass
-    try:
-        user.pronoun_id = data['pronoun_id']
-    except KeyError:
-        pass
-    try:
-        first_name = data['first_name']
-        if first_name != '':
-            user.first_name = first_name
-    except KeyError:
-        pass
-    try:
-        last_name = data['last_name']
-        if last_name != '':
-            user.last_name = last_name
+        birthday = data['birthday']
+        if birthday != {}:
+            user.birthday_month = birthday['month']
+            user.birthday_year = birthday['year']
+            user.birthday_day = birthday['day']
     except KeyError:
         pass
     try:

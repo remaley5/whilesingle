@@ -13,7 +13,6 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(255), nullable=False, unique=True)
     password_digest = db.Column(db.String(255), nullable=False)
     mc_responses = db.relationship('MC_Response', backref='users')
-
     fr_responses = db.relationship('FR_Response', backref='users')
 
     matches = db.relationship(
@@ -29,6 +28,13 @@ class User(db.Model, UserMixin):
         "genders.id"))
 
     genders = db.relationship('Gender', back_populates='users')
+
+    orientation = db.Column(db.PickleType)
+
+    birthday_month = db.Column(db.String(255))
+    birthday_day = db.Column(db.String(255))
+    birthday_year =db.Column(db.String(255))
+
 
     pronoun_id = db.Column(db.Integer, db.ForeignKey(
         "pronouns.id"))

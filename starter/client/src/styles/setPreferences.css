@@ -81,6 +81,7 @@
 
 .pref-head {
     margin: auto;
+    padding-top: 90px;
     font-size: 50px;
     font-family: 'Times New Roman', Times, serif;
     font-weight: 600;
@@ -220,6 +221,9 @@ input[type='checkbox']:hover {
     height: 100%;
     border-radius: 5px;
     border: 1px solid rgb(219, 219, 219);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 17px;
+    color: rgb(83, 83, 83);
 }
 
 .set-btn {
@@ -239,4 +243,17 @@ input[type='checkbox']:hover {
 .set-btn:hover {
     color: rgb(128, 128, 128);
     background-color: rgb(236, 236, 236);
+}
+
+.pref-txt {
+    width: 300px;
+    margin: auto;
+    padding: 20px;
+    font-size: 20px;
+    color: gray;
+}
+
+.input {
+    width: fit-content;
+    margin:auto;
 }
