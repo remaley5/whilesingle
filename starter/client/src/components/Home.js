@@ -88,7 +88,7 @@ function Home(props) {
       let photos = user.photos.map((photo) =>
         <img className='swipe-img' src={photo.photo_url} alt='profile picture' key={photo.photo_url}/>
       )
-      const preferences = user.preferences.map((preference) =>
+      const preferences = user.preferences.map(([preference_id, preference]) =>
       <div key={preference}>
         <p key={preference} className='preferences'>{preference}</p>
       </div>
@@ -104,7 +104,7 @@ function Home(props) {
           <div className='swipe__info'>
             <h3 className='swipe-info__head'>{user.first_name} {user.last_name}</h3>
             <h4 className='swipe-info__sub-head'>{user.location}</h4>
-            <p className='gender'>{`Gender: ${user.gender}`}</p>
+            <p className='gender'>{`Gender: ${user.gender[1]}`}</p>
             <div className='percent-match'>{`Match: ${matchPercent}%`}</div>
             <div className='preferences'>
               {preferences}

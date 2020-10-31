@@ -5,6 +5,7 @@ export const FrContext = createContext();
 
 export const FrContextProvider = (props) => {
 	const {currentUserId: user_id} = useContext(AuthContext);
+	const [updated, setUpdated] = useState(true)
 
   // we'll also need a match id to load their answered questions only
   const match_id = 1;
@@ -13,6 +14,7 @@ export const FrContextProvider = (props) => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     useEffect(() => {
+			console.log('hits use effect')
       async function fetchData() {
         const res = await fetch(url);
         const json = await res.json();
@@ -21,12 +23,13 @@ export const FrContextProvider = (props) => {
         setData(data);
         setLoading(false);
       }
-      fetchData();
-    }, [id, url]);
-    return [data, loading];
+			fetchData();
+			setUpdated(true)
+    }, [id, url, updated]);
+    return [data, loading ];
   };
 
-  const [allFr, allFrLoading] = useFetch("/api/questions/fr/all");
+  // const [allFr, allFrLoading] = useFetch("/api/questions/fr/all");
   const [userAnsweredFr, userAnsweredFrLoading] = useFetch(
     `/api/questions/fr/answered/${user_id}`, user_id
   );
@@ -42,25 +45,30 @@ export const FrContextProvider = (props) => {
 // might not need to load allFr - userAnswered and userUnanswered do the same.
 // if loading a match view then we only care about matchAnswered
   const fr = {
-    allFr,
+    // allFr,
     userAnsweredFr,
     userUnansweredFr,
-    matchAnsweredFr,
+		matchAnsweredFr,
+		setUpdated
   };
 
 
   const frLoading = [
-    allFrLoading,
+    // allFrLoading,
     userAnsweredFrLoading,
     userUnansweredFrLoading,
     matchAnsweredFrLoading,
 	];
 
 	// make sure context loaded before rendering children
-  for (let i = 0; i < frLoading.length; i++) {
-    if (frLoading[i]) {
-      return 'idk....';
-    }
+  // for (let i = 0; i < frLoading.length; i++) {
+  //   if (frLoading[i]) {
+  //     return 'idk....';
+  //   }
+	// }
+
+	if(!updated) {
+		return 'waiting...'
 	}
 
   return (
