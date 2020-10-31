@@ -6,7 +6,7 @@ import AuthContext from '../auth'
 function UsersList (props) {
     const [users, setUsers] = useState([]);
 
-    const { currentUserId, fetchWithCSRF } = useContext(AuthContext);
+    const { currentUserId } = useContext(AuthContext);
 
     useEffect(() => {
         async function fetchData() {
@@ -16,7 +16,7 @@ function UsersList (props) {
             setUsers(responseData);
         }
         fetchData();
-    }, []);
+    }, [currentUserId]);
 
     const userComponents = users.map((user) => <User key={user.id} user={user} />)
     return (

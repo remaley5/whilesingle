@@ -49,9 +49,11 @@ swipe-con: swipe container
 .swipe-info {
     display: flex;
     flex-direction: column;
+    max-height: 200px;
 }
 
-.preferences{
+.preference{
+    max-height: 100px;
     font-family: Arial, Helvetica, sans-serif;
 }
 

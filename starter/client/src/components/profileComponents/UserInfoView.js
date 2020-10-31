@@ -8,15 +8,15 @@ export default function UserInfoView({ edit }) {
 
   const user = useContext(UserProfileContext);
   let {
-    id,
+    // id,
     first_name,
     last_name,
-    bio,
+    // bio,
     location,
     preferences,
     gender,
     pronouns,
-    setUpdated,
+    // setUpdated,
   } = user;
 
   const handleClickOpen = () => {

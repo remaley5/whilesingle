@@ -1,42 +1,36 @@
-import React, { useState, useContext } from "react";
-import AuthContext from "../../auth";
+import React, { useState } from "react";
 import { TextareaAutosize } from "@material-ui/core";
 import "./FrEdit.css";
-import Button from "@material-ui/core/Button";
 
-export default function FrEdit({ frObj, key, setUpdatedFr, updatedFr }) {
-  let { fetchWithCSRF, currentUserId: user_id } = useContext(AuthContext);
-
-  let { fr_answer, fr_question, fr_question_id, fr_alt} = frObj;
-
+export default function FrEdit({ frObj, setUpdatedFr, updatedFr }) {
+  let { fr_answer, fr_question, fr_alt, fr_question_id} = frObj;
+  fr_question_id = parseInt(fr_question_id,10)
   if (!fr_answer) {
     fr_answer = ''
     console.log(key, updatedFr)
   }
-  // const [response, setResponse] = useState(fr_answer || "");
-
-
+  const [response, setResponse] = useState(fr_answer || "");
 
   const handleChange = (e) => {
-    // setUpdatedFr(updatedFr[key] = e.target.value)
-    // setResponse(e.target.value);
-  };
-
+    setResponse(e.target.value);
+    const newUpdatedFr = {...updatedFr}
+    newUpdatedFr[fr_question_id] = e.target.value
+    setUpdatedFr(newUpdatedFr)
+  }
   return (
     <div className="pro-body__con">
       <h3 className="pro-body__head">{fr_question}</h3>
-      <p className={fr_answer ? "pro-body__cont" : "pro-body__alt-cont"}>
+      <p className={response ? "pro-body__cont" : "pro-body__alt-cont"}>
         <TextareaAutosize
-          style={{ "white-space": "pre" }}
+          style={{ "whiteSpace": "pre" }}
           className="textarea"
           aria-label="minimum height"
           rowsMin={2}
           placeholder={fr_alt}
-          value={fr_answer}
+          value={response}
           onChange={handleChange}
         />
       </p>
-      <Button >Write</Button>
     </div>
   );
 }

@@ -21,11 +21,14 @@ function App() {
   const [fetchWithCSRF, setFetchWithCSRF] = useState(() => fetch);
   const [currentUserId, setCurrentUserId] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [otherUserId, setOtherUserId] = useState(null)
 
   const authContextValue = {
     fetchWithCSRF,
     currentUserId,
     setCurrentUserId,
+    otherUserId,
+    setOtherUserId
   };
 
   useEffect(() => {
@@ -67,23 +70,6 @@ function App() {
         <nav>
             <NavBar currentUserId={currentUserId} />
         </nav>) : null}
-        {/* <Switch>
-			<ProtectedRoute path="/messenger" exact component={Messages} currentUserId={currentUserId} />
-            <ProtectedRoute path="/profile/:id" exact component={Profile} currentUserId={currentUserId}/>
-            <ProtectedRoute path="/settings" exact currentUserId={currentUserId}/>
-            <ProtectedRoute path="/quiz" exact component={McBase} currentUserId={currentUserId} />
-            <ProtectedRoute path="/users" exact component={UserList} currentUserId={currentUserId} />
-            <AuthRoute path="/login" component={Login} currentUserId={currentUserId} />
-            <AuthRoute path="/signup" component={Signup} currentUserId={currentUserId} />
-            <ProtectedRoute path='/fr_questions' exact component={Fr} currentUserId={currentUserId}/>
-            <ProtectedRoute path='/mc_questions' exact component={Mc} currentUserId={currentUserId}/>
-            <ProtectedRoute path='/upload_images' exact component={Upload} currentUserId={currentUserId}/>
-            <ProtectedRoute path={`/profile`} exact component={EditProfileContainer} currentUserId={currentUserId} />
-            <ProtectedRoute path={`/set_preferences`} exact component={SetPreferences} currentUserId={currentUserId} />
-            {/* <AuthRoute path="/login" component={Login} />
-          <NavBar currentUserId={currentUserId} />
-        </nav>
-        ) : null} */}
       <Switch>
         <ProtectedRoute
           path="/messenger"
@@ -138,12 +124,12 @@ function App() {
           component={Upload}
           currentUserId={currentUserId}
         />
-        <ProtectedRoute
+        {/* <ProtectedRoute
           path="/profile"
           exact
           component={ProfileContainer}
           currentUserId={currentUserId}
-        />
+        /> */}
          <ProtectedRoute
           path="/set_preferences"
           exact

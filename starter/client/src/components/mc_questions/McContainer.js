@@ -87,9 +87,6 @@ export default function McContainer({edit}) {
         </div>
         <div className="mc-ques-con">
           {mc_questions}
-          {/* {mcArr.map((mcObj, idx) => (
-            <McEdit key={idx} mcObj={mcObj} />
-          ))} */}
         </div>
       </div>
     );

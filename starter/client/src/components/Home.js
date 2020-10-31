@@ -4,7 +4,6 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import ClearIcon from '@material-ui/icons/Clear';
 import { iconTheme } from '../styles/homeThemes';
 
-const defaultImage = 'https://while-single-two.s3-us-west-2.amazonaws.com/ThuOct291512442020.png';
 
 function Home(props) {
 
@@ -23,13 +22,12 @@ function Home(props) {
 
       const resForPercent = await fetch(`/api/questions/mc/user/${currentUserId}/match/${data[0].user.id}`)
       const dataForPercent = await resForPercent.json()
-      console.log(dataForPercent)
       setUserBank(data)
       setViewingUser([data[0]])
       setIndex(0)
       setMatchPercent(dataForPercent.match_percent)
     })()
-  }, []);
+  }, [currentUserId]);
 
 
   const getMoreSwipes = async () => {
@@ -55,7 +53,6 @@ function Home(props) {
   }
 
   const updateDatabase = (url, user_id) => {
-    console.log(user_id)
     const body = JSON.stringify({'user_id': user_id});
     const options = {
       method: "post",
@@ -80,17 +77,14 @@ function Home(props) {
   }
 
   let user = 'Loading.....'
-  console.log(viewingUser)
   if (viewingUser[0]) {
     user = viewingUser.map(({user}) => {
-      console.log(user)
-      console.log(user.photos)
       let photos = user.photos.map((photo) =>
-        <img className='swipe-img' src={photo.photo_url} alt='profile picture' key={photo.photo_url}/>
+        <img className='swipe-img' src={photo.photo_url} alt='profile pic' key={photo.photo_url}/>
       )
       const preferences = user.preferences.map(([preference_id, preference]) =>
       <div key={preference}>
-        <p key={preference} className='preferences'>{preference}</p>
+        <p key={preference} className='preference'>{preference}</p>
       </div>
       )
       if(photos.length <= 0){
@@ -106,7 +100,7 @@ function Home(props) {
             <h4 className='swipe-info__sub-head'>{user.location}</h4>
             <p className='gender'>{`Gender: ${user.gender[1]}`}</p>
             <div className='percent-match'>{`Match: ${matchPercent}%`}</div>
-            <div className='preferences'>
+            <div className='preference'>
               {preferences}
             </div>
             <p className='swipe-bio'>{user.bio}</p>
