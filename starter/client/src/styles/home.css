@@ -39,6 +39,13 @@ swipe-con: swipe container
     margin-right: 10px;
 }
 
+.default-image {
+    height: 300px;
+    width: 250px;
+    background-image: url('./default.jpg');
+    background-size: cover;
+}
+
 .swipe-info {
     display: flex;
     flex-direction: column;
