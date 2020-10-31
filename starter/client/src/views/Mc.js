@@ -8,11 +8,11 @@ import McViewContainer from '../components/mc_questions/McViewContainer';
 import McEditContainer from '../components/mc_questions/McEditContainer';
 
 
-export default function Mc({edit}) {
+export default function Mc() { //{edit}
 	// if user wants to change their mc questions we set show to 'edit'. Otherwise it renders the match view
 	// const show = 'view'
 	// console.log('hits', show)
-
+	const edit = true
 	return (
 		<McContextProvider>
 			{edit ? <McEditContainer/> : <McViewContainer/>}

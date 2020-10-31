@@ -13,7 +13,6 @@ import Home from './components/Home';
 import Upload from './components/profileComponents/Upload'
 import AuthContext from './auth';
 import NavBar from './components/NavBar'
-import McBase from './components/mc_questions/McBase'
 import { ProtectedRoute, AuthRoute } from './Routes';
 
 function App() {
@@ -86,7 +85,7 @@ function App() {
           path="/quiz"
           exact
           currentUserId={currentUserId}
-					component={()=><Mc edit={true} />}
+					component={Mc}
         />
         <ProtectedRoute
           path="/users"

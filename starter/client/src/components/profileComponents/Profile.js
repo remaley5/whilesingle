@@ -6,6 +6,8 @@ import { UserProfileContext } from "../../context/user_profile_context";
 import Fr from "../../views/Fr";
 import FrView from "../fr_questions/FrView";
 import FrEdit from "../fr_questions/FrEdit";
+import UserInfoView from "./UserInfoView";
+import UserInfoEdit from "./UserInfoEdit";
 
 import EditIcon from "@material-ui/icons/Edit";
 
@@ -45,9 +47,9 @@ function Profile() {
   }
   if (!bio) {
     bio = "Tell us about yourself";
-  } else if (bio === ' '){
-		bio = null;
-	}
+  } else if (bio === " ") {
+    bio = null;
+  }
   if (!gender) {
     gender = "Human";
   }
@@ -79,6 +81,15 @@ function Profile() {
 
   const photoElements = photos.map((photo) =>
   <img className='pro-body__img' src={photo.photo_url} alt='profile picture' key={photo.photo_url}/>)
+  const userInfoObj = {
+    first_name,
+    last_name,
+    location,
+    gender,
+    pronouns,
+    preferencesString,
+  };
+  console.log(userInfoObj);
 
   return (
     <>
@@ -92,13 +103,11 @@ function Profile() {
             src={photos[photos.length -1].photo_url}
             alt='profile picture'
           />
-          <div className="pro-head__cont">
-            <h2 className="pro-head__username">{`${first_name} ${last_name}`}</h2>
-            <h4 className="pro-head__location">{location}</h4>
-            <p className="pro-head__pref">Identifies as: {gender}</p>
-            <p className="pro-head__pref">Pronouns: {pronouns} pronouns</p>
-            <p className="pro-head__pref">Interested in: {preferencesString}</p>
-          </div>
+          {edit ? (
+            <UserInfoEdit userInfoObj={userInfoObj} />
+          ) : (
+            <UserInfoView userInfoObj={userInfoObj} />
+          )}
         </div>
         <div className="pro-body-outer">
           <div className="pro-body">
