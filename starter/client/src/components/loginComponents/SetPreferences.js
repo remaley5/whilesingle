@@ -10,7 +10,7 @@ import SetLocation from './SetLocation'
 import AuthContext from '../../auth'
 
 function SetPreferences({ edit }) {
-    const { currentUserId } = useContext(AuthContext);
+    const { fetchWithCSRF, currentUserId } = useContext(AuthContext);
     const [genders, setGenders] = useState([])
     const [preferences, SetPreferences] = useState([])
     const [pronouns, setPronouns] = useState([])
@@ -34,7 +34,7 @@ function SetPreferences({ edit }) {
         get_options()
     }, [])
 
-    const handleSubmit = () => {
+    const handleSubmit = async() => {
         const preferences = {
             'gender': myGender,
             'pronouns': myPronouns,
@@ -44,7 +44,14 @@ function SetPreferences({ edit }) {
             'birthday': myBirthday,
             'location': myLocation
         }
-        console.log(preferences)
+        const response = await fetchWithCSRF(`/api/users/${currentUserId}`, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(preferences)
+        })
+        console.log(response.json)
     }
 
     return (
