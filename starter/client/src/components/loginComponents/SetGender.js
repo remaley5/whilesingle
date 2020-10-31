@@ -1,6 +1,6 @@
 import React from 'react';
 
-function SetGender({ genders, setMyGender }) {
+function SetGender({ genders, setMyGender, myGender }) {
 
     const onChange = e => {
         setMyGender(e.target.value)
@@ -12,7 +12,7 @@ function SetGender({ genders, setMyGender }) {
             <div className='chkbx-form'>
                 {genders.map((gender) => (
                     <div className='chck-sel'>
-                        <input type="radio" name="radio" value={gender[0]} />
+                        <input type="radio" name="radio" value={gender[0]} checked={myGender===gender[1]} />
                         <label class="container chk-sel-lbl">{gender[1]}
                         </label>
                     </div>
