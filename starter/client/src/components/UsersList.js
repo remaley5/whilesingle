@@ -1,15 +1,19 @@
-import React, { useEffect, useState } from 'react';
-
+import React, { useEffect, useState, useContext } from 'react';
 import User from './User';
+import AuthContext from '../auth'
+
 
 function UsersList (props) {
     const [users, setUsers] = useState([]);
 
+    const { currentUserId, fetchWithCSRF } = useContext(AuthContext);
+
     useEffect(() => {
         async function fetchData() {
-            const response = await fetch('/api/users');
+            const response = await fetch(`/api/matches/get-matches/${currentUserId}`);
             const responseData = await response.json();
-            setUsers(responseData.users);
+            console.log(responseData)
+            setUsers(responseData);
         }
         fetchData();
     }, []);
@@ -17,10 +21,10 @@ function UsersList (props) {
     const userComponents = users.map((user) => <User key={user.id} user={user} />)
     return (
         <>
-            <h1>User List: </h1>
+            <h1 className='matches-header'>Matches: </h1>
             {userComponents}
         </>
-        );
+    );
 }
 
 export default UsersList;

@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, request
-from starter_app.models import User, Photo, db
+from starter_app.models import User, Photo, db, Preference, Gender, Pronoun
 from flask_login import current_user, login_required, login_user
+from sqlalchemy.orm import joinedload
 
 user_routes = Blueprint('users', __name__)
 
@@ -36,11 +37,16 @@ def updateUser(id):
 
 @user_routes.route('/<int:id>')
 def getUser(id):
-    user = User.query.filter(User.id == id).one_or_none()
+    user = User.query.options(joinedload("photos")).filter(User.id == id).one_or_none()
     data = []
+    print(user.photos, '============================')
     if user:
         data = user.to_dict()
+        data['photos'] = [photo.to_dict() for photo in user.photos]
     return {'user': data}
+
+    # users = User.query.options(joinedload("photos")).filter(User.id.notin_(matched_id)).limit(10)
+    # data = [{'user':{**user.to_dict(), 'photos':[photo.to_dict() for photo in user.photos]}} for user in users]
 
 
 @user_routes.route('/photos/<int:user_id_param>')
@@ -49,3 +55,17 @@ def getPhotos(user_id_param):
     photoList = [photo.to_dict() for photo in photos]
     print('-------------------', photoList)
     return jsonify({'photos': photoList})
+
+# pronouns genders preferences
+
+@user_routes.route('/info_options')
+def getUserInfoOptions():
+    pronouns = Pronoun.query.all()
+    pronounList = [pronoun.pronoun for pronoun in pronouns]
+    genders = Gender.query.all()
+    genderList = [gender.gender for gender in genders]
+    preferences = Preference.query.all()
+    preferenceList = [preference.preference for preference in preferences]
+    return {'pronouns': pronounList,
+            'genders': genderList,
+            'preferences': preferenceList}

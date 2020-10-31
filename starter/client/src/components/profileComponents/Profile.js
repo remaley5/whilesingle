@@ -6,6 +6,8 @@ import { UserProfileContext } from "../../context/user_profile_context";
 import Fr from "../../views/Fr";
 import FrView from "../fr_questions/FrView";
 import FrEdit from "../fr_questions/FrEdit";
+import UserInfoView from "./UserInfoView";
+import UserInfoEdit from "./UserInfoEdit";
 
 import EditIcon from "@material-ui/icons/Edit";
 
@@ -24,6 +26,7 @@ const styles = (theme) => ({
 
 function Profile() {
   const user = useContext(UserProfileContext);
+  console.log(user)
   let {
     first_name,
     last_name,
@@ -32,6 +35,7 @@ function Profile() {
     preferences,
     gender,
     pronouns,
+    photos,
   } = user;
 
   // we're going to add a second level of validation (beyond logging in) that requires user to enter location, preferences, gender, and bio before viewing the full site. Use placeholders for now
@@ -43,9 +47,9 @@ function Profile() {
   }
   if (!bio) {
     bio = "Tell us about yourself";
-  } else if (bio === ' '){
-		bio = null;
-	}
+  } else if (bio === " ") {
+    bio = null;
+  }
   if (!gender) {
     gender = "Human";
   }
@@ -75,6 +79,18 @@ function Profile() {
     fr_question_id: "bio",
   };
 
+  const photoElements = photos.map((photo) =>
+  <img className='pro-body__img' src={photo.photo_url} alt='profile picture' key={photo.photo_url}/>)
+  const userInfoObj = {
+    first_name,
+    last_name,
+    location,
+    gender,
+    pronouns,
+    preferencesString,
+  };
+  console.log(userInfoObj);
+
   return (
     <>
       <button onClick={changeEdit}>
@@ -84,15 +100,14 @@ function Profile() {
         <div className="pro-head">
           <img
             className="pro-head__img"
-            src="https://while-single-bucket.s3-us-west-2.amazonaws.com/default.jpg"
+            src={photos[photos.length -1].photo_url}
+            alt='profile picture'
           />
-          <div className="pro-head__cont">
-            <h2 className="pro-head__username">{`${first_name} ${last_name}`}</h2>
-            <h4 className="pro-head__location">{location}</h4>
-            <p className="pro-head__pref">Identifies as: {gender}</p>
-            <p className="pro-head__pref">Pronouns: {pronouns} pronouns</p>
-            <p className="pro-head__pref">Interested in: {preferencesString}</p>
-          </div>
+          {edit ? (
+            <UserInfoEdit userInfoObj={userInfoObj} />
+          ) : (
+            <UserInfoView userInfoObj={userInfoObj} />
+          )}
         </div>
         <div className="pro-body-outer">
           <div className="pro-body">
@@ -103,30 +118,7 @@ function Profile() {
                 <EditIcon className="edit-icon" onClick={handleClickOpen} />
               ) : null}
               <div className="pro-body__imgs">
-                <img
-                  className="pro-body__img"
-                  src="https://while-single-bucket.s3-us-west-2.amazonaws.com/default.jpg"
-                />
-                <img
-                  className="pro-body__img"
-                  src="https://while-single-bucket.s3-us-west-2.amazonaws.com/default.jpg"
-                />
-                <img
-                  className="pro-body__img"
-                  src="https://while-single-bucket.s3-us-west-2.amazonaws.com/default.jpg"
-                />
-                <img
-                  className="pro-body__img"
-                  src="https://while-single-bucket.s3-us-west-2.amazonaws.com/default.jpg"
-                />
-                <img
-                  className="pro-body__img"
-                  src="https://while-single-bucket.s3-us-west-2.amazonaws.com/default.jpg"
-                />
-                <img
-                  className="pro-body__img"
-                  src="https://while-single-bucket.s3-us-west-2.amazonaws.com/default.jpg"
-                />
+                {photoElements}
               </div>
             </div>
             <Fr edit={edit} />

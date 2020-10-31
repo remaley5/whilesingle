@@ -38,14 +38,6 @@
     padding-top: 10px;
 }
 
-label.chk-sel-lbl {
-    justify-self: flex-start;
-}
-
-.chk-sel-bx {
-    justify-self: flex-end;
-}
-
 input[type='checkbox']:hover {
     box-shadow: 0 0 6px inset rgb(185, 185, 185);
 }
