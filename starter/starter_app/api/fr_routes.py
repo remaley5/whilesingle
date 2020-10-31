@@ -18,6 +18,7 @@ def all_fr_questions():
 def answered_fr_questions(user_id):
     resArr = FR_Response.query.filter(FR_Response.user_id == user_id).join(
         FR_Question).options(db.joinedload(FR_Response.fr_question)).all()
+    print(resArr)
     return {'fr_answered': [fr_response.to_dict() for fr_response in resArr]}
 
 

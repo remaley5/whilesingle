@@ -14,7 +14,7 @@ export default function Fr({edit, updatedFr, setUpdatedFr}) {
 
 	return (
 		<FrContextProvider>
-			<FrContainer edit={edit} updatedFr={updatedFr} setUpdatedFr={setUpdatedFr} />
+			<FrContainer edit={edit} updatedFr={updatedFr} setUpdatedFr={setUpdatedFr}/>
 		</FrContextProvider>
 	)
 }

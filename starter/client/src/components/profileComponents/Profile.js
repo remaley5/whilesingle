@@ -6,7 +6,7 @@ import AuthContext from "../../auth";
 import { UserProfileContext } from "../../context/user_profile_context";
 import { FrContext } from "../../context/fr_context";
 
-import Fr from "../../views/Fr";
+import FrContainer from "../fr_questions/FrContainer";
 import FrView from "../fr_questions/FrView";
 import FrEdit from "../fr_questions/FrEdit";
 import UserInfoView from "./UserInfoView";
@@ -27,227 +27,146 @@ import EditIcon from "@material-ui/icons/Edit";
 //   },
 // });
 
-function Profile({viewId}) {
+function Profile() {
   const user = useContext(UserProfileContext);
+	const [frUpdated, setFrUpdated] = useState(true)
 
-  const {setUpdated: setFrUpdated} = useContext(FrContext)
-  let { fetchWithCSRF, currentUserId:user_id } = useContext(AuthContext);
-  const [updatedFr, setUpdatedFr] = useState({})
+  // const { setUpdated: setFrUpdated } = useContext(FrContext);
+  let { fetchWithCSRF, currentUserId: user_id } = useContext(AuthContext);
+  const [updatedFr, setUpdatedFr] = useState({});
   const [open, setOpen] = useState(false);
   const [edit, setEdit] = useState(false);
+  const defaultPhoto = [
+    <div className="default-image" key="default-image"></div>,
+  ];
 
+  // console.log(setFrUpdated)
+  // console.log(user)
+  let {
+    first_name,
+    last_name,
+    bio,
+    location,
+    preferences,
+    gender,
+    pronouns,
+    photos,
+    setUpdated: setProfileUpdated,
+  } = user;
 
+  // we're going to add a second level of validation (beyond logging in) that requires user to enter location, preferences, gender, and bio before viewing the full site. Use placeholders for now
+  // if (!location) {
+  //   location = "Planet Earth";
+  // }
+  // if (!preferences) {
+  //   preferences = ["All of them"];
+  // }
+  // if (!bio) {
+  //   bio = "Tell us about yourself";
+  // } else if (bio === " ") {
+  //   bio = null;
+  // }
+  // if (!gender) {
+  //   gender = "Human";
+  // }
+  // if (!pronouns) {
+  //   pronouns = "They/Them";
+  // }
 
+  const handleFrUpdate = () => {
+    // e.preventDefault();
+    let url = `/api/questions/fr/${user_id}/answers`;
+    let body = {};
 
-  const defaultPhoto = [<div className='default-image' key='default-image'></div>]
+    const responseList = Object.entries(updatedFr);
 
+    responseList.forEach(([question_id, response]) => {
+      body[question_id] = response;
+    });
 
+    console.log(body);
 
-  if (viewId === user_id) {
-    // console.log(setFrUpdated)
-    // console.log(user)
-    let {
-      // first_name,
-      // last_name,
-      bio,
-      // location,
-      // preferences,
-      // gender,
-      // pronouns,
-      photos,
-      setUpdated: setProfileUpdated,
-    } = user;
-
-    // we're going to add a second level of validation (beyond logging in) that requires user to enter location, preferences, gender, and bio before viewing the full site. Use placeholders for now
-    // if (!location) {
-    //   location = "Planet Earth";
-    // }
-    // if (!preferences) {
-    //   preferences = ["All of them"];
-    // }
-    // if (!bio) {
-    //   bio = "Tell us about yourself";
-    // } else if (bio === " ") {
-    //   bio = null;
-    // }
-    // if (!gender) {
-    //   gender = "Human";
-    // }
-    // if (!pronouns) {
-    //   pronouns = "They/Them";
-    // }
-
-    const handleFrUpdate = () => {
-      // e.preventDefault();
-      let url = `/api/questions/fr/${user_id}/answers`;
-      let body = {}
-
-      const responseList = Object.entries(updatedFr)
-
-      responseList.forEach(([question_id, response])=>{
-        body[question_id] = response;
-      })
-
-      console.log(body)
-
-      const options = {
-        method: "post",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
-      };
-      fetchWithCSRF(url, options);
-      // clear updatedFr on submit!
-      setUpdatedFr({})
+    const options = {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
     };
+		fetchWithCSRF(url, options);
+		setFrUpdated(false);
 
-
-    const handleClickOpen = () => {
-      setOpen(true);
-    };
-
-    const changeEdit = () => {
-      if (edit === true) {
-        console.log(updatedFr)
-        // send updated responses
-        handleFrUpdate()
-        setProfileUpdated(false)
-        setFrUpdated(false)
-        setEdit(false)
-      } else {
-        setEdit(true)
-
-      }
-    };
-
-    const bioObj = {
-      fr_question: "About Me",
-      fr_answer: bio,
-      fr_alt: "Tell us about yourself",
-      fr_question_id: "bio",
-    };
-
-    const photoElements = photos.map((photo, idx) =>
-    <img className='pro-body__img' src={photo.photo_url} alt='profile pic' key={idx}/>)
-
-    return (
-      <>
-        <Button onClick={changeEdit}>
-          {edit ? "View Profile" : "Edit Profile"}
-        </Button>
-        <div className="pro-con">
-          <div className="pro-head">
-          { photos.length > 0 ?
-            <img
-              className="pro-head__img"
-              src={photos[photos.length -1].photo_url}
-              alt='profile pic'
-            />
-            : defaultPhoto
-            }
-            <UserInfoView />
-          </div>
-          <div className="pro-body-outer">
-            <div className="pro-body">
-              {edit ? <FrEdit frObj={bioObj} /> : <FrView frObj={bioObj} />}
-              <div className="pro-body__img-con">
-                {/* <Button variant="outlined" color="primary" onClick={handleClickOpen}>edit photos</Button> */}
-                {edit ? (
-                  <EditIcon className="edit-icon" onClick={handleClickOpen} />
-                ) : null}
-                <div className="pro-body__imgs">
-                  {photoElements}
-                </div>
-              </div>
-              <Fr edit={edit} updatedFr={updatedFr} setUpdatedFr={setUpdatedFr}/>
-            </div>
-          </div>
-        </div>
-        {edit ? <AddPhotos open={open} setOpen={setOpen} /> : null}
-      </>
-    );
-  } else {
-
-    	// we'll also need a match id to load their answered questions only
-  // const match_id = 2;
-	// const [updated, setUpdated] = useState(true)
-	// const [data, setData] = useState([]);
-	// const [loading, setLoading] = useState(true);
-  const getMatchData = (id) => {
-    // useEffect(() => {
-		async function fetchData() {
-			const res = await fetch(`/api/users/${id}`);
-			const json = await res.json();
-			// call returns object with one key - we only want its value (an array)
-			const obj = json[Object.keys(json)];
-			// setData(obj);
-			// setLoading(false);
-			return obj
-		}
-		return fetchData();
-			// setUpdated(true)
-    // }, [id]); //updated
-    // return obj; //[data, loading];
+    // clear updatedFr on submit!
+    setUpdatedFr({});
   };
 
-	const matchProfile = getMatchData(viewId);
-	let {
-		// first_name,
-		// last_name,
-		bio,
-		// location,
-		// preferences,
-		// gender,
-		// pronouns,
-		photos,
-	} = matchProfile;
-	// if (userProfileLoading) {
-	// 	return "where's your stuff?";
-	// }
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
 
-    const photoElements = photos.map((photo, idx) =>
-    <img className='pro-body__img' src={photo.photo_url} alt='profile pic' key={idx}/>)
+  const changeEdit = () => {
+    if (edit === true) {
+      console.log(updatedFr);
+      // send updated responses
+      handleFrUpdate();
+      setProfileUpdated(false);
+      setEdit(false);
+    } else {
+      setEdit(true);
+    }
+  };
 
+  const bioObj = {
+    fr_question: "About Me",
+    fr_answer: bio,
+    fr_alt: "Tell us about yourself",
+    fr_question_id: "bio",
+  };
 
-    const bioObj = {
-      fr_question: "About Me",
-      fr_answer: bio,
-      fr_alt: "Tell us about yourself",
-      fr_question_id: "bio",
-    };
+  const photoElements = photos.map((photo, idx) => (
+    <img
+      className="pro-body__img"
+      src={photo.photo_url}
+      alt="profile pic"
+      key={idx}
+    />
+  ));
 
-    return (
-      <>
-        <div className="pro-con">
-          <div className="pro-head">
-          { photos.length > 0 ?
+  return (
+    <>
+      <Button onClick={changeEdit}>
+        {edit ? "View Profile" : "Edit Profile"}
+      </Button>
+      <div className="pro-con">
+        <div className="pro-head">
+          {photos.length > 0 ? (
             <img
               className="pro-head__img"
-              src={photos[photos.length -1].photo_url}
-              alt='profile pic'
+              src={photos[photos.length - 1].photo_url}
+              alt="profile pic"
             />
-            : defaultPhoto
-            }
-            <UserInfoView />
-          </div>
-          <div className="pro-body-outer">
-            <div className="pro-body">
-              <FrView frObj={bioObj} />
-              <div className="pro-body__img-con">
-                {/* <Button variant="outlined" color="primary" onClick={handleClickOpen}>edit photos</Button> */}
-                <div className="pro-body__imgs">
-                  {photoElements}
-                </div>
-              </div>
-              <Fr edit={false} updatedFr={updatedFr} setUpdatedFr={setUpdatedFr}/>
+          ) : (
+            defaultPhoto
+          )}
+          <UserInfoView user={user} />
+        </div>
+        <div className="pro-body-outer">
+          <div className="pro-body">
+            {edit ? <FrEdit frObj={bioObj} /> : <FrView frObj={bioObj} />}
+            <div className="pro-body__img-con">
+              {/* <Button variant="outlined" color="primary" onClick={handleClickOpen}>edit photos</Button> */}
+              {edit ? (
+                <EditIcon className="edit-icon" onClick={handleClickOpen} />
+              ) : null}
+              <div className="pro-body__imgs">{photoElements}</div>
             </div>
+            <FrContainer edit={edit} updatedFr={updatedFr} setUpdatedFr={setUpdatedFr} frUpdated={frUpdated}/>
           </div>
         </div>
-        {/* {edit ? <AddPhotos open={open} setOpen={setOpen} /> : null} */}
-      </>
-    )
-  }
+      </div>
+      {edit ? <AddPhotos open={open} setOpen={setOpen} /> : null}
+    </>
+  );
 }
 
 export default Profile;

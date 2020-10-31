@@ -1,37 +1,71 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 
-import { FrContext } from "../../context/fr_context";
 import FrEdit from "./FrEdit";
 import FrView from "./FrView";
+import AuthContext from "../../auth";
 
+export default function FrContainer({ edit, updatedFr, setUpdatedFr, frUpdated }) {
+  const { currentUserId } = useContext(AuthContext);
 
-export default function FrContainer({edit, updatedFr, setUpdatedFr}) {
-  const frContext = useContext(FrContext);
+//---------------------------------
+  const [loading, setLoading] = useState(true);
 
-  console.log('from FrContainer', updatedFr)
-  const view_match = false
+  const useFetch = (url, loadFn) => {
+    const [data, setData] = useState([]);
+    useEffect(() => {
+      // console.log('hits use effect')
+      async function fetchData() {
+        const res = await fetch(url);
+        const json = await res.json();
+        // call returns object with one key - we only want its value (an array)
+        const data = json[Object.keys(json)];
+				setData(data);
+				if(loadFn) {
+					loadFn(false)
+				}
+        // setLoading(false);
+      }
+      fetchData();
+    }, [currentUserId, frUpdated]);
+    return data;
+  };
 
-  const { userAnsweredFr, userUnansweredFr, matchAnsweredFr } = frContext;
+  const userAnsweredFr = useFetch(`/api/questions/fr/answered/${currentUserId}`);
+  const userUnansweredFr = useFetch(`/api/questions/fr/unanswered/${currentUserId}`, setLoading);
+
+	// useEffect(()=>{
+	// 	console.log('hist')
+	// }, [frUpdated])
+
+  if (loading) {
+    return "waiting...";
+  }
+
 
   // if user editing their own answers
   if (edit) {
-    const frArr = [...userAnsweredFr, ...userUnansweredFr]
+    const frArr = [...userAnsweredFr, ...userUnansweredFr];
     return (
       <>
         {frArr.map((frObj, idx) => (
-          <FrEdit key={idx} frObj={frObj} setUpdatedFr={setUpdatedFr} updatedFr={updatedFr}/>
+          <FrEdit
+            key={idx}
+            frObj={frObj}
+            setUpdatedFr={setUpdatedFr}
+            updatedFr={updatedFr}
+          />
         ))}
       </>
-    )
-    // if user viewing their profile or a match's
+    );
+    // if user viewing their profile
   } else {
-    const frArr = view_match ? [...matchAnsweredFr] : [...userAnsweredFr]
+    const frArr = [...userAnsweredFr];
     return (
       <>
         {frArr.map((frObj, idx) => (
           <FrView key={idx} frObj={frObj} />
         ))}
       </>
-    )
+    );
   }
 }
