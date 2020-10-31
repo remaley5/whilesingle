@@ -171,30 +171,40 @@ function Profile({viewId}) {
 
     	// we'll also need a match id to load their answered questions only
   // const match_id = 2;
-	const [updated, setUpdated] = useState(true)
-	const [data, setData] = useState([]);
-	const [loading, setLoading] = useState(true);
-  const useFetch = (id) => {
-    useEffect(() => {
-      async function fetchData() {
-        const res = await fetch(`/api/users/${user_id}`);
-        const json = await res.json();
-        // call returns object with one key - we only want its value (an array)
-        const obj = json[Object.keys(json)];
-        setData(obj);
-        setLoading(false);
-      }
-			fetchData();
-			setUpdated(true)
-    }, [id]); //updated
-    return [data, loading];
+	// const [updated, setUpdated] = useState(true)
+	// const [data, setData] = useState([]);
+	// const [loading, setLoading] = useState(true);
+  const getMatchData = (id) => {
+    // useEffect(() => {
+		async function fetchData() {
+			const res = await fetch(`/api/users/${id}`);
+			const json = await res.json();
+			// call returns object with one key - we only want its value (an array)
+			const obj = json[Object.keys(json)];
+			// setData(obj);
+			// setLoading(false);
+			return obj
+		}
+		return fetchData();
+			// setUpdated(true)
+    // }, [id]); //updated
+    // return obj; //[data, loading];
   };
 
-	const [userProfile, userProfileLoading] = useFetch(user_id);
-
-	if (userProfileLoading) {
-		return "where's your stuff?";
-	}
+	const matchProfile = getMatchData(viewId);
+	let {
+		// first_name,
+		// last_name,
+		bio,
+		// location,
+		// preferences,
+		// gender,
+		// pronouns,
+		photos,
+	} = matchProfile;
+	// if (userProfileLoading) {
+	// 	return "where's your stuff?";
+	// }
 
     const photoElements = photos.map((photo, idx) =>
     <img className='pro-body__img' src={photo.photo_url} alt='profile pic' key={idx}/>)
