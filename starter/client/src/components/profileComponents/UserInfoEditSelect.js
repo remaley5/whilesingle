@@ -47,6 +47,7 @@ export default function UserInfoEditSelect({ options, selected, label }) {
         {label}
       </InputLabel>
       <NativeSelect
+				required
         value={val}
         onChange={handleChange}
         inputProps={{id: label}}

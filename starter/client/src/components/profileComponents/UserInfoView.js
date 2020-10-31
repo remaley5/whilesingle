@@ -1,24 +1,27 @@
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import { UserProfileContext } from "../../context/user_profile_context";
 
 export default function UserInfoView() {
-	const user = useContext(UserProfileContext);
-	let {
-		id,
+  const user = useContext(UserProfileContext);
+  let {
+    id,
     first_name,
     last_name,
     bio,
     location,
     preferences,
     gender,
-		pronouns,
-		setUpdated
+    pronouns,
+    setUpdated,
   } = user;
 
   let preferencesString = "";
-  for (let i = 0; i < preferences.length; i++) {
-    if (i < preferences.length - 1) {
+  const numPref = preferences.length;
+  for (let i = 0; i < numPref; i++) {
+    if (numPref > 1 && i !== numPref - 1) {
       preferencesString += `${preferences[i][1]}, `;
+    } else if (numPref === 1) {
+      preferencesString += `${preferences[i][1]}`;
     } else {
       preferencesString += `and ${preferences[i][1]} `;
     }

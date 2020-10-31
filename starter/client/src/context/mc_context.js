@@ -7,6 +7,7 @@ export const McContextProvider = (props) => {
   // need to get user Id from context or something.
 	// hard code for now
   const { currentUserId: user_id } = useContext(AuthContext);
+	const [updated, setUpdated] = useState(true)
 
 
   // we'll also need a match id to load their answered questions only
@@ -24,8 +25,9 @@ export const McContextProvider = (props) => {
         setData(obj);
         setLoading(false);
       }
-      fetchData();
-    }, [id, url]);
+			fetchData();
+			setUpdated(true)
+    }, [id, url, updated]);
     return [data, loading];
   };
 
@@ -46,7 +48,8 @@ export const McContextProvider = (props) => {
     allMc,
     userAnsweredMc,
     userUnansweredMc,
-    matchAnsweredMc,
+		matchAnsweredMc,
+		setUpdated
   };
 
 

@@ -30,6 +30,7 @@ def updateUser(id):
     user = User.query.get(id)
     print(user.preferences)
     data = request.json
+    # there's gotta be a better way... but this works
     try:
         preferences = data['preferences']
         if len(preferences) > 0:
@@ -45,13 +46,29 @@ def updateUser(id):
     except KeyError:
         pass
     try:
-        gender_id = data['gender_id']
-        user.gender_id = gender_id
+        user.gender_id = data['gender_id']
     except KeyError:
         pass
     try:
-        pronoun_id = data['pronoun_id']
-        user.pronoun_id = pronoun_id
+        user.pronoun_id = data['pronoun_id']
+    except KeyError:
+        pass
+    try:
+        first_name = data['first_name']
+        if first_name != '':
+            user.first_name = first_name
+    except KeyError:
+        pass
+    try:
+        last_name = data['last_name']
+        if last_name != '':
+            user.last_name = last_name
+    except KeyError:
+        pass
+    try:
+        location = data['location']
+        if location != '':
+            user.location = location
     except KeyError:
         pass
 

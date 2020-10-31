@@ -24,7 +24,7 @@ export const UserProfileContextProvider = (props) => {
       }
 			fetchData();
 			setUpdated(true)
-    }, [id, updated, updated]);
+    }, [id, updated]);
     return [data, loading];
   };
 

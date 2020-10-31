@@ -40,6 +40,7 @@ export default function FrUserForm({ frObj }) {
       <h3 className="pro-body__head">{fr_question}</h3>
       <p className={response ? "pro-body__cont" : "pro-body__alt-cont"}>
         <TextareaAutosize
+          style={{ "white-space": "pre" }}
           className="textarea"
           aria-label="minimum height"
           rowsMin={2}

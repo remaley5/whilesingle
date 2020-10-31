@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import { UserProfileContext } from "../../context/user_profile_context";
-import { TextField } from "@material-ui/core";
+// import { TextField } from "@material-ui/core";
 import { UserProfileInfoContext } from "../../context/user_profile_info_context";
 import MultipleSelect from "./UserInfoEditMultiSelect";
 import SingleSelect from "./UserInfoEditSelect";
-
+import TextField from './UserInfoEditText'
 export default function UserInfoEdit() {
 	const {prefOptions, genderOptions, pronounOptions} = useContext(UserProfileInfoContext);
   const user = useContext(UserProfileContext);

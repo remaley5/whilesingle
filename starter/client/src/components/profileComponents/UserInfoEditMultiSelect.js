@@ -101,6 +101,7 @@ export default function MultipleSelect({ options, selected, label }) {
     <FormControl className={classes.formControl}>
       <InputLabel id="demo-mutiple-chip-label">{label}</InputLabel>
       <Select
+				required
         labelId="demo-mutiple-chip-label"
         id="demo-mutiple-chip"
         multiple

@@ -3,6 +3,8 @@ import AddPhotos from "./AddPhotos";
 import Button from "@material-ui/core/Button";
 // import { withStyles } from '@material-ui/core/styles';
 import { UserProfileContext } from "../../context/user_profile_context";
+import { FrContext } from "../../context/fr_context";
+
 import Fr from "../../views/Fr";
 import FrView from "../fr_questions/FrView";
 import FrEdit from "../fr_questions/FrEdit";
@@ -25,7 +27,9 @@ const styles = (theme) => ({
 });
 
 function Profile() {
-  const user = useContext(UserProfileContext);
+	const user = useContext(UserProfileContext);
+	const {setUpdated: setFrUpdated} = useContext(FrContext)
+	console.log(setFrUpdated)
   console.log(user)
   let {
     first_name,
@@ -35,8 +39,8 @@ function Profile() {
     // preferences,
     // gender,
 		// pronouns,
-    photos
-		setUpdated
+    photos,
+		setUpdated: setProfileUpdated,
   } = user;
 
   // we're going to add a second level of validation (beyond logging in) that requires user to enter location, preferences, gender, and bio before viewing the full site. Use placeholders for now
@@ -70,7 +74,8 @@ function Profile() {
 
   const changeEdit = () => {
 		if (edit === true) {
-			setUpdated(false)
+			setProfileUpdated(false)
+			setFrUpdated(false)
 			setEdit(false)
 		} else {
 			setEdit(true)
