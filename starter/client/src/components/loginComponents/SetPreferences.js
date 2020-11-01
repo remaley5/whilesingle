@@ -63,6 +63,29 @@ function SetPreferences({ edit, handleClose, user}) {
     }, [])
 
     const handleSubmit = async() => {
+        console.log(`
+            ${myGender}
+            ${myPronouns}
+            ${myConnections}
+            ${myOrientation}
+            ${myBirthday}
+            ${myLocation}
+            ${myBio}
+
+        `)
+        console.log(`conditional:
+        myGender === ''             ${myGender === ''}
+        myPronouns === ''           ${myPronouns === ''}
+        myConnections.length === 0    ${myConnections.length === 0}
+        myOrientation.length === 0    ${myOrientation.length === 0}
+        !myBirthday.day            ${!myBirthday.day}
+        !myBirthday.month           ${!myBirthday.month}
+        !myBirthday.year            ${!myBirthday.year}
+        myLocation === ''           ${myLocation === ''}
+        myBio === ''                ${myBio === ''}
+
+
+        `)
         if (myGender === '' || myPronouns === '' || myConnections.length === 0 || myOrientation.length === 0 || !myBirthday.day || !myBirthday.month || !myBirthday.year || myLocation === '' || myBio === '') {
             alert('I think you forgot something...')
             return

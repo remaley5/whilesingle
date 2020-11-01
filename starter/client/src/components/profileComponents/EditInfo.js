@@ -8,7 +8,6 @@ function EditInfo({open, setOpen, user}) {
         setOpen(false);
     };
 
-    console.log('handle close form edit info', handleClose)
     return (
         <>
             <div>

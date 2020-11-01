@@ -11,14 +11,22 @@ function SetBirthday({myBirthday, setMyBirthday}) {
 
     const onChange = e => {
         console.log(e.target.id)
+        const value = e.target.value
+        const birthdayCopy = {...myBirthday}
         if(e.target.id == 'month') {
             setMonth(e.target.value);
+            birthdayCopy.month = value
+            setMyBirthday(birthdayCopy)
         } else if(e.target.id == 'day') {
             setDay(e.target.value);
+            birthdayCopy.day = value
+            setMyBirthday(birthdayCopy)
         } else {
             setYear(e.target.value)
+            birthdayCopy.year = value
+            setMyBirthday(birthdayCopy)
         }
-        setMyBirthday({month, day, year})
+        // setMyBirthday({month, day, year})
         console.log(myBirthday)
     }
 
