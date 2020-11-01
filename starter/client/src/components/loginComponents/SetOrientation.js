@@ -1,18 +1,19 @@
 import React from 'react';
 // import pluralize from 'pluralize';
 
-function SetOrientation({genders, setMyOrientation, myOrientation}) {
+function SetOrientation({ genders, setMyOrientation, myOrientation }) {
 
     const onChange = e => {
-        if(myOrientation.includes(e.target.value)) {
-            var array = [...myOrientation]; // make a separate copy of the array
-            var index = array.indexOf(e.target.value)
+        const value = parseInt(e.target.value,10)
+        if (myOrientation.includes(value)) {
+            const array = [...myOrientation]; // make a separate copy of the array
+            const index = array.indexOf(value)
             if (index !== -1) {
-              array.splice(index, 1);
-              setMyOrientation(array)
+                array.splice(index, 1);
+                setMyOrientation(array)
             }
         } else {
-            let newConnect = [...myOrientation, e.target.value]
+            let newConnect = [...myOrientation, value]
             setMyOrientation(newConnect)
         }
     }
@@ -22,13 +23,12 @@ function SetOrientation({genders, setMyOrientation, myOrientation}) {
         <div className='section'>
             <h2 className='pref-form-head'>I'm interested in...</h2>
             <form className='chkbx-form'>
-                { genders.map((gender) => (
+                {genders.map((gender, idx) => (
                     <div className='chck-sel'>
                         <label for={gender} className='chck-sel-lbl'>{gender[1]}</label>
-                        <div className='chk-sel-bx'><input type='checkbox' onClick={onChange} id={gender} value={gender[0]} /></div>
+                        <div className='chk-sel-bx'><input type='checkbox' onClick={onChange} key={idx} id={gender} value={gender[0]} /></div>
                     </div>
                 ))
-
                 }
             </form>
         </div>

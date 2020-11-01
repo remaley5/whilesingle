@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import AddPhotos from "./AddPhotos";
 import Button from "@material-ui/core/Button";
 import AuthContext from "../../auth";
@@ -14,42 +14,43 @@ export default function Profile() {
     <div className="default-image" key="default-image"></div>,
 	];
 
-	const user = useContext(UserProfileContext);
-	const [loadingFr, setLoadingFr] = useState(true)
-
-  // const { setUpdated: setFrUpdated } = useContext(FrContext);
   let { fetchWithCSRF, currentUserId: user_id } = useContext(AuthContext);
+
+  const [profileUpdated, setProfileUpdated] = useState(true);
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const useFetch = (user_id) => {
+    useEffect(() => {
+      async function fetchData() {
+        const res = await fetch(`/api/users/${user_id}`);
+        const json = await res.json();
+        const obj = json[Object.keys(json)];
+        setData(obj);
+        setLoading(false);
+      }
+      fetchData();
+      setProfileUpdated(true);
+    }, [user_id, profileUpdated]);
+    return [data, loading];
+  };
+
+  const [user, userLoading] = useFetch(user_id);
+
+
+	const [loadingFr, setLoadingFr] = useState(true)
   const [updatedFr, setUpdatedFr] = useState({});
   const [open, setOpen] = useState(false);
   const [edit, setEdit] = useState(false);
 
 
-  let {
-    first_name,
-    last_name,
-    bio,
-    location,
-    preferences,
-    gender,
-    pronouns,
-    photos,
-    setUpdated: setProfileUpdated,
-  } = user;
-
 
   const handleFrUpdate = () => {
-    // e.preventDefault();
     let url = `/api/questions/fr/${user_id}/answers`;
     let body = {};
-
     const responseList = Object.entries(updatedFr);
-
     responseList.forEach(([question_id, response]) => {
       body[question_id] = response;
     });
-
-    console.log(body);
-
     const options = {
       method: "post",
       headers: {
@@ -58,7 +59,6 @@ export default function Profile() {
       body: JSON.stringify(body),
     };
 		fetchWithCSRF(url, options);
-
     setUpdatedFr({});
   };
 
@@ -79,6 +79,23 @@ export default function Profile() {
 			setLoadingFr(false)
     }
   };
+
+  if (userLoading) {
+    return "give us a second...";
+  }
+
+  let {
+    first_name,
+    last_name,
+    bio,
+    location,
+    preferences,
+    gender,
+    pronouns,
+    photos,
+  } = user;
+
+  user.setProfileUpdated = setProfileUpdated;
 
   const bioObj = {
     fr_question: "About Me",
@@ -112,11 +129,7 @@ export default function Profile() {
           ) : (
             defaultPhoto
           )}
-<<<<<<< HEAD
-          <UserInfoView user={user} edit={edit} />
-=======
           <UserInfoView edit={edit} user={user} />
->>>>>>> bafbfbf5742d76623d7b3c7a8b012ae20cedbacf
         </div>
         <div className="pro-body-outer">
           <div className="pro-body">

@@ -29,7 +29,7 @@ class User(db.Model, UserMixin):
 
     genders = db.relationship('Gender', back_populates='users')
 
-    orientation = db.Column(db.PickleType)
+    orientation = db.Column(db.ARRAY(db.Integer))
 
     birthday_month = db.Column(db.String(255))
     birthday_day = db.Column(db.String(255))

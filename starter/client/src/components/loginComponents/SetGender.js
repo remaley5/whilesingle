@@ -3,16 +3,18 @@ import React from 'react';
 function SetGender({ genders, myGender, setMyGender }) {
 
     const onChange = e => {
-        setMyGender(e.target.value)
+        console.log('myGender from within onChange:', myGender)
+        setMyGender(parseInt(e.target.value, 10))
     }
 
+    console.log('myGender right before return:', myGender)
     return (
         <div className='section'>
             <h2 className='pref-form-head'>I am...</h2>
             <div className='chkbx-form'>
-                {genders.map((gender) => (
+                {genders.map((gender, idx) => (
                     <div className='chck-sel'>
-                        <input type="radio" onChange={onChange} name="radio" value={gender[0]} />
+                        <input type="radio" onChange={onChange} key={idx} name="gender" value={gender[0]} checked={gender[0] === myGender}/>
                         <label class="container chk-sel-lbl">{gender[1]}
                         </label>
                     </div>
