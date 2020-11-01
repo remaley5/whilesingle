@@ -23,7 +23,7 @@ mc-con
 .mc-side-bar {
     background-color: rgb(223, 238, 255);
     width: 150px;
-    height: 200px;
+    height: fit-content;
     display: flex;
     flex-direction: column;
     padding: 20px;
@@ -47,6 +47,26 @@ mc-con
     box-sizing: border-box;
     padding: 10px;
 }
+
+/* .side-bar-btn {
+	width: 100%!important;
+	padding: 20px 40px!important;
+	color: rgb(255, 255, 255)!important;
+	background-color: #8a8a85!important;
+	border: none!important;
+	box-shadow: 0 0 10px gray!important;
+	border-radius: 40px!important;
+	margin: auto!important;
+	font-size: 30px!important;
+	font-weight: 600!important;
+	letter-spacing: 2px!important;
+} */
+
+.side-bar-btn:active {
+	color: rgb(128, 128, 128)!important;
+	background-color: rgb(236, 236, 236)!important;
+}
+
 
 .ques-head {
 
