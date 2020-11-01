@@ -108,7 +108,7 @@ export default function McEdit({ mcObj }) {
 								type="checkbox"
 								className='mc-sel mc-sel-check'
                 checked={unacceptableRef.current.indexOf(mc_answer_id) !== -1}
-                name={mc_question_id}
+                name={`unacceptable-${mc_question_id}`}
                 id={`unacceptable-${mc_answer_id}`}
                 onChange={handleUnacceptable}
               />

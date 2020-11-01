@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import {Redirect, useHistory} from 'react-router-dom'
 import SetGender from './SetGender'
 import SetPronouns from './SetPronouns'
 import SetOrientation from './SetOrientation'
@@ -11,6 +12,8 @@ import AuthContext from '../../auth'
 
 
 function SetPreferences({ edit, handleClose, user}) {
+    const history = useHistory()
+    console.log(handleClose)
     console.log(user)
 		let currentGenders='';
 		// let currentPreferences=[];
@@ -60,6 +63,10 @@ function SetPreferences({ edit, handleClose, user}) {
     }, [])
 
     const handleSubmit = async() => {
+        if (myGender === '' || myPronouns === '' || myConnections.length === 0 || myOrientation.length === 0 || !myBirthday.day || !myBirthday.month || !myBirthday.year || myLocation === '' || myBio === '') {
+            alert('I think you forgot something...')
+            return
+        }
         const preferences = {
             'gender': myGender,
             'pronouns': myPronouns,
@@ -77,8 +84,12 @@ function SetPreferences({ edit, handleClose, user}) {
             body: JSON.stringify(preferences)
         })
         console.log(response.json)
-        handleClose()
-        user.setProfileUpdated(false)
+        if(edit) {
+            handleClose()
+            user.setProfileUpdated(false)
+        } else {
+            history.push('/')
+        }
     }
 
     return (

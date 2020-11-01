@@ -3,11 +3,12 @@ import Dialog from '@material-ui/core/Dialog';
 import SetPreferences from '../loginComponents/SetPreferences'
 
 function EditInfo({open, setOpen, user}) {
+
     const handleClose = () => {
         setOpen(false);
     };
 
-
+    console.log('handle close form edit info', handleClose)
     return (
         <>
             <div>
