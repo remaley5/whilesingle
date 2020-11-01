@@ -229,7 +229,7 @@ input[type='checkbox']:hover {
 .set-btn {
     width: fit-content;
     padding: 20px 40px;
-    color: rgb(255, 255, 255);
+    color: rgb(255, 255, 255)!important;
     background-color: #8a8a85;
     border: none;
     box-shadow: 0 0 10px gray;

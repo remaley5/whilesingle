@@ -3,32 +3,29 @@ import React, { useContext, useState } from "react";
 import { McContext } from "../../context/mc_context";
 import McEdit from "./McEdit";
 import McView from "./McView";
+import { Button, ButtonGroup } from "@material-ui/core";
 
-export default function McContainer({edit}) {
+export default function McContainer({ edit }) {
   const mcContext = useContext(McContext);
   const { userAnsweredMc, userUnansweredMc, setUpdated } = mcContext;
-  const [view, setView] = useState("all");
-
+  const [view, setView] = useState("unanswered");
+  let mcArr = [];
 
   if (!edit) {
-    let mcArr = [...userAnsweredMc]
+    mcArr = [...userAnsweredMc];
+    console.log("edit false", mcArr);
     return (
       <>
-      {mcArr.map((mcObj, idx) => (
-        <McView key={idx} mcObj={mcObj} />
-      ))}
-    </>
-    )
+        {mcArr.map((mcObj, idx) => (
+          <McView key={idx} mcObj={mcObj} />
+        ))}
+      </>
+    );
   } else {
-    let mcArr = [...userAnsweredMc, ...userUnansweredMc];
-
-    const handleClick = (e) => {
-      const newView = e.target.id.slice(3);
+    const handleClick = (newView) => {
       setView(newView);
-      setUpdated(false)
+      setUpdated(false);
     };
-
-
 
     if (view === "unanswered") {
       mcArr = [...userUnansweredMc];
@@ -41,18 +38,18 @@ export default function McContainer({edit}) {
     let mc_questions;
 
     if (mcArr.length === 0 || mcArr[0] === undefined) {
-      if (view === 'unanswered') {
-        mc_questions = "Good job, you've answered everything!"
+      if (view === "unanswered") {
+        mc_questions = "Good job, you've answered everything!";
       } else {
-        mc_questions = "You haven't answered anything - get going!"
+        mc_questions = "You haven't answered anything - get going!";
       }
     } else {
       mc_questions = mcArr.map((mcObj, idx) => (
         <McEdit key={idx} mcObj={mcObj} />
-        ));
+      ));
     }
 
-    if(!mc_questions) {
+    if (!mc_questions) {
       return null;
     }
 
@@ -63,31 +60,38 @@ export default function McContainer({edit}) {
           <p className="side-bar-info">
             answer more questions and get a good match
           </p>
-          <button
-            id="mc-all"
-            className="side-bar-btn answered"
-            onClick={handleClick}
+          <ButtonGroup
+            color="primary"
+            aria-label="outlined primary button group"
+						orientation="vertical"
+						// className="MuiButtonBase-root MuiButton-root MuiButton-text"
+						// className='mc-side-bar'
           >
-            all
-          </button>
-          <button
-            id="mc-answered"
-            className="side-bar-btn answered"
-            onClick={handleClick}
-          >
-            answered
-          </button>
-          <button
-            id="mc-unanswered"
-            className="side-bar-btn new"
-            onClick={handleClick}
-          >
-            new
-          </button>
+            <Button
+              id="mc-all"
+              className="side-bar-btn answered"
+              onClick={()=>handleClick('all')}
+            >
+              all
+            </Button>
+            <Button
+              id="mc-answered"
+              className="side-bar-btn answered"
+              onClick={()=>handleClick('answered')}
+            >
+              answered
+            </Button>
+            <Button
+              id="mc-unanswered"
+              className="side-bar-btn new"
+              onClick={()=>handleClick('unanswered')}
+              selected={true}
+            >
+              new
+            </Button>
+          </ButtonGroup>
         </div>
-        <div className="mc-ques-con">
-          {mc_questions}
-        </div>
+        <div className="mc-ques-con">{mc_questions}</div>
       </div>
     );
   }
