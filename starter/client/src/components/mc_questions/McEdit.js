@@ -48,6 +48,9 @@ export default function McEdit({ mcObj }) {
   };
 
   const handleSubmit = (e) => {
+		if(answerIdRef.current === null) {
+			return
+		}
     const url = `/api/questions/mc/${user_id}/answer`;
     const body = JSON.stringify({
       question_id: mc_question_id,
@@ -82,7 +85,7 @@ export default function McEdit({ mcObj }) {
       ["3", "More Important"],
     ],
   };
-
+	console.log(user_mc_answer_id, mc_question_id)
   return (
     <div className="ques-con">
       <h4 className="ques-head">{mc_question}</h4>
@@ -99,7 +102,7 @@ export default function McEdit({ mcObj }) {
                 name={mc_question_id}
                 id={`answer-${mc_answer_id}`}
                 defaultChecked={
-                  user_mc_answer_id === mc_answer_id ? true : false
+                  answerIdRef.current === mc_answer_id ? true : false
                 }
                 onChange={handleAnswer}
               />
