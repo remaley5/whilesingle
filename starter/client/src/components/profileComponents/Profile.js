@@ -10,7 +10,7 @@ import EditIcon from "@material-ui/icons/Edit";
 
 export default function Profile() {
 	const defaultPhoto = [
-    <div className="default-image" key="default-image"></div>,
+    <img className="pro-head__img" key="default-image" src='https://while-single-two.s3-us-west-2.amazonaws.com/SunNov11507092020.png'/>,
 	];
 
   let { fetchWithCSRF, currentUserId: user_id } = useContext(AuthContext);
@@ -18,12 +18,14 @@ export default function Profile() {
   const [profileUpdated, setProfileUpdated] = useState(true);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [photoState, setPhotoState] = useState([])
   const useFetch = (user_id) => {
     useEffect(() => {
       async function fetchData() {
         const res = await fetch(`/api/users/${user_id}`);
         const json = await res.json();
         const obj = json[Object.keys(json)];
+        console.log(obj.photos)
         setData(obj);
         setLoading(false);
       }
@@ -135,8 +137,9 @@ export default function Profile() {
             {edit ? <FrEdit frObj={bioObj} /> : <FrView frObj={bioObj} />}
             <div className="pro-body__img-con">
               {/* <Button variant="outlined" color="primary" onClick={handleClickOpen}>edit photos</Button> */}
-              {edit ? (
-                <EditIcon className="edit-icon" onClick={handleClickOpen} />
+              {edit ? ( <div> Upload Photos
+                    <EditIcon className="edit-icon" onClick={handleClickOpen} />
+                  </div>
               ) : null}
               <div className="pro-body__imgs">{photoElements}</div>
             </div>

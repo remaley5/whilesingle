@@ -91,7 +91,7 @@ function Home(props) {
       ));
       const preferences = user.preferences.map(
         ([preference_id, preference]) => (
-          <div key={preference}>
+          <div key={preference_id}>
             <p key={preference} className="preference">
               {preference}
             </p>

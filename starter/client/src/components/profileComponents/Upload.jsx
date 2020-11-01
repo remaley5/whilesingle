@@ -36,7 +36,10 @@ function Upload({open, setOpen}) {
 		});
 		if (response.ok) {
 			const data = await response.json()
-			setPhotos([...photos, data])
+			setTimeout(() => {
+
+			}, 1000);
+			setPhotos([...photos, data.photo])
 		}
 	};
 
