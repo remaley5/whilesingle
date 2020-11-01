@@ -106,8 +106,9 @@ def logout():
 @login_required
 def get_messages(match_id_params):
     match_id = int(match_id_params)
-    messages = Message.query.filter(match_id == match_id)
+    messages = Message.query.filter(match_id == match_id).order_by(Message.id.desc()).limit(20)
     messages = [{'message': m.message, 'message_id': m.id, 'from_id': m.from_id} for m in messages]
+    messages.reverse()
     if (messages):
         return jsonify(messages)
     return 'no messages'
