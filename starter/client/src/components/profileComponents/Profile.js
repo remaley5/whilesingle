@@ -2,7 +2,6 @@ import React, { useContext, useState, useEffect } from "react";
 import AddPhotos from "./AddPhotos";
 import Button from "@material-ui/core/Button";
 import AuthContext from "../../auth";
-import { UserProfileContext } from "../../context/user_profile_context";
 import FrContainer from "../fr_questions/FrContainer";
 import FrView from "../fr_questions/FrView";
 import FrEdit from "../fr_questions/FrEdit";

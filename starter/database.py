@@ -42,6 +42,8 @@ with app.app_context():
     g6 = Gender(gender='genderqueer')
     g7 = Gender(gender='gender fluid')
     g8 = Gender(gender='gender neutral')
+    g9 = Gender(gender='man')
+    g10 = Gender(gender='woman')
 
     # use this array for generating random users
     genders = [g1, g2, g3, g4, g5, g6, g7, g8]
