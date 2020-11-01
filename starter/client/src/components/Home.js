@@ -1,9 +1,10 @@
 import React, { useContext, useState, useEffect } from "react";
 import AuthContext from "../auth";
-import {Button} from '@material-ui/core'
+import { Button } from '@material-ui/core'
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ClearIcon from "@material-ui/icons/Clear";
 import { iconTheme } from "../styles/homeThemes";
+import {NavLink} from 'react-router-dom';
 
 function Home(props) {
   const iconClass = iconTheme();
@@ -89,36 +90,40 @@ function Home(props) {
           key={photo.photo_url}
         />
       ));
-      const preferences = user.preferences.map(
+      const userPreferences = user.preferences.map(
         ([preference_id, preference]) => (
-          <div key={preference_id}>
-            <p key={preference} className="preference">
-              {preference}
-            </p>
-          </div>
+          preference
         )
       );
+      const preferences = userPreferences.join(',  ')
       if (photos.length <= 0) {
         photos = [<div key={0} className="default-image"></div>];
       }
+
       return (
         <div className="swipe-con" key={user.id}>
-          <div className="swipe-img-con">{photos}</div>
-          <div className="swipe__info">
-            <h3 className="swipe-info__head">
-              {user.first_name} {user.last_name}
-            </h3>
-            <h4 className="swipe-info__sub-head">{user.location}</h4>
-            <p className="gender">{`Gender: ${user.gender[1]}`}</p>
-            <div className="percent-match">{`Match: ${matchPercent}%`}</div>
-            <div className="preference">{preferences}</div>
-            <p className="swipe-bio">{user.bio}</p>
-            <Button>
-              <a href={`/profile/${user.id}`}>View Profile</a>
-            </Button>
+          <div className='content-con'>
+            <div className="swipe-img-con">{photos}</div>
+            <div className='swipe-con__right'>
+              <div className="swipe__info">
+                <h3 className="swipe-info__head">
+                  {user.first_name}
+                </h3>
+                <h4 className="swipe-info__sub-head">{user.location}</h4>
+                <p className="info gender">{user.gender[1]},  {user.pronouns[1]}</p>
+                <div className="info prefs">{preferences} </div>
+                <div className="info percent-match">{`Match: ${matchPercent}%`}</div>
+                <p className="swipe-bio">{user.bio}</p>
+              </div>
+            </div>
           </div>
-          <ClearIcon className={iconClass.nope} onClick={reject} />
-          <FavoriteIcon className={iconClass.heart} onClick={accept} />
+          <div className='swipe-btns'>
+            <div class='swipe-icons'>
+              <ClearIcon className={iconClass.nope} onClick={reject} />
+              <FavoriteIcon className={iconClass.heart} onClick={accept} />
+            </div>
+              <NavLink className='prof-btn' to={`/profile/${user.id}`}>View Profile</NavLink>
+          </div>
         </div>
       );
     });
