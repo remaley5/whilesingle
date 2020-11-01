@@ -17,15 +17,16 @@ def query_matches(user_id):
 @login_required
 def get_users(user_id_param):
     rejects = [id for id, in Reject.query.filter(Reject.user_id == user_id_param).with_entities(Reject.reject_id)]
-
     right_swipes = [id for id, in MatchRequest.query.filter(MatchRequest.from_id == user_id_param).with_entities(MatchRequest.to_id)]
     matches = query_matches(user_id_param)
+    user = User.query.filter(User.id == user_id_param).one()
+    orientation = user.orientation
     user_id = int(user_id_param)
     matched_id = list(itertools.chain(*[[m.id for m in f.users if m.id != user_id] for f in matches]))
     matched_id.append(user_id)
     matched_id += rejects
     matched_id += right_swipes
-    users = User.query.options(joinedload("photos")).filter(User.id.notin_(matched_id)).limit(10)
+    users = User.query.options(joinedload("photos")).filter(User.id.notin_(matched_id)).filter(User.gender_id.in_(orientation)).limit(10)
     data = [{'user':{**user.to_dict(), 'photos':[photo.to_dict() for photo in user.photos]}} for user in users]
     return jsonify(data)
 

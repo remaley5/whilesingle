@@ -1,4 +1,5 @@
-import React, {useState, useContext} from 'react';
+import React, { useState, useContext } from 'react';
+import{ NavLink} from 'react-router-dom'
 import styled from 'styled-components';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -31,7 +32,7 @@ const styles = (theme) => ({
 });
 
 const DialogTitle = withStyles(styles)((props) => {
-  const { children, classes, onClose, ...other} = props;
+  const { children, classes, onClose, ...other } = props;
   return (
     <MuiDialogTitle disableTypography className={classes.root} {...other}>
       <Typography variant="h6">{children}</Typography>
@@ -44,49 +45,12 @@ const DialogTitle = withStyles(styles)((props) => {
   )
 });
 
-const LoginWrapper = styled.div`
-  .header{
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .logo {
-    font-family: 'Roboto';
-    font-size: 20px;
-    font-weight: bold;
-    color: black;
-  }
-
-  .login{
-    display: flex;
-    align-items: flex-end;
-  }
-
-  .login-text{
-    align-self: center;
-    padding-right: 10px;
-    font-size: 16px;
-    font-weight: bold;
-    font-family: 'Roboto';
-  }
-
-  .main{
-    margin: auto;
-    width: 50%;
-  }
-
-  .main p{
-    font-size: 20px;
-    line-height: 30px;
-  }
-`;
-
 function Login(props) {
   let [open, setOpen] = useState(false);
   let [email, setEmail] = useState('');
   let [password, setPassword] = useState('');
   let [errors, setErrors] = useState([]);
-  const {fetchWithCSRF, setCurrentUserId} = useContext(AuthContext);
+  const { fetchWithCSRF, setCurrentUserId } = useContext(AuthContext);
   let history = useHistory();
 
   const classes = buttonThemeOne()
@@ -108,7 +72,7 @@ function Login(props) {
   }
 
   async function loginUser(email, password) {
-		console.log(email, password)
+    console.log(email, password)
     const response = await fetchWithCSRF('/login', {
       method: 'POST',
       headers: {
@@ -122,7 +86,7 @@ function Login(props) {
     });
 
     const responseData = await response.json();
-    if(!response.ok) {
+    if (!response.ok) {
       setErrors(responseData.errors);
     } else {
       setOpen(false);
@@ -143,64 +107,68 @@ function Login(props) {
   }
 
   return (
-      <LoginWrapper>
-        <div className="header">
-          <div className="logo">while(single):</div>
-          <div className="login">
-            <div className="login-text">Have an account?</div>
-            <Button variant="outlined" color="primary" onClick={handleOpen}>Sign in</Button>
+    <div className='landing'>
+      <div className="body">
+        <dialog open={open} onClose={handleClose} className='page-mask' aria-labelledby="form-dialog-title">
+          <div className='sign-in-dialog'>
+            <div className='sign-in__content'>
+              <button onClick={handleClose} className='exit-sign'>x</button>
+              <div className='sign-in__title'>
+                Sign in
+              </div>
+              <div className='sign-in__errors' id="form-dialog-title" onClose={handleClose}>
+                {errors.length ? errors.map((err) => <li key={err}>{err}</li>) : ''}
+              </div>
+              <div className='sign-form'>
+                <label className='form-label' htmlFor="email">Email</label>
+                <input
+                  className='sign-in__text'
+                  margin="none"
+                  variant="outlined"
+                  id="email"
+                  type="email"
+                  placeholder="Email"
+                  fullWidth
+                  onChange={handleEmailChange}
+                />
+                <label className='form-label' htmlFor="password">Password</label>
+                <input
+                  className='sign-in__text'
+                  margin="none"
+                  id="password"
+                  variant="outlined"
+                  type="password"
+                  placeholder="Password"
+                  fullWidth
+                  onChange={handlePasswordChange}
+                />
+              </div>
+              <div className='sign-form-btns'>
+                <button className='sign-form-btn left' onClick={handleSubmit}>
+                  Sign-In
+              </button>
+                <button className='sign-form-btn right' onClick={handleDemoUserSubmit}>
+                  Demo User Sign-In
+              </button>
+              </div>
+            </div>
           </div>
-        </div>
-        <div className="body">
-          <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-            <DialogTitle id="form-dialog-title" onClose={handleClose}>
-              {errors.length ? errors.map((err) => <li key={err}>{err}</li>) : ''}
-            </DialogTitle>
-            <DialogContent>
-              <DialogContentText>
-                Enter Email and Password
-              </DialogContentText>
-              <label htmlFor="email">Email</label>
-              <TextField
-                margin="none"
-                variant="outlined"
-                id="email"
-                type="email"
-                placeholder="Email"
-                fullWidth
-                onChange={handleEmailChange}
-              />
-              <label htmlFor="password">Password</label>
-              <TextField
-                margin="none"
-                id="password"
-                variant="outlined"
-                type="password"
-                placeholder="Password"
-                fullWidth
-                onChange={handlePasswordChange}
-              />
-            </DialogContent>
-            <DialogActions>
-              <Button className={clsx(classes.root)} onClick={handleSubmit}>
-                Sign-In
-              </Button>
-              <Button className={clsx(classes.root)} onClick={handleDemoUserSubmit}>
-                Demo User Sign-In
-              </Button>
-            </DialogActions>
-          </Dialog>
-          <div className="main">
-            <h1>Dating Deserves Better</h1>
+        </dialog>
+        <div className="main">
+          <div className='title'>while(single):</div>
+          <div className='landing-txt'>
             <p>On while(single): you are more than just an HTML element. You're a probably a bunch of them. Get out of the daily grind and repeat the loop of dating. Look for people who you pair well with thanks to our match algorithm and say goodbye to type errors.</p>
-            <Button
+          </div>
+          <div className='landing-btns'>
+            <NavLink
               variant="contained"
-              href="/signup"
-              className={classes.signup}
-            >JOIN while(single):</Button>
+              to="/signup"
+              className='signup-btn landing-btn'>sign up</NavLink>
+            <button color="primary" className='sign-in-btn landing-btn' onClick={handleOpen}>Sign in</button>
           </div>
         </div>
-      </LoginWrapper>
+      </div>
+    </div>
   );
 }
 export default Login;
