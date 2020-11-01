@@ -20,7 +20,7 @@ def get_users(user_id_param):
     right_swipes = [id for id, in MatchRequest.query.filter(MatchRequest.from_id == user_id_param).with_entities(MatchRequest.to_id)]
     matches = query_matches(user_id_param)
     user = User.query.filter(User.id == user_id_param).one()
-    orientation = user.orientation
+    orientation = user.orientation or [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     user_id = int(user_id_param)
     matched_id = list(itertools.chain(*[[m.id for m in f.users if m.id != user_id] for f in matches]))
     matched_id.append(user_id)
