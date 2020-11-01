@@ -87,3 +87,120 @@
     font-weight: bold;
     font-family: 'Roboto';
   }
+
+/* SIGN IN FORM: */
+
+.page-mask {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.479);
+  z-index: 200;
+  width: 100%;
+  height: 100%;
+
+}
+
+.sign-in-dialog {
+  width: 500px;
+  margin: auto;
+  margin-top: 200px;
+  background-color: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 0 30px rgb(54, 54, 54);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.exit-sign {
+  border-radius: 50%;
+  border: none;
+background-color: rgb(220, 225, 228);
+color:white;
+font-size: 20px;
+padding: 2px 9px;
+float: right;
+}
+
+.exit-sign:hover {
+  box-shadow: 0 0 6px gray;
+}
+.sign-in__title {
+  font-family: 'Poppins', sans-serif;
+  text-align: center;
+  font-size: 30px;
+  color: rgb(87, 86, 86);
+  margin-bottom: 20px;
+}
+
+.sign-in__errors {
+  color: rgb(167, 92, 92);
+  margin-bottom: 20px;
+  font-size: 20px;
+}
+.sign-form {
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  flex-direction: column;
+  font-size: 20px;
+  padding: 10px;
+}
+
+.sign-in__text {
+  font-size: 20px;
+  padding: 10px;
+  margin-bottom: 30px;
+  letter-spacing: 1.5px;
+  color:gray;
+}
+
+.form-label {
+  color: gray;
+}
+
+.sign-form-btns {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 5px;
+}
+
+.sign-form-btn {
+  background-color: white;
+  border: 1px solid gray;
+  font-size: 17px;
+  padding: 14px 40px;
+  font-family: 'Poppins', sans-serif;
+  text-transform: lowercase;
+}
+
+.sign-form-btn:hover {
+  color: white;
+  background-color: gray;
+}
+
+.sign-form-btn.right {
+  border-radius: 0px 20px 20px 0px;
+}
+
+.sign-form-btn.left {
+  border-radius: 20px 0px 0px 20px;
+}
+
+.sign-up {
+  width: 50%;
+  margin: auto;
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+
+.sign-up-page {
+  background-color: rgb(212, 226, 238);
+  top: 0;
+  bottom: 0;
+  height: 100%;
+  width: 100%;
+}

@@ -1,17 +1,14 @@
 import React, { useState, useContext } from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Container from '@material-ui/core/Container'
-import TextField from "@material-ui/core/TextField";
-import { Button } from '@material-ui/core';
 import AuthContext from '../auth';
-import {useHistory} from 'react-router-dom';
+import { useHistory, NavLink } from 'react-router-dom';
 import {
   signupFormStyle,
-  textFieldStyle,
+  inputStyle,
   h1Style,
   labelStyle,
-  buttonHolderStyle,
-  buttonStyle,
+  NavLinkHolderStyle,
+  NavLinkStyle,
 } from '../styles/signupStyles';
 
 
@@ -22,12 +19,12 @@ function Signup(props) {
   let [firstName, setFirstName] = useState('');
   let [lastName, setLastName] = useState('');
   let [errors, setErrors] = useState([]);
-  const {fetchWithCSRF, setCurrentUserId} = useContext(AuthContext);
+  const { fetchWithCSRF, setCurrentUserId } = useContext(AuthContext);
   let history = useHistory();
 
   const handleChange = (e) => {
-    const {id, value} = e.target;
-    switch(id){
+    const { id, value } = e.target;
+    switch (id) {
       case "email":
         setEmail(value);
         return;
@@ -61,7 +58,7 @@ function Signup(props) {
     });
 
     const responseData = await response.json();
-    if(!response.ok) {
+    if (!response.ok) {
       setErrors(responseData.errors);
     } else {
       setCurrentUserId(responseData.current_user_id)
@@ -75,50 +72,45 @@ function Signup(props) {
   }
 
   return (
-    <>
-      <CssBaseline />
-      <Container style = {{backgroundColor: '#f0f2f6', height: "100vh"}} maxWidth="large">
-        <h1 style={h1Style}>Welcome! Who are you?</h1>
-        <form style={signupFormStyle}>
-          <label style={labelStyle} htmlFor="email">Email</label>
-          <TextField
+    <div className='sign-up-page'>
+      <div className='sign-up'>
+        <h1 className='sign-in__title'>Welcome! Who are you?</h1>
+        <form className='sign-form'>
+          <label className='form-label' htmlFor="email">Email</label>
+          <input
             id='email'
             type='email'
-            variant="outlined"
-            style={textFieldStyle}
+            className='sign-in__text'
             onChange={handleChange}
-           />
-          <label style={labelStyle} htmlFor="password">Password</label>
-          <TextField
+          />
+          <label className='form-label' htmlFor="password">Password</label>
+          <input
             id='password'
             type='password'
-            variant="outlined"
-            style={textFieldStyle}
+            className='sign-in__text'
             onChange={handleChange}
-           />
-          <label style={labelStyle} htmlFor="firstName">First Name</label>
-          <TextField
+          />
+          <label className='form-label' htmlFor="firstName">First Name</label>
+          <input
             id='firstName'
             type='text'
-            variant="outlined"
-            style={textFieldStyle}
+            className='sign-in__text'
             onChange={handleChange}
-           />
-          <label style={labelStyle} htmlFor="lastName">Last Name</label>
-          <TextField
+          />
+          <label className='form-label' htmlFor="lastName">Last Name</label>
+          <input
             id='lastName'
             type='text'
-            variant="outlined"
-            style={textFieldStyle}
+            className='sign-in__text'
             onChange={handleChange}
-           />
-           <div style={buttonHolderStyle}>
-            <Button onClick={handleSignUp} variant="contained" style={buttonStyle}>Sign Up</Button>
-            <Button variant="contained" style={buttonStyle} href="/login">Login Instead</Button>
-           </div>
+          />
+          <div className='sign-form-btns'>
+            <button onClick={handleSignUp} className='sign-form-btn left'>Sign Up</button>
+            <NavLink className='sign-form-btn right' to="/login">Login Instead</NavLink>
+          </div>
         </form>
-      </Container>
-    </>
+      </div>
+    </div>
   );
 }
 export default Signup;
