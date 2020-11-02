@@ -52,7 +52,9 @@ body { font-family: sans-serif; }
     box-shadow: 0 0 10px rgb(196, 193, 193);
     min-width: 600px;
     max-width: 800px;
-    margin: auto;
+		margin-left: 20px;
+    margin-right: 20px;
+
     margin-top: 50px;
     display: flex;
     flex-direction: column;
