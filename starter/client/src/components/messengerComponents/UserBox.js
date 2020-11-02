@@ -3,7 +3,7 @@ import '../../styles/messenger.css'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import socketIOClient from "socket.io-client"
 
-const ENDPOINT = "http://whilesingle.herokuapp.com/"
+const ENDPOINT = "https://whilesingle.herokuapp.com/"
 // const endpoint = ':80'//process.env.REACT_APP_ENDPOINT || 8000;
 
 
