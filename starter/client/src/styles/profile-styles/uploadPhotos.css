@@ -10,11 +10,15 @@ upload-con: container
 
 .upload-con {
     margin: auto;
+    margin-top: 70px;
     box-shadow: 0px 0px 6px lightgrey;
-    padding: 30px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
-    max-width: 600px;
+    max-width: 900px;
+    background-color: white;
+    height: 500px;
+    overflow: scroll;
 }
 
 .added-photos-con {
@@ -22,6 +26,8 @@ upload-con: container
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
+    background-color: white;
+    z-index: 100;
 }
 
 .added-photo {

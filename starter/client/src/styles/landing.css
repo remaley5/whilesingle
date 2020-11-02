@@ -116,7 +116,17 @@
   gap: 20px;
 }
 
+.exit-cont {
+  width: 90%;
+  padding: 30px;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: -70px;
+
+}
+
 .exit-sign {
+  width: fit-content;
   border-radius: 50%;
   border: none;
 background-color: rgb(220, 225, 228);

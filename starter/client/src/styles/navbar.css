@@ -2,8 +2,8 @@
     top: -10px;
     position: relative;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    padding: 30px;
+    box-sizing: border-box;
     align-content: center;
     width: 100%;
     min-height: 100px;
@@ -16,15 +16,17 @@
 .nav-links{
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
     align-content: center;
+    width: 90%;
+    margin: auto;
 }
 
 .logo{
     color: white;
     font-weight: bold;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 25px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 30px;
 }
 
 .home-icon{
@@ -36,4 +38,10 @@
 .menu-link{
     text-decoration: none;
     color: black;
+}
+
+.icons {
+    display: flex;
+    width: 700px;
+    justify-content: space-around;
 }

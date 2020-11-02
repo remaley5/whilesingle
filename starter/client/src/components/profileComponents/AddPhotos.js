@@ -10,9 +10,9 @@ function AddPhotos({open, setOpen}) {
     return (
         <>
             <div>
-                <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
+                <dialog onClose={handleClose} className='page-mask' aria-labelledby="customized-dialog-title" open={open}>
                     <Upload open={open} setOpen={setOpen}/>
-                </Dialog>
+                </dialog>
             </div>
         </>
     );

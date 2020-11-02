@@ -8,7 +8,7 @@ import SetPhotos from "./SetPhotos";
 import SetConnections from "./SetConnections";
 import SetBirthday from "./SetBirthday";
 import SetLocation from "./SetLocation";
-import AuthContext from "../../auth";
+import AuthContext from "../../../auth";
 
 function SetPreferences({ edit, handleClose, user }) {
   const history = useHistory();
@@ -140,7 +140,7 @@ function SetPreferences({ edit, handleClose, user }) {
 
   return (
     <div className="preferences">
-      {!edit ? <h2 className="pref-head">Tell us about yourself</h2> : null}
+      {!edit ? <h2 className="pref-head">Tell us about yourself</h2> : <div className='exit-cont'><button onClick={handleClose} className='exit-sign'>x</button></div>}
       <SetGender
         genders={genders}
         myGender={myGender}

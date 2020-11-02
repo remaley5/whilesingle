@@ -1,6 +1,6 @@
 import React from 'react';
 import Dialog from '@material-ui/core/Dialog';
-import SetPreferences from '../loginComponents/SetPreferences'
+import SetPreferences from './loginComponents/SetPreferences'
 
 function EditInfo({open, setOpen, user}) {
 
@@ -11,11 +11,11 @@ function EditInfo({open, setOpen, user}) {
     return (
         <>
             <div>
-                <Dialog className='edit-popup' onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
-                    <div className='edit-info-popup'>
+                <dialog className='page-mask' onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
+                    <div className='edit-info-dialog'>
                         <SetPreferences edit='true' handleClose={handleClose} user={user} />
                     </div>
-                </Dialog>
+                </dialog>
             </div>
         </>
     );

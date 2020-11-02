@@ -39,6 +39,7 @@ const NavBar = () => {
     return (
         <div className='navbar-wrapper'>
             <nav className='nav-links'>
+                <div className='icons' >
                 <NavLink to='/' className='menu-link'>
                     <div className='logo'>while(single):</div>
                 </NavLink>
@@ -52,6 +53,7 @@ const NavBar = () => {
                         <NavLink to="/messenger"><QuestionAnswerRoundedIcon className={navClass.messages}/></NavLink>
                     </div>
                 </Tooltip>
+                </div>
                 <div>
                     <MoreVertRoundedIcon onClick={handleClick} className={navClass.matches} />
                     <Menu

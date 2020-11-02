@@ -3,7 +3,7 @@ import React, { useContext, useState } from "react";
 import { McContext } from "../../context/mc_context";
 import McEdit from "./McEdit";
 import McView from "./McView";
-import { Button, ButtonGroup } from "@material-ui/core";
+import { button, buttonGroup } from "@material-ui/core";
 
 export default function McContainer({ edit }) {
   const mcContext = useContext(McContext);
@@ -60,38 +60,41 @@ export default function McContainer({ edit }) {
           <p className="side-bar-info">
             answer more questions and get a good match
           </p>
-          <ButtonGroup
+          <div className='mc-btns'
             color="primary"
             aria-label="outlined primary button group"
 						orientation="vertical"
-						// className="MuiButtonBase-root MuiButton-root MuiButton-text"
+						// className="MuibuttonBase-root Muibutton-root Muibutton-text"
 						// className='mc-side-bar'
           >
-            <Button
+            <button
+              className='mc-btn'
               id="mc-all"
               className="side-bar-btn answered"
               onClick={()=>handleClick('all')}
             >
               all
-            </Button>
-            <Button
+            </button>
+            <button
+              className='mc-btn'
               id="mc-answered"
               className="side-bar-btn answered"
               onClick={()=>handleClick('answered')}
             >
               answered
-            </Button>
-            <Button
+            </button>
+            <button
+              className='mc-btn'
               id="mc-unanswered"
               className="side-bar-btn new"
               onClick={()=>handleClick('unanswered')}
               selected={true}
             >
               new
-            </Button>
-          </ButtonGroup>
+            </button>
+          </div>
         </div>
-        <div className="mc-ques-con">{mc_questions}</div>
+        <div className="mc">{mc_questions}</div>
       </div>
     );
   }

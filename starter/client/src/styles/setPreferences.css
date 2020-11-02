@@ -8,8 +8,13 @@
     font-size: 17px;
     top: 0px;
 }
-.edit-info-popup {
-    width: 500px;
+.edit-info-dialog {
+    width: 700px;
+    margin: auto;
+    margin-top: 70px;
+    border: none;
+    overflow: scroll;
+    height: 600px;
 }
 
 .edit-popup::-webkit-scrollbar{
