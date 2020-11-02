@@ -4,7 +4,7 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import socketIOClient from "socket.io-client"
 
 // const ENDPOINT = "http://localhost:3000"
-const endpoint = 'http://localhost:8000'//process.env.REACT_APP_ENDPOINT || 8000;
+const endpoint = ':80'//process.env.REACT_APP_ENDPOINT || 8000;
 
 
 const UserBox = ({user, scrollDiv, setSelectedName, recipientId, setRecipientId, setMatch, setMessages, messages }) => {
