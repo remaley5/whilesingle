@@ -9,7 +9,8 @@ export const UserProfileContextProvider = (props) => {
 
 	// we'll also need a match id to load their answered questions only
   // const match_id = 2;
-	const [updated, setUpdated] = useState(true)
+	const updated = useState(true)
+	const setUpdated = updated[1]
 	const [data, setData] = useState([]);
 	const [loading, setLoading] = useState(true);
   const useFetch = (id) => {

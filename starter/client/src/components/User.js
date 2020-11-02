@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 
 
 function User({user}) {
-    console.log(user)
+    // console.log(user)
     const wrapper = useRef()
     const handleRemoveMatch = (e) => {
         wrapper.current.classList.add('match-wrapper-hidden')

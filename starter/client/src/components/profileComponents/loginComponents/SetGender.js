@@ -3,11 +3,11 @@ import React from 'react';
 function SetGender({ genders, myGender, setMyGender }) {
 
     const onChange = e => {
-        console.log('myGender from within onChange:', myGender)
+        // console.log('myGender from within onChange:', myGender)
         setMyGender(parseInt(e.target.value, 10))
     }
 
-    console.log('myGender right before return:', myGender)
+    // console.log('myGender right before return:', myGender)
     return (
         <div className='section'>
             <h2 className='pref-form-head'>I am...</h2>

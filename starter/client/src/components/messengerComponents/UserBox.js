@@ -35,8 +35,8 @@ const UserBox = ({user, scrollDiv, setSelectedName, recipientId, setRecipientId,
     const getMessages = async () => {
         const response = await fetch(`/api/messages/get-messages/${user.match_id}`)
         const responseData = await response.json();
-        console.log(responseData)
-        console.log(scrollDiv)
+        // console.log(responseData)
+        // console.log(scrollDiv)
         setMessages(responseData)
         scrollDiv.current.scrollTop = 1000000000000000;
     }

@@ -66,7 +66,7 @@ function App() {
   return (
     <AuthContext.Provider value={authContextValue}>
       {location.pathname !== "/login" && location.pathname !== "/signup" ? (
-        <nav>
+        <nav className='navbar-cont'>
             <NavBar currentUserId={currentUserId} />
         </nav>) : null}
       <Switch>

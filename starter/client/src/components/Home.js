@@ -1,10 +1,10 @@
 import React, { useContext, useState, useEffect } from "react";
 import AuthContext from "../auth";
-import { Button } from '@material-ui/core'
+import { Button } from "@material-ui/core";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ClearIcon from "@material-ui/icons/Clear";
 import { iconTheme } from "../styles/homeThemes";
-import {NavLink} from 'react-router-dom';
+import { NavLink } from "react-router-dom";
 
 function Home(props) {
   const iconClass = iconTheme();
@@ -14,20 +14,22 @@ function Home(props) {
   const [viewingUser, setViewingUser] = useState([]);
   const [index, setIndex] = useState();
   const [matchPercent, setMatchPercent] = useState();
+  let user = "You've swiped on everyone! Time to go outside";
 
   useEffect(() => {
     (async () => {
       const res = await fetch(`/api/matches/swipe/${currentUserId}`);
       const data = await res.json();
-
-      const resForPercent = await fetch(
-        `/api/questions/mc/user/${currentUserId}/match/${data[0].user.id}`
-      );
-      const dataForPercent = await resForPercent.json();
+      if (data.length > 0) {
+        const resForPercent = await fetch(
+          `/api/questions/mc/user/${currentUserId}/match/${data[0].user.id}`
+        );
+        const dataForPercent = await resForPercent.json();
+        setMatchPercent(dataForPercent.match_percent);
+        setIndex(0);
+      }
       setUserBank(data);
       setViewingUser([data[0]]);
-      setIndex(0);
-      setMatchPercent(dataForPercent.match_percent);
     })();
   }, [currentUserId]);
 
@@ -79,7 +81,6 @@ function Home(props) {
     updateDatabase(url, accept_id);
   };
 
-  let user = "Loading.....";
   if (viewingUser[0]) {
     user = viewingUser.map(({ user }) => {
       let photos = user.photos.map((photo) => (
@@ -91,38 +92,38 @@ function Home(props) {
         />
       ));
       const userPreferences = user.preferences.map(
-        ([preference_id, preference]) => (
-          preference
-        )
+        ([preference_id, preference]) => preference
       );
-      const preferences = userPreferences.join(',  ')
+      const preferences = userPreferences.join(",  ");
       if (photos.length <= 0) {
         photos = [<div key={0} className="default-image"></div>];
       }
 
       return (
         <div className="swipe-con" key={user.id}>
-          <div className='content-con'>
+          <div className="content-con">
             <div className="swipe-img-con">{photos}</div>
-            <div className='swipe-con__right'>
+            <div className="swipe-con__right">
               <div className="swipe__info">
-                <h3 className="swipe-info__head">
-                  {user.first_name}
-                </h3>
+                <h3 className="swipe-info__head">{user.first_name}</h3>
                 <h4 className="swipe-info__sub-head">{user.location}</h4>
-                <p className="info gender">{user.gender[1]},  {user.pronouns[1]}</p>
+                <p className="info gender">
+                  {user.gender[1]}, {user.pronouns[1]}
+                </p>
                 <div className="info prefs">{preferences} </div>
                 <div className="info percent-match">{`Match: ${matchPercent}%`}</div>
                 <p className="swipe-bio">{user.bio}</p>
               </div>
             </div>
           </div>
-          <div className='swipe-btns'>
-            <div class='swipe-icons'>
+          <div className="swipe-btns">
+            <div className="swipe-icons">
               <ClearIcon className={iconClass.nope} onClick={reject} />
               <FavoriteIcon className={iconClass.heart} onClick={accept} />
             </div>
-              <NavLink className='prof-btn' to={`/profile/${user.id}`}>View Profile</NavLink>
+            <NavLink className="prof-btn" to={`/profile/${user.id}`}>
+              View Profile
+            </NavLink>
           </div>
         </div>
       );

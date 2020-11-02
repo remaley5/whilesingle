@@ -72,7 +72,7 @@ function Login(props) {
   }
 
   async function loginUser(email, password) {
-    console.log(email, password)
+    // console.log(email, password)
     const response = await fetchWithCSRF('/login', {
       method: 'POST',
       headers: {

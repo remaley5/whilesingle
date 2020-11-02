@@ -306,10 +306,12 @@ with app.app_context():
             a_id = a_ids[randrange(num_answers)]
             # add random unacceptable answers
             unacceptable_as = []
-            for _ in range(randrange(num_answers)):
+            if fake.boolean():
+            # for _ in range(randrange(num_answers)):
+            # only want to add one or no dealbreakers
                 unacceptable_a = a_ids[randrange(num_answers)]
-                while unacceptable_a in unacceptable_as:
-                    unacceptable_a = a_ids[randrange(num_answers)]
+                # while unacceptable_a in unacceptable_as:
+                #     unacceptable_a = a_ids[randrange(num_answers)]
                 unacceptable_as.append(unacceptable_a)
             # pick random weight between 1 and 3
             # that's what I have on MC page right now; may change.

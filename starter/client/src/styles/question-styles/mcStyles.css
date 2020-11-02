@@ -30,7 +30,9 @@ mc-con
     flex-direction: column;
     padding: 20px;
     border-radius: 5px;
-    box-shadow: 0 0 6px gray;
+		box-shadow: 0 0 6px gray;
+		position: sticky;
+		top: 20px;
 }
 
 .mc-btns {
@@ -62,8 +64,8 @@ mc-con
 
 .mc-ques-con {
     box-shadow: 0 0 6px gray;
-    width: 60%;
-    min-width: 500px;
+    width: fit-content;
+    min-width: 300px;
     padding: 25px;
     padding-top: 10px;
     display: flex;

@@ -1,5 +1,5 @@
-import React, { useContext, useState } from "react";
-import { UserProfileContext } from "../../context/user_profile_context";
+import React, { useState } from "react";
+// import { UserProfileContext } from "../../context/user_profile_context";
 import EditIcon from "@material-ui/icons/Edit";
 import EditInfo from './EditInfo'
 
@@ -11,7 +11,7 @@ export default function UserInfoView({ edit, user }) {
     // id,
     first_name,
     last_name,
-    bio,
+    // bio,
     location,
     preferences,
     gender,

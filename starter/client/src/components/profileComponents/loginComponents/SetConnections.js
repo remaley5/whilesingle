@@ -18,8 +18,8 @@ function SetConnections({ preferences, myConnections, setMyConnections }) {
         }
     }
 
-    console.log('preferences', preferences)
-    console.log('myCOnnections', myConnections)
+    // console.log('preferences', preferences)
+    // console.log('myCOnnections', myConnections)
     return (
         <div className='section'>
             <h2 className='pref-form-head'>I'm looking for...</h2>
