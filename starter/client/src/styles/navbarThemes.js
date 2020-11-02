@@ -17,7 +17,7 @@ const navStyles = makeStyles((theme) => ({
         },
     },
     messages:{
-        fontSize: 60,
+        fontSize: 55,
         color: 'white',
         '&:hover': {
             cursor: 'pointer',
