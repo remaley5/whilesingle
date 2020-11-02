@@ -185,6 +185,10 @@ p.pro-body__alt-cont {
     height: 200px;
 }
 
+.edit-icon{
+    margin-left: 10px;
+}
+
 .edit-icon:hover {
     cursor: pointer;
     color: blue;
