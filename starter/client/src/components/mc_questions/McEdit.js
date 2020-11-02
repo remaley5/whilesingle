@@ -25,6 +25,7 @@ export default function McEdit({ mcObj }) {
 		setUnacceptableState(unacceptable_answers||[])
 		setWeightState(question_weight||2)
 		setLoading(false)
+		console.log(answerIdState, user_mc_answer_id)
 	}, [])
 
 

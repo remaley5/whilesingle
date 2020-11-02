@@ -9,7 +9,7 @@ fake = Faker()
 Faker.seed(420)
 
 # num_fake_users must be at least 4
-num_fake_users = 10
+num_fake_users = 50
 num_fake_messages = 10
 
 with app.app_context():
@@ -269,8 +269,6 @@ with app.app_context():
 ####################################################
 # SEED MC RESPONSE TABLE
 ####################################################
-    u1_mc_q1_res = MC_Response(
-        user_id=1, mc_answer_id=4, mc_question_id=1)
     u1_mc_q2_res = MC_Response(
         user_id=1, mc_answer_id=8, mc_question_id=2)
 
@@ -284,7 +282,7 @@ with app.app_context():
 
 
 # ADD MC RESPONSES
-    mc_res_list = [u1_mc_q1_res, u1_mc_q2_res, u2_mc_q1_res, u2_mc_q2_res,
+    mc_res_list = [u1_mc_q2_res, u2_mc_q1_res, u2_mc_q2_res,
                    u2_mc_q3_res, u2_mc_q3_res, u3_mc_q1_res, u3_mc_q2_res]
 
     for mc_res in mc_res_list:
