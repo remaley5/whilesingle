@@ -60,6 +60,27 @@ body { font-family: sans-serif; }
     gap: 30px;
 }
 
+.swipe-alert {
+    margin-top: -60px;
+    width: 100%;
+    text-align:center;
+    border: none;
+    font-size: 90px;
+    background-color: none;
+    height: 100%;
+    font-weight: bold;
+    padding-top: 100px;
+    padding-right: 100px;
+}
+
+.yes {
+    color: pink
+}
+
+.no {
+    color: rgb(136, 203, 230);
+}
+
 .content-con {
  display: flex;
  flex-direction: row;

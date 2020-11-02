@@ -14,6 +14,8 @@ function Home(props) {
   const [viewingUser, setViewingUser] = useState([]);
   const [index, setIndex] = useState();
   const [matchPercent, setMatchPercent] = useState();
+  const [likedOpen, setLikedOpen] = useState(false)
+  const [rejectOpen, setRejectOpen] = useState(false)
   let user = "You've swiped on everyone! Time to go outside";
 
   useEffect(() => {
@@ -70,12 +72,20 @@ function Home(props) {
   };
 
   const reject = async () => {
+    setRejectOpen(true)
+    setTimeout(() => {
+      setRejectOpen(false)
+    }, 500)
     const reject_id = await handleSwipe();
     const url = `/api/matches/reject/${currentUserId}`;
     updateDatabase(url, reject_id);
   };
 
   const accept = async () => {
+    setLikedOpen(true)
+    setTimeout(() => {
+      setLikedOpen(false)
+    }, 500)
     const accept_id = await handleSwipe();
     const url = `/api/matches/add-match/${currentUserId}`;
     updateDatabase(url, accept_id);
@@ -100,6 +110,7 @@ function Home(props) {
       }
 
       return (
+        <>
         <div className="swipe-con" key={user.id}>
           <div className="content-con">
             <div className="swipe-img-con">{photos}</div>
@@ -125,7 +136,10 @@ function Home(props) {
               View Profile
             </NavLink>
           </div>
+        <dialog className='swipe-alert yes' open={likedOpen}>Yes!</dialog>
+        <dialog className='swipe-alert no' open={rejectOpen}>Nope!</dialog>
         </div>
+        </>
       );
     });
   }
