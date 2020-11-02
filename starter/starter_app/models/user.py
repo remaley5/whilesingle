@@ -98,7 +98,7 @@ class Photo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey(
         "users.id"), nullable=False)
-    photo_url = db.Column(db.String, nullable=False, unique=True)
+    photo_url = db.Column(db.String, nullable=False)
     created_at = db.Column('created_at', db.DateTime, default=utcnow())
 
     user = db.relationship("User")
