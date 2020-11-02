@@ -193,3 +193,9 @@ p.pro-body__alt-cont {
     cursor: pointer;
     color: blue;
 }
+
+.pro-btn-edit {
+	position: -webkit-sticky;
+  position: sticky!important;
+  top: 0;
+}

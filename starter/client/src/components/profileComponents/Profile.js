@@ -132,8 +132,8 @@ export default function Profile() {
 
   return (
     <>
-      <Button onClick={changeEdit}>
-        {edit ? "View Profile" : "Edit Profile"}
+      <Button onClick={changeEdit} className='pro-btn-edit'>
+        {edit ? "Save Profile" : "Edit Profile"}
       </Button>
       <div className="pro-con">
         <div className="pro-head">
