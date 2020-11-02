@@ -5,7 +5,6 @@ import ProfileContainer from "./components/profileComponents/ProfileContainer";
 
 import UserList from './components/UsersList';
 import Messages from './components/messengerComponents/Messages'
-import Fr from './views/Fr'
 import Mc from './views/Mc'
 import Login from './components/Login';
 import Signup from './components/Signup';
