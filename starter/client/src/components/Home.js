@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import AuthContext from "../auth";
-import { Button } from "@material-ui/core";
+// import { Button } from "@material-ui/core";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ClearIcon from "@material-ui/icons/Clear";
 import { iconTheme } from "../styles/homeThemes";

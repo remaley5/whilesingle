@@ -26,7 +26,7 @@ function SetConnections({ preferences, myConnections, setMyConnections }) {
             <form className='chkbx-form'>
                 {preferences.map((preference, idx) => (
                     <div key={idx} className='chck-sel'>
-                        <label for={preference} className='chck-sel-lbl'>{preference[1]}</label>
+                        <label htmlFor={preference} className='chck-sel-lbl'>{preference[1]}</label>
                         <div className='chk-sel-bx'><input type='checkbox' onChange={onChange} id={preference} value={preference[0]} checked={myConnections.indexOf(preference[0])!==-1 }/></div>
                     </div>
                 ))

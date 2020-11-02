@@ -1,5 +1,5 @@
 import React from 'react';
-import Dialog from '@material-ui/core/Dialog';
+// import Dialog from '@material-ui/core/Dialog';
 import Upload from "./Upload";
 
 function AddPhotos({open, setOpen}) {

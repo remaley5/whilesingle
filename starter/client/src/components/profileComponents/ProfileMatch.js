@@ -37,13 +37,13 @@ export default function ProfileMatch({ otherUserId }) {
   }
 
   let {
-    first_name,
-    last_name,
+    // first_name,
+    // last_name,
     bio,
-    location,
-    preferences,
-    gender,
-    pronouns,
+    // location,
+    // preferences,
+    // gender,
+    // pronouns,
     photos,
   } = matchProfile;
 

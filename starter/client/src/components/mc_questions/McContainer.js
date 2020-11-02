@@ -3,7 +3,7 @@ import React, { useContext, useState } from "react";
 import { McContext } from "../../context/mc_context";
 import McEdit from "./McEdit";
 import McView from "./McView";
-import { button, buttonGroup } from "@material-ui/core";
+import { button,  } from "@material-ui/core";
 
 export default function McContainer({ edit }) {
   const mcContext = useContext(McContext);
@@ -68,25 +68,22 @@ export default function McContainer({ edit }) {
 						// className='mc-side-bar'
           >
             <button
-              className='mc-btn'
               id="mc-all"
-              className="side-bar-btn answered"
+              className="mc-btn side-bar-btn answered"
               onClick={()=>handleClick('all')}
             >
               all
             </button>
             <button
-              className='mc-btn'
               id="mc-answered"
-              className="side-bar-btn answered"
+              className="mc-btn side-bar-btn answered"
               onClick={()=>handleClick('answered')}
             >
               answered
             </button>
             <button
-              className='mc-btn'
               id="mc-unanswered"
-              className="side-bar-btn new"
+              className="mc-btn side-bar-btn new"
               onClick={()=>handleClick('unanswered')}
               selected={true}
             >

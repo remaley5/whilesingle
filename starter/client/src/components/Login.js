@@ -1,19 +1,19 @@
 import React, { useState, useContext } from 'react';
 import{ NavLink} from 'react-router-dom'
-import styled from 'styled-components';
+// import styled from 'styled-components';
 import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
+// import Button from '@material-ui/core/Button';
+// import TextField from '@material-ui/core/TextField';
+// import Dialog from '@material-ui/core/Dialog';
+// import DialogActions from '@material-ui/core/DialogActions';
+// import DialogContent from '@material-ui/core/DialogContent';
+// import DialogContentText from '@material-ui/core/DialogContentText';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
 import { buttonThemeOne } from '../styles/buttonThemes.js';
-import clsx from 'clsx';
+// import clsx from 'clsx';
 import { useHistory } from 'react-router-dom';
 import AuthContext from '../auth';
 
@@ -31,7 +31,8 @@ const styles = (theme) => ({
   },
 });
 
-const DialogTitle = withStyles(styles)((props) => {
+// const DialogTitle = withStyles(styles)((props) => {
+withStyles(styles)((props) => {
   const { children, classes, onClose, ...other } = props;
   return (
     <MuiDialogTitle disableTypography className={classes.root} {...other}>
@@ -53,7 +54,8 @@ function Login(props) {
   const { fetchWithCSRF, setCurrentUserId } = useContext(AuthContext);
   let history = useHistory();
 
-  const classes = buttonThemeOne()
+	// const classes =
+	buttonThemeOne()
 
   const handleOpen = (e) => {
     setOpen(true);

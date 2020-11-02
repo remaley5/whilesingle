@@ -22,7 +22,7 @@ export default function FrContainer({ edit, updatedFr, setUpdatedFr, loadingFr, 
 				}
       }
       fetchData();
-    }, [currentUserId, loadingFr]);
+    }, [loadingFr, setLoadingFr, url]);
     return data;
   };
 

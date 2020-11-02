@@ -1,5 +1,5 @@
 import React from 'react';
-import Dialog from '@material-ui/core/Dialog';
+// import Dialog from '@material-ui/core/Dialog';
 import SetPreferences from './loginComponents/SetPreferences'
 
 function EditInfo({open, setOpen, user}) {

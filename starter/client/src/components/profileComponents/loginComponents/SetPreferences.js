@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Redirect, useHistory } from "react-router-dom";
+import {  useHistory } from "react-router-dom";
 import SetGender from "./SetGender";
 import SetPronouns from "./SetPronouns";
 import SetOrientation from "./SetOrientation";
@@ -97,7 +97,8 @@ function SetPreferences({ edit, handleClose, user }) {
       birthday: myBirthday,
       location: myLocation,
     };
-    const response = await fetchWithCSRF(`/api/users/${currentUserId}`, {
+		// const response =
+		await fetchWithCSRF(`/api/users/${currentUserId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -142,12 +143,12 @@ function SetPreferences({ edit, handleClose, user }) {
           <SetBio myBio={myBio} setMyBio={setMyBio} />
           <SetBirthday myBirthday={myBirthday} setMyBirthday={setMyBirthday} />
           <SetPhotos />
-          <button type="submit" class="set-btn" onClick={handleSubmit}>
+          <button type="submit" className="set-btn" onClick={handleSubmit}>
             I'm ready
           </button>
         </>
       ) : (
-        <button type="submit" class="set-btn" onClick={handleSubmit}>
+        <button type="submit" className="set-btn" onClick={handleSubmit}>
           save
         </button>
       )}

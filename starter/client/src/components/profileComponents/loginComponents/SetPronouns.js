@@ -13,7 +13,7 @@ function SetPronouns({pronouns, myPronouns, setMyPronouns}) {
                 {pronouns.map((pronoun, idx) => (
                     <div key={idx} className='chck-sel'>
                         <input type="radio" onChange={onChange} name="pronoun" value={pronoun[0]} checked={pronoun[0] === myPronouns}/>
-                        <label class="container chk-sel-lbl">{pronoun[1]}
+                        <label className="container chk-sel-lbl">{pronoun[1]}
                         </label>
                     </div>
                 ))

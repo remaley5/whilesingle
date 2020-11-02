@@ -1,15 +1,15 @@
 import React, { useState, useContext } from 'react';
-import CssBaseline from '@material-ui/core/CssBaseline';
+// import CssBaseline from '@material-ui/core/CssBaseline';
 import AuthContext from '../auth';
 import { useHistory, NavLink } from 'react-router-dom';
-import {
-  signupFormStyle,
-  inputStyle,
-  h1Style,
-  labelStyle,
-  NavLinkHolderStyle,
-  NavLinkStyle,
-} from '../styles/signupStyles';
+// import {
+//   signupFormStyle,
+//   inputStyle,
+//   h1Style,
+//   labelStyle,
+//   NavLinkHolderStyle,
+//   NavLinkStyle,
+// } from '../styles/signupStyles';
 
 
 
@@ -18,7 +18,8 @@ function Signup(props) {
   let [password, setPassword] = useState('');
   let [firstName, setFirstName] = useState('');
   let [lastName, setLastName] = useState('');
-  let [errors, setErrors] = useState([]);
+	let errors = useState([]);
+	const setErrors = errors[1]
   const { fetchWithCSRF, setCurrentUserId } = useContext(AuthContext);
   let history = useHistory();
 

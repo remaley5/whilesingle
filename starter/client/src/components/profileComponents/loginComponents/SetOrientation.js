@@ -24,9 +24,9 @@ function SetOrientation({ genders, setMyOrientation, myOrientation }) {
             <h2 className='pref-form-head'>I'm interested in...</h2>
             <form className='chkbx-form'>
                 {genders.map((gender, idx) => (
-                    <div className='chck-sel'>
-                        <label for={gender} className='chck-sel-lbl'>{gender[1]}</label>
-                        <div className='chk-sel-bx'><input type='checkbox' onClick={onChange} key={idx} id={gender} value={gender[0]} /></div>
+                    <div className='chck-sel' key={idx}>
+                        <label htmlFor={gender} className='chck-sel-lbl'>{gender[1]}</label>
+                        <div className='chk-sel-bx'><input type='checkbox' onClick={onChange} id={gender} value={gender[0]} /></div>
                     </div>
                 ))
                 }

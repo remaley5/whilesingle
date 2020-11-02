@@ -44,7 +44,7 @@ const Messages = () => {
 
     const handleMessage = (e) => setMessage(e.target.value)
 
-    const userComponents = users.map((user) =>
+    const userComponents = users.map((user, idx) =>
     <UserBox setRecipientId={setRecipientId}
     recipientId={recipientId}
     setSelectedName={setSelectedName}
@@ -53,9 +53,9 @@ const Messages = () => {
     setMatch={setMatch}
     match={match}
     scrollDiv={scrollDiv}
-    user={user} key={user.id}/>)
+    user={user} key={idx}/>)
 
-    const messageComponents = messages.map((message) => <MessageBox message={message} key={message.from_id}/>)
+    const messageComponents = messages.map((message, idx) => <MessageBox message={message} key={idx}/>)
 
     return (
         <div className='messenger'>

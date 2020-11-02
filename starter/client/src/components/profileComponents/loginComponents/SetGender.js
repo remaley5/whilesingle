@@ -13,9 +13,9 @@ function SetGender({ genders, myGender, setMyGender }) {
             <h2 className='pref-form-head'>I am...</h2>
             <div className='chkbx-form'>
                 {genders.map((gender, idx) => (
-                    <div className='chck-sel'>
-                        <input type="radio" onChange={onChange} key={idx} name="gender" value={gender[0]} checked={gender[0] === myGender}/>
-                        <label class="container chk-sel-lbl">{gender[1]}
+                    <div className='chck-sel'key={idx}>
+                        <input type="radio" onChange={onChange}  name="gender" value={gender[0]} checked={gender[0] === myGender}/>
+                        <label className="container chk-sel-lbl">{gender[1]}
                         </label>
                     </div>
                 ))

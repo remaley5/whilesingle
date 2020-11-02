@@ -9,16 +9,21 @@ import UserInfoView from "./UserInfoView";
 import EditIcon from "@material-ui/icons/Edit";
 
 export default function Profile() {
-	const defaultPhoto = [
-    <img className="pro-head__img" key="default-image" src='https://while-single-two.s3-us-west-2.amazonaws.com/SunNov11507092020.png' alt='default profile pic'/>,
-	];
+  const defaultPhoto = [
+    <img
+      className="pro-head__img"
+      key="default-image"
+      src="https://while-single-two.s3-us-west-2.amazonaws.com/SunNov11507092020.png"
+      alt="default profile pic"
+    />,
+  ];
 
   let { fetchWithCSRF, currentUserId: user_id } = useContext(AuthContext);
 
   const [profileUpdated, setProfileUpdated] = useState(true);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [photoState, setPhotoState] = useState([])
+  // const [photoState, setPhotoState] = useState([])
   const useFetch = (user_id) => {
     useEffect(() => {
       async function fetchData() {
@@ -37,17 +42,16 @@ export default function Profile() {
 
   const [user, userLoading] = useFetch(user_id);
 
-
-	const [loadingFr, setLoadingFr] = useState(true)
-	const [updatedFr, setUpdatedFr] = useState({});
+  const [loadingFr, setLoadingFr] = useState(true);
+  const [updatedFr, setUpdatedFr] = useState({});
   const [updatedBio, setUpdatedBio] = useState({});
 
   const [open, setOpen] = useState(false);
   const [edit, setEdit] = useState(false);
 
-	const handleBioUpdate = () => {
-		let url = `/api/users/${user_id}`;
-		let body = {bio: Object.values(updatedBio)[0]};
+  const handleBioUpdate = () => {
+    let url = `/api/users/${user_id}`;
+    let body = { bio: Object.values(updatedBio)[0] };
     const options = {
       method: "post",
       headers: {
@@ -55,10 +59,9 @@ export default function Profile() {
       },
       body: JSON.stringify(body),
     };
-		fetchWithCSRF(url, options);
+    fetchWithCSRF(url, options);
     setUpdatedBio({});
-	}
-
+  };
 
   const handleFrUpdate = () => {
     let url = `/api/questions/fr/${user_id}/answers`;
@@ -74,7 +77,7 @@ export default function Profile() {
       },
       body: JSON.stringify(body),
     };
-		fetchWithCSRF(url, options);
+    fetchWithCSRF(url, options);
     setUpdatedFr({});
   };
 
@@ -84,16 +87,16 @@ export default function Profile() {
 
   const changeEdit = () => {
     if (edit === true) {
-			// console.log(updatedFr);
+      // console.log(updatedFr);
       // send updated responses
-			handleFrUpdate();
-			handleBioUpdate();
-			setProfileUpdated(false);
-			setLoadingFr(true)
+      handleFrUpdate();
+      handleBioUpdate();
+      setProfileUpdated(false);
+      setLoadingFr(true);
       setEdit(false);
     } else {
-			setEdit(true);
-			setLoadingFr(false)
+      setEdit(true);
+      setLoadingFr(false);
     }
   };
 
@@ -132,7 +135,7 @@ export default function Profile() {
 
   return (
     <>
-      <Button onClick={changeEdit} className='pro-btn-edit'>
+      <Button onClick={changeEdit} className="pro-btn-edit">
         {edit ? "Save Profile" : "Edit Profile"}
       </Button>
       <div className="pro-con">
@@ -150,16 +153,33 @@ export default function Profile() {
         </div>
         <div className="pro-body-outer">
           <div className="pro-body">
-            {edit ? <FrEdit frObj={bioObj} updatedFr={updatedBio} setUpdatedFr={setUpdatedBio} /> : <FrView frObj={bioObj} />}
+            {edit ? (
+              <FrEdit
+                frObj={bioObj}
+                updatedFr={updatedBio}
+                setUpdatedFr={setUpdatedBio}
+              />
+            ) : (
+              <FrView frObj={bioObj} />
+            )}
             <div className="pro-body__img-con">
               {/* <Button variant="outlined" color="primary" onClick={handleClickOpen}>edit photos</Button> */}
-              {edit ? ( <div> Upload Photos
-                    <EditIcon className="edit-icon" onClick={handleClickOpen} />
-                  </div>
+              {edit ? (
+                <div>
+                  {" "}
+                  Upload Photos
+                  <EditIcon className="edit-icon" onClick={handleClickOpen} />
+                </div>
               ) : null}
               <div className="pro-body__imgs">{photoElements}</div>
             </div>
-            <FrContainer edit={edit} updatedFr={updatedFr} setUpdatedFr={setUpdatedFr} loadingFr={loadingFr} setLoadingFr={setLoadingFr}/>
+            <FrContainer
+              edit={edit}
+              updatedFr={updatedFr}
+              setUpdatedFr={setUpdatedFr}
+              loadingFr={loadingFr}
+              setLoadingFr={setLoadingFr}
+            />
           </div>
         </div>
       </div>

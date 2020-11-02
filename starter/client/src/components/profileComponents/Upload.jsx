@@ -16,7 +16,9 @@ function Upload({open, setOpen}) {
 		// console.log('photofile', photoFile)
 		const formData = new FormData();
 		formData.append("file", photoFile);
-		postPhoto(formData);
+		if(photoFile){
+			postPhoto(formData);
+		}
 	}, [photoFile])
 
 	useEffect(() => {
@@ -53,8 +55,8 @@ function Upload({open, setOpen}) {
 			<div className='added-photos-con'>
 				{
 					(photos.length >= 1) ?
-						photos.map((photo) => (
-							<div className='added-photo-con'>
+						photos.map((photo, idx) => (
+							<div key={idx} className='added-photo-con'>
 							<img className='added-photo' src={photo.photo_url} alt='phot' />
 							</div>
 						)) : <div></div>

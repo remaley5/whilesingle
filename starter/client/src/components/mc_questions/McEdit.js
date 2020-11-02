@@ -47,7 +47,7 @@ export default function McEdit({ mcObj }) {
       };
       fetchWithCSRF(url, options);
     }
-  }, [answerIdState, unacceptableState, weightState]);
+  }, [answerIdState, unacceptableState, weightState, user_id, fetchWithCSRF, loading]);
 
 	const handleAnswer = (e) => {
     setAnswerIdState(parseInt(e.target.id.slice(7), 10));
