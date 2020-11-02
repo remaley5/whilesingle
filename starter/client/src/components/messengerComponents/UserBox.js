@@ -3,7 +3,7 @@ import '../../styles/messenger.css'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import socketIOClient from "socket.io-client"
 
-const ENDPOINT = "http://localhost:3000"
+// const ENDPOINT = "http://localhost:3000"
 const endpoint = process.env.REACT_APP_ENDPOINT || 8000;
 
 
