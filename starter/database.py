@@ -9,8 +9,8 @@ fake = Faker()
 Faker.seed(420)
 
 # num_fake_users must be at least 4
-num_fake_users = 50
-num_fake_messages = 30
+num_fake_users = 10
+num_fake_messages = 10
 
 with app.app_context():
     db.drop_all()
@@ -67,30 +67,6 @@ with app.app_context():
 
     db.session.commit()
 
-####################################################
-# SEED PHOTO TABLE
-####################################################
-    one = Photo(photo_url='https://while-single-bucket.s3-us-west-2.amazonaws.com/rita-wilson-photo-u24.jpeg', user_id= 1)
-    two = Photo(photo_url='https://while-single-bucket.s3-us-west-2.amazonaws.com/ThuOct291654392020.png', user_id= 1)
-    three = Photo(photo_url='https://while-single-bucket.s3-us-west-2.amazonaws.com/ThuOct291519152020.png', user_id= 1)
-    four = Photo(photo_url='https://while-single-bucket.s3-us-west-2.amazonaws.com/ThuOct291710322020.png', user_id= 1)
-    five = Photo(photo_url='https://while-single-two.s3-us-west-2.amazonaws.com/SunNov11437042020.png', user_id= 5)
-    six = Photo(photo_url = 'https://while-single-two.s3-us-west-2.amazonaws.com/SunNov11446152020.png', user_id=2)
-    seven = Photo(photo_url = 'https://while-single-two.s3-us-west-2.amazonaws.com/SunNov11448092020.png', user_id=3)
-    eight = Photo(photo_url = 'https://while-single-two.s3-us-west-2.amazonaws.com/SunNov11450292020.png', user_id=6)
-    nine = Photo(photo_url = 'https://while-single-two.s3-us-west-2.amazonaws.com/SunNov11453242020.png', user_id=7)
-    ten = Photo(photo_url = 'https://while-single-two.s3-us-west-2.amazonaws.com/SunNov11507092020.png', user_id=8)
-
-    db.session.add(one)
-    db.session.add(two)
-    db.session.add(three)
-    db.session.add(four)
-    db.session.add(five)
-    db.session.add(six)
-    db.session.add(seven)
-    db.session.add(eight)
-    db.session.add(nine)
-    db.session.add(ten)
 # commit preferences, genders, and pronouns so we can use them in generating random users
 
 ####################################################
@@ -294,7 +270,7 @@ with app.app_context():
 # SEED MC RESPONSE TABLE
 ####################################################
     u1_mc_q1_res = MC_Response(
-        user_id=1, mc_answer_id=1, mc_question_id=1, question_weight=2, unacceptable_answers=[2, 3])
+        user_id=1, mc_answer_id=4, mc_question_id=1)
     u1_mc_q2_res = MC_Response(
         user_id=1, mc_answer_id=8, mc_question_id=2)
 
@@ -469,6 +445,34 @@ with app.app_context():
                         break
 
     make_fake_messages(num_fake_messages, fake_user_list, fake_match_history)
+
+
+
+
+####################################################
+# SEED PHOTO TABLE
+####################################################
+    one = Photo(photo_url='https://while-single-bucket.s3-us-west-2.amazonaws.com/rita-wilson-photo-u24.jpeg', user_id= 1)
+    two = Photo(photo_url='https://while-single-bucket.s3-us-west-2.amazonaws.com/ThuOct291654392020.png', user_id= 1)
+    three = Photo(photo_url='https://while-single-bucket.s3-us-west-2.amazonaws.com/ThuOct291519152020.png', user_id= 1)
+    four = Photo(photo_url='https://while-single-bucket.s3-us-west-2.amazonaws.com/ThuOct291710322020.png', user_id= 1)
+    five = Photo(photo_url='https://while-single-two.s3-us-west-2.amazonaws.com/SunNov11437042020.png', user_id= 5)
+    six = Photo(photo_url = 'https://while-single-two.s3-us-west-2.amazonaws.com/SunNov11446152020.png', user_id=2)
+    seven = Photo(photo_url = 'https://while-single-two.s3-us-west-2.amazonaws.com/SunNov11448092020.png', user_id=3)
+    eight = Photo(photo_url = 'https://while-single-two.s3-us-west-2.amazonaws.com/SunNov11450292020.png', user_id=6)
+    nine = Photo(photo_url = 'https://while-single-two.s3-us-west-2.amazonaws.com/SunNov11453242020.png', user_id=7)
+    ten = Photo(photo_url = 'https://while-single-two.s3-us-west-2.amazonaws.com/SunNov11507092020.png', user_id=8)
+
+    db.session.add(one)
+    db.session.add(two)
+    db.session.add(three)
+    db.session.add(four)
+    db.session.add(five)
+    db.session.add(six)
+    db.session.add(seven)
+    db.session.add(eight)
+    db.session.add(nine)
+    db.session.add(ten)
 
 ####################################################
 # COMMIT DB CHANGES

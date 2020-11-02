@@ -60,30 +60,6 @@ function SetPreferences({ edit, handleClose, user }) {
   }, []);
 
   const handleSubmit = async () => {
-    console.log(`
-            ${myGender}
-            ${myPronouns}
-            ${myConnections}
-            ${myOrientation}
-            ${myBirthday}
-            ${myLocation}
-            ${myBio}
-
-        `);
-    console.log(`conditional:
-        myGender === ''             ${myGender === ""}
-        myPronouns === ''           ${myPronouns === ""}
-        myConnections.length === 0    ${myConnections.length === 0}
-        myOrientation.length === 0    ${myOrientation.length === 0}
-        !myBirthday.day            ${!myBirthday.day}
-        !myBirthday.month           ${!myBirthday.month}
-        !myBirthday.year            ${!myBirthday.year}
-        myLocation === ''           ${myLocation === ""}
-        myBio === ''                ${myBio === ""}
-
-
-				`);
-
     if (!edit) {
       if (
         myGender === "" ||
@@ -109,7 +85,6 @@ function SetPreferences({ edit, handleClose, user }) {
         myLocation === ""
       ) {
         alert("I think you forgot something...");
-        console.log(edit);
         return;
       }
     }
@@ -129,7 +104,6 @@ function SetPreferences({ edit, handleClose, user }) {
       },
       body: JSON.stringify(preferences),
     });
-    console.log(response.json);
     if (edit) {
       handleClose();
       user.setProfileUpdated(false);

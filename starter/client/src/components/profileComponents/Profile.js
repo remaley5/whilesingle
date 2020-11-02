@@ -39,10 +39,25 @@ export default function Profile() {
 
 
 	const [loadingFr, setLoadingFr] = useState(true)
-  const [updatedFr, setUpdatedFr] = useState({});
+	const [updatedFr, setUpdatedFr] = useState({});
+  const [updatedBio, setUpdatedBio] = useState({});
+
   const [open, setOpen] = useState(false);
   const [edit, setEdit] = useState(false);
 
+	const handleBioUpdate = () => {
+		let url = `/api/users/${user_id}`;
+		let body = {bio: Object.values(updatedBio)[0]};
+    const options = {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    };
+		fetchWithCSRF(url, options);
+    setUpdatedBio({});
+	}
 
 
   const handleFrUpdate = () => {
@@ -71,7 +86,8 @@ export default function Profile() {
     if (edit === true) {
 			console.log(updatedFr);
       // send updated responses
-      handleFrUpdate();
+			handleFrUpdate();
+			handleBioUpdate();
 			setProfileUpdated(false);
 			setLoadingFr(true)
       setEdit(false);
@@ -134,7 +150,7 @@ export default function Profile() {
         </div>
         <div className="pro-body-outer">
           <div className="pro-body">
-            {edit ? <FrEdit frObj={bioObj} /> : <FrView frObj={bioObj} />}
+            {edit ? <FrEdit frObj={bioObj} updatedFr={updatedBio} setUpdatedFr={setUpdatedBio} /> : <FrView frObj={bioObj} />}
             <div className="pro-body__img-con">
               {/* <Button variant="outlined" color="primary" onClick={handleClickOpen}>edit photos</Button> */}
               {edit ? ( <div> Upload Photos

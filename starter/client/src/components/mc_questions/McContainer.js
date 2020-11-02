@@ -28,9 +28,9 @@ export default function McContainer({ edit }) {
     };
 
     if (view === "unanswered") {
-      mcArr = [...userUnansweredMc];
+      mcArr = userUnansweredMc;
     } else if (view === "answered") {
-      mcArr = [...userAnsweredMc];
+      mcArr = userAnsweredMc;
     } else {
       mcArr = [...userAnsweredMc, ...userUnansweredMc];
     }
