@@ -92,13 +92,13 @@ function Home(props) {
   };
 
   if (viewingUser[0]) {
-    user = viewingUser.map(({ user }) => {
-      let photos = user.photos.map((photo) => (
+    user = viewingUser.map(({ user }, idx) => {
+      let photos = user.photos.map((photo, idx2) => (
         <img
           className="swipe-img"
           src={photo.photo_url}
           alt="profile pic"
-          key={photo.photo_url}
+          key={`${idx}-${idx2}`}
         />
       ));
       const userPreferences = user.preferences.map(
@@ -111,7 +111,7 @@ function Home(props) {
 
       return (
         <>
-        <div className="swipe-con" key={user.id}>
+        <div className="swipe-con" key={idx}>
           <div className="content-con">
             <div className="swipe-img-con">{photos}</div>
             <div className="swipe-con__right">

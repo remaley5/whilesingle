@@ -17,7 +17,7 @@ export default function FrMatchContainer({ otherUserId }) {
         setLoading(false);
       }
       fetchData();
-    });//, [otherUserId]);
+    }, [otherUserId]);
     return data;
   };
 
