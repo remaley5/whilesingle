@@ -12,7 +12,7 @@ import Home from './components/Home';
 import Upload from './components/profileComponents/Upload'
 import AuthContext from './auth';
 import NavBar from './components/NavBar'
-import SetPreferences from './components/loginComponents/SetPreferences'
+import SetPreferences from './components/profileComponents/loginComponents/SetPreferences'
 import { ProtectedRoute, AuthRoute } from './Routes';
 
 function App() {

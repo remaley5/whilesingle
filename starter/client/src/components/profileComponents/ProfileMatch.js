@@ -5,7 +5,7 @@ import UserInfoView from "./UserInfoView";
 
 export default function ProfileMatch({ otherUserId }) {
   const defaultPhoto = [
-    <div className="default-image" key="default-image"></div>,
+    <div className="default-image pro-head__img" key="default-image"></div>,
   ];
 
   // we'll also need a match id to load their answered questions only
@@ -57,6 +57,8 @@ export default function ProfileMatch({ otherUserId }) {
     />
   ));
 
+  console.log('PHOTOELEMENTS', photoElements)
+
   const bioObj = bio ? {
     fr_question: "About Me",
     fr_answer: bio,
@@ -82,9 +84,11 @@ export default function ProfileMatch({ otherUserId }) {
         <div className="pro-body-outer">
           <div className="pro-body">
             {bioObj ? <FrView frObj={bioObj} /> : null }
+            {photoElements.length >= 1 ?
             <div className="pro-body__img-con">
               <div className="pro-body__imgs">{photoElements}</div>
-            </div>
+            </div> : null
+}
             <FrMatchContainer otherUserId={otherUserId} />
           </div>
         </div>

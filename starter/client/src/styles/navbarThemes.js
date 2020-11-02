@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles'
 
 const navStyles = makeStyles((theme) => ({
     home:{
-        fontSize: 35,
+        fontSize: 60,
         color: 'white',
         '&:hover': {
             cursor: 'pointer',
@@ -17,14 +17,14 @@ const navStyles = makeStyles((theme) => ({
         },
     },
     messages:{
-        fontSize: 35,
+        fontSize: 60,
         color: 'white',
         '&:hover': {
             cursor: 'pointer',
         },
     },
     logout:{
-        fontSize: 35,
+        fontSize: 60,
         color: 'white',
         '&:hover': {
             cursor: 'pointer',

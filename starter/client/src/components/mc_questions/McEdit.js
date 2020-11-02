@@ -90,14 +90,13 @@ export default function McEdit({ mcObj }) {
   };
 
   return (
-    <div className="ques-con">
+    <div className="mc-ques-con">
       <h4 className="ques-head">{mc_question}</h4>
       {/* I think the McEditSelect should be on the same line as the question prompt - flexbox? */}
-      <McEditSelect props={weightProps} />
-      <div>
+      <div className='ques-con'>
         {mc_answer_options.map(({ mc_answer, mc_answer_id }, idx) => {
           return (
-            <div key={idx}>
+            <div className='mc-opt' key={idx}>
               <input
                 className="mc-sel mc-sel-radio"
                 required
@@ -125,6 +124,7 @@ export default function McEdit({ mcObj }) {
           );
         })}
       </div>
+        <McEditSelect props={weightProps} />
     </div>
   );
 }

@@ -46,9 +46,6 @@ function Upload({open, setOpen}) {
 	const handleSubmit = (e) => {
 		e.preventDefault()
 		setOpen(false)
-		// const formData = new FormData();
-		// formData.append("file", photoFile);
-		// postPhoto(formData);
 	};
 
 	return (
