@@ -7,7 +7,7 @@ import AuthContext from '../../auth'
 import socketIOClient from "socket.io-client"
 
 // const ENDPOINT = "http://localhost:3000"
-const endpoint = ':80'//process.env.REACT_APP_ENDPOINT || 8000;
+const endpoint = 'https://localhost:80'//process.env.REACT_APP_ENDPOINT || 8000;
 
 
 const Messages = () => {
