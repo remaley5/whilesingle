@@ -31,7 +31,7 @@ export const McContextProvider = (props) => {
     return [data, loading];
   };
 
-  const [allMc, allMcLoading] = useFetch("/api/questions/mc/all");
+  // const [allMc, allMcLoading] = useFetch("/api/questions/mc/all");
   const [userAnsweredMc, userAnsweredMcLoading] = useFetch(
     `/api/questions/mc/answered/${user_id}`, user_id
   );
@@ -45,7 +45,7 @@ export const McContextProvider = (props) => {
   );
 
   const mc = {
-    allMc,
+    // allMc,
     userAnsweredMc,
     userUnansweredMc,
 		matchAnsweredMc,
@@ -54,7 +54,7 @@ export const McContextProvider = (props) => {
 
 
   const mcLoading = [
-    allMcLoading,
+    // allMcLoading,
     userAnsweredMcLoading,
     userUnansweredMcLoading,
     matchAnsweredMcLoading,

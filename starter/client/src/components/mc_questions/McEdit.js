@@ -1,10 +1,16 @@
-import React, { useState, useContext, useEffect, useRef } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import AuthContext from "../../auth";
 import McEditSelect from "./McEditSelect";
 
 export default function McEdit({ mcObj }) {
-  const { fetchWithCSRF, currentUserId: user_id } = useContext(AuthContext);
-  const [changed, setChanged] = useState(0);
+
+	const[loading, setLoading] = useState(true)
+  const [answerIdState, setAnswerIdState] = useState();
+	const [unacceptableState, setUnacceptableState] = useState();
+  const [weightState, setWeightState] = useState();
+
+	const { fetchWithCSRF, currentUserId: user_id } = useContext(AuthContext);
+
   const {
     mc_answer_id: user_mc_answer_id,
     mc_question,
@@ -12,80 +18,77 @@ export default function McEdit({ mcObj }) {
     mc_answer_options,
     question_weight,
     unacceptable_answers,
-  } = mcObj;
+	} = mcObj;
 
-  // use ref for controlled form inputs that don't trigger re-renders!!!! .... except you call setChanged within functions that change ref so component rerenders anyways. Oh well.
-  const answerIdRef = useRef(user_mc_answer_id || null);
-  const unacceptableRef = useRef(unacceptable_answers || []);
-  const weightRef = useRef(question_weight || 1);
+	useEffect(()=>{
+		setAnswerIdState(user_mc_answer_id)
+		setUnacceptableState(unacceptable_answers||[])
+		setWeightState(question_weight||2)
+		setLoading(false)
+	}, [])
 
-  const handleAnswer = (e) => {
-    const id = parseInt(e.target.id.slice(7), 10);
-    answerIdRef.current = id;
-    setChanged(changed + 1);
+
+
+  useEffect(() => {
+    if (answerIdState!==undefined && !loading) {
+      const url = `/api/questions/mc/${user_id}/answer`;
+      const body = JSON.stringify({
+        question_id: mc_question_id,
+        answer_id: answerIdState,
+        unacceptable_answers: unacceptableState,
+        question_weight: weightState,
+      });
+      const options = {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body,
+      };
+      fetchWithCSRF(url, options);
+    }
+  }, [answerIdState, unacceptableState, weightState]);
+
+	const handleAnswer = (e) => {
+    setAnswerIdState(parseInt(e.target.id.slice(7), 10));
   };
 
   const handleUnacceptable = (e) => {
     const id = parseInt(e.target.id.slice(13), 10);
-    const idx = unacceptableRef.current.indexOf(id);
+    const idx = unacceptableState.indexOf(id);
     const checked = e.target.checked;
-    let unacceptable = unacceptableRef.current;
+    let newUnacceptable = [...unacceptableState];
     if (checked === true && idx === -1) {
-      unacceptableRef.current = [...unacceptable, id];
+      newUnacceptable.push(id);
     } else if (checked === false && idx !== -1) {
-      unacceptableRef.current = [
-        ...unacceptable.slice(0, idx),
-        ...unacceptable.slice(idx + 1),
+      newUnacceptable = [
+        ...newUnacceptable.slice(0, idx),
+        ...newUnacceptable.slice(idx + 1),
       ];
     }
-    setChanged(changed + 1);
+    setUnacceptableState(newUnacceptable);
   };
 
   const handleWeight = (e) => {
-    const new_weight = parseInt(e.target.value, 10);
-    weightRef.current = new_weight;
-    setChanged(changed + 1);
+    setWeightState(parseInt(e.target.value, 10));
   };
 
-  const handleSubmit = (e) => {
-		if(answerIdRef.current === null) {
-			return
-		}
-    const url = `/api/questions/mc/${user_id}/answer`;
-    const body = JSON.stringify({
-      question_id: mc_question_id,
-      answer_id: answerIdRef.current,
-      unacceptable_answers: unacceptableRef.current,
-      question_weight: weightRef.current,
-    });
-    const options = {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body,
-    };
-    fetchWithCSRF(url, options);
-  };
-
-  // post response whenever a change is made
-  // there's gotta be a better way but whatever - this works.
-  useEffect(() => {
-    handleSubmit();
-  }, [changed]);
+	if(loading){
+		return null;
+	}
 
   const weightProps = {
     handleChange: handleWeight,
-    name: `${mc_question_id}`,
+    name: `weight-${mc_question_id}`,
     id: `weight-${mc_question_id}`,
-    value: weightRef.current,
+    value: weightState,
     options: [
       ["1", "Less Important"],
       ["2", "Neutral"],
       ["3", "More Important"],
     ],
   };
-	console.log(user_mc_answer_id, mc_question_id)
+
   return (
     <div className="ques-con">
       <h4 className="ques-head">{mc_question}</h4>
@@ -96,21 +99,24 @@ export default function McEdit({ mcObj }) {
           return (
             <div key={idx}>
               <input
-								className='mc-sel mc-sel-radio'
+                className="mc-sel mc-sel-radio"
                 required
                 type="radio"
-                name={mc_question_id}
-                id={`answer-${mc_answer_id}`}
-                defaultChecked={
-                  answerIdRef.current === mc_answer_id ? true : false
-                }
+                name={`question-${mc_question_id}`}
+								id={`answer-${mc_answer_id}`}
+                defaultChecked={answerIdState === mc_answer_id}
                 onChange={handleAnswer}
               />
-              <label className='mc-sel-label' htmlFor={mc_question_id}>{mc_answer}</label>
+              <label
+                className="mc-sel-label"
+                htmlFor={`answer-${mc_question_id}`}
+              >
+                {mc_answer}
+              </label>
               <input
-								type="checkbox"
-								className='mc-sel mc-sel-check'
-                checked={unacceptableRef.current.indexOf(mc_answer_id) !== -1}
+                type="checkbox"
+                className="mc-sel mc-sel-check"
+                checked={unacceptableState.indexOf(mc_answer_id) !== -1}
                 name={`unacceptable-${mc_question_id}`}
                 id={`unacceptable-${mc_answer_id}`}
                 onChange={handleUnacceptable}
