@@ -13,7 +13,7 @@ export default function McContainer({ edit }) {
 
   if (!edit) {
     mcArr = [...userAnsweredMc];
-    console.log("edit false", mcArr);
+    // console.log("edit false", mcArr);
     return (
       <>
         {mcArr.map((mcObj, idx) => (

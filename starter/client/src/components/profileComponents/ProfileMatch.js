@@ -10,8 +10,9 @@ export default function ProfileMatch({ otherUserId }) {
 
   // we'll also need a match id to load their answered questions only
   // const match_id = 2;
-  const [updated, setUpdated] = useState(true);
-  const [data, setData] = useState([]);
+  const updated = useState(true);
+	const setUpdated = updated[1]
+	const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const useFetch = (otherUserId) => {
     useEffect(() => {
@@ -46,7 +47,7 @@ export default function ProfileMatch({ otherUserId }) {
     photos,
   } = matchProfile;
 
-  console.log(matchProfile);
+  // console.log(matchProfile);
 
   const photoElements = photos.map((photo, idx) => (
     <img
@@ -57,7 +58,7 @@ export default function ProfileMatch({ otherUserId }) {
     />
   ));
 
-  console.log('PHOTOELEMENTS', photoElements)
+  // console.log('PHOTOELEMENTS', photoElements)
 
   const bioObj = bio ? {
     fr_question: "About Me",

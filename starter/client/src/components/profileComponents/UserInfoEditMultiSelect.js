@@ -74,7 +74,7 @@ export default function MultipleSelect({ options, selected, label }) {
     }
     setVal(value);
   };
-	console.log(val);
+	// console.log(val);
 
 	useEffect(()=>{
 		const url = `/api/users/${user_id}`;

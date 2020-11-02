@@ -10,7 +10,7 @@ import EditIcon from "@material-ui/icons/Edit";
 
 export default function Profile() {
 	const defaultPhoto = [
-    <img className="pro-head__img" key="default-image" src='https://while-single-two.s3-us-west-2.amazonaws.com/SunNov11507092020.png'/>,
+    <img className="pro-head__img" key="default-image" src='https://while-single-two.s3-us-west-2.amazonaws.com/SunNov11507092020.png' alt='default profile pic'/>,
 	];
 
   let { fetchWithCSRF, currentUserId: user_id } = useContext(AuthContext);
@@ -25,7 +25,7 @@ export default function Profile() {
         const res = await fetch(`/api/users/${user_id}`);
         const json = await res.json();
         const obj = json[Object.keys(json)];
-        console.log(obj.photos)
+        // console.log(obj.photos)
         setData(obj);
         setLoading(false);
       }
@@ -84,7 +84,7 @@ export default function Profile() {
 
   const changeEdit = () => {
     if (edit === true) {
-			console.log(updatedFr);
+			// console.log(updatedFr);
       // send updated responses
 			handleFrUpdate();
 			handleBioUpdate();
@@ -102,13 +102,13 @@ export default function Profile() {
   }
 
   let {
-    first_name,
-    last_name,
+    // first_name,
+    // last_name,
     bio,
-    location,
-    preferences,
-    gender,
-    pronouns,
+    // location,
+    // preferences,
+    // gender,
+    // pronouns,
     photos,
   } = user;
 
@@ -132,8 +132,8 @@ export default function Profile() {
 
   return (
     <>
-      <Button onClick={changeEdit}>
-        {edit ? "View Profile" : "Edit Profile"}
+      <Button onClick={changeEdit} className='pro-btn-edit'>
+        {edit ? "Save Profile" : "Edit Profile"}
       </Button>
       <div className="pro-con">
         <div className="pro-head">

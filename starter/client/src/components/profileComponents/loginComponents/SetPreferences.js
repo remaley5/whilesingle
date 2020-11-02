@@ -12,8 +12,8 @@ import AuthContext from "../../../auth";
 
 function SetPreferences({ edit, handleClose, user }) {
   const history = useHistory();
-  console.log(handleClose);
-  console.log(user);
+  // console.log(handleClose);
+  // console.log(user);
   let currentGenders = "";
   // let currentPreferences=[];
   let currentPronouns = "";
@@ -51,7 +51,7 @@ function SetPreferences({ edit, handleClose, user }) {
     async function get_options() {
       const response = await fetch("/api/users/info_options");
       const res = await response.json();
-      console.log("response data", res);
+      // console.log("response data", res);
       setGenders(res.genders);
       SetPreferences(res.preferences);
       setPronouns(res.pronouns);
@@ -73,7 +73,7 @@ function SetPreferences({ edit, handleClose, user }) {
         myBio === ""
       ) {
         alert("I think you forgot something...");
-        console.log(edit);
+        // console.log(edit);
         return;
       }
     } else {

@@ -27,7 +27,7 @@ const Messages = () => {
         (async () => {
             const response = await fetch(`/api/matches/get-matches/${currentUserId}`);
             const responseData = await response.json();
-            console.log(responseData)
+            // console.log(responseData)
             setUsers(responseData);
         })()
         scrollDiv.current.scrollTop = 1000000000000000;

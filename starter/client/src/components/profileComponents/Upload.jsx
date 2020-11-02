@@ -13,7 +13,7 @@ function Upload({open, setOpen}) {
 	};
 
 	useEffect(() => {
-		console.log('photofile', photoFile)
+		// console.log('photofile', photoFile)
 		const formData = new FormData();
 		formData.append("file", photoFile);
 		postPhoto(formData);
