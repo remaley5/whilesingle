@@ -6,8 +6,8 @@ import MessageBox from './MessageBox'
 import AuthContext from '../../auth'
 import socketIOClient from "socket.io-client"
 
-// const ENDPOINT = "http://localhost:3000"
-const endpoint = ':80'//process.env.REACT_APP_ENDPOINT || 8000;
+const ENDPOINT = "http://localhost:3000"
+// const endpoint = ':80'//process.env.REACT_APP_ENDPOINT || 8000;
 
 
 const Messages = () => {
@@ -39,7 +39,7 @@ const Messages = () => {
         setMessage('')
         messageRef.current.value = '';
         scrollDiv.current.scrollTop = 1000000000000000;
-        const socket = socketIOClient(endpoint);
+        const socket = socketIOClient(ENDPOINT);
         socket.emit('FromClient', { message: message, from_id: currentUserId, match_id: match });
     }
 
