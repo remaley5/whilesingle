@@ -45,7 +45,7 @@ const NavBar = () => {
                 </NavLink>
                 <Tooltip title='Take Match Quiz'>
                     <div>
-                        <NavLink to="/quiz"><AssessmentIcon className={navClass.home} /></NavLink>
+                        <NavLink to="/quiz"><AssessmentIcon className={navClass.messages} /></NavLink>
                     </div>
                 </Tooltip>
                 <Tooltip title='Messages'>
@@ -55,7 +55,7 @@ const NavBar = () => {
                 </Tooltip>
                 </div>
                 <div>
-                    <MoreVertRoundedIcon onClick={handleClick} className={navClass.matches} />
+                    <MoreVertRoundedIcon onClick={handleClick} className={navClass.messages} />
                     <Menu
                         id="simple-menu"
                         anchorEl={anchorEl}
