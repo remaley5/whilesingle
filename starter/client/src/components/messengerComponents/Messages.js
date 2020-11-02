@@ -6,7 +6,7 @@ import MessageBox from './MessageBox'
 import AuthContext from '../../auth'
 import socketIOClient from "socket.io-client"
 
-const ENDPOINT = "http://http://whilesingle.herokuapp.com/:3000"
+const ENDPOINT = "http://whilesingle.herokuapp.com/"
 // const endpoint = ':80'//process.env.REACT_APP_ENDPOINT || 8000;
 
 
