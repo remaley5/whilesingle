@@ -6,9 +6,6 @@ class Config:
   SQLALCHEMY_TRACK_MODIFICATIONS=False
   SQLALCHEMY_DATABASE_URI=os.environ.get('DATABASE_URL')
   SQLALCHEMY_ECHO=True
-  S3_KEY=os.environ.get('AWS_ACCESS_KEY_ID')
-  S3_SECRET=os.environ.get('AWS_SECRET_ACCESS_KEY')
-  S3_BUCKET=os.environ.get('S3_BUCKET')
   WTF_CSRF_TIME_LIMIT = None
   # Update this to true once login is complete
   SECURITY_CSRF_IGNORE_UNAUTH_ENDPOINTS = False

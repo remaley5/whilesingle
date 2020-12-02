@@ -16,7 +16,6 @@ s3 = boto3.client(
 
 #This function posts to aws and returns a photo url
 def upload_file_to_s3(f, bucket_name, acl="public-read"):
-    print('bucket and file ------------------------', f, bucket_name)
 
     try:
         # s3_client = boto3.client('s3')
@@ -24,19 +23,16 @@ def upload_file_to_s3(f, bucket_name, acl="public-read"):
             f, bucket_name, f.filename,
             ExtraArgs={
                 "ACL": acl,
-                "ContentType": f.content_type
+                "ContentType": f.content_type,
             }
         )
         photoUrl = "{}{}".format(
-            'https://while-single-two.s3-us-west-2.amazonaws.com/', f.filename)
+            'https://while-single.s3-us-west-2.amazonaws.com/', f.filename)
         return photoUrl
 
     except Exception as e:
-        # This is a catch all exception, edit this part to fit your needs.
         print("Something Happened: ", e)
         return e
-    #Note your photo url will be different the correct url can be found in your
-    #bucket when you click on an image and check the image info.
 
 def change_name(file_name):
     return f"{time.ctime().replace(' ', '').replace(':', '')}.png"
