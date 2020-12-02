@@ -17,7 +17,16 @@ from starter_app.models import (
     MC_Response,
     MC_Question,
     MC_Answer_Option,
-    Message
+    Message,
+    FR_Response,
+    FR_Question,
+    Match,
+    MatchRequest,
+    Preference,
+    Gender,
+    Pronoun,
+    Photo,
+    Reject
 )
 
 from starter_app.api import user_routes, fr_routes, mc_routes, message_routes, match_routes, upload_routes
@@ -100,25 +109,27 @@ def logout():
     return {"msg": "You have been logged out"}, 200
 
 
-
-
 @app.route("/api/messages/get-messages/<match_id_params>")
 @login_required
 def get_messages(match_id_params):
     match_id = int(match_id_params)
-    messages = Message.query.filter(match_id == match_id).order_by(Message.id.desc()).limit(20)
-    messages = [{'message': m.message, 'message_id': m.id, 'from_id': m.from_id} for m in messages]
+    messages = Message.query.filter(
+        match_id == match_id).order_by(Message.id.desc()).limit(20)
+    messages = [{'message': m.message, 'message_id': m.id,
+                 'from_id': m.from_id} for m in messages]
     messages.reverse()
     if (messages):
         return jsonify(messages)
     return 'no messages'
+
 
 @socketio.on('FromClient')
 def handle_message(data):
     print(data, '============================================================')
     socketio.emit(f"FromAPI/{data['match_id']}", data)
 
-    message = Message(message=data['message'], from_id=data['from_id'], match_id=data['match_id'])
+    message = Message(
+        message=data['message'], from_id=data['from_id'], match_id=data['match_id'])
 
     db.session.add(message)
     db.session.commit()

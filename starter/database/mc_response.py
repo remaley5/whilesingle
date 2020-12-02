@@ -1,17 +1,8 @@
 from . import db, MC_Response, fake
-# from faker import Faker
 from random import randrange
-# fake = Faker()
-# use this so same fake data generated each time
-# Faker.seed(420)
 
 
 def seed_mc_responses(fake_user_list, mc_qa_list):
-
-
-####################################################
-# SEED MC RESPONSE TABLE
-####################################################
     u1_mc_q2_res = MC_Response(
         user_id=1, mc_answer_id=8, mc_question_id=2)
 
@@ -23,7 +14,6 @@ def seed_mc_responses(fake_user_list, mc_qa_list):
     u3_mc_q1_res = MC_Response(user_id=3, mc_answer_id=1, mc_question_id=1)
     u3_mc_q2_res = MC_Response(user_id=3, mc_answer_id=5, mc_question_id=2)
 
-    # ADD MC RESPONSES
     mc_res_list = [u1_mc_q2_res, u2_mc_q1_res, u2_mc_q2_res,
                    u2_mc_q3_res, u2_mc_q3_res, u3_mc_q1_res, u3_mc_q2_res]
 

@@ -1,5 +1,6 @@
 from . import db, Preference
 
+
 def seed_preferences():
     p1 = Preference(preference='hookups')
     p2 = Preference(preference='new friends')

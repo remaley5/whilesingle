@@ -1,5 +1,6 @@
 from . import db, Gender
 
+
 def seed_genders():
     g1 = Gender(gender='cis man')
     g2 = Gender(gender='cis woman')

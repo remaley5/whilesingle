@@ -1,5 +1,6 @@
 from . import db, Pronoun
 
+
 def seed_pronouns():
     n1 = Pronoun(pronoun='They/Them/Theirs')
     n2 = Pronoun(pronoun='She/Her/Hers')

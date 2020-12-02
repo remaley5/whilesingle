@@ -1,5 +1,6 @@
 from . import db, Reject
 
+
 def seed_rejects():
     test_reject5 = Reject(user_id=1, reject_id=5)
     test_reject4 = Reject(user_id=1, reject_id=4)

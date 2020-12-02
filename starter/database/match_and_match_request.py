@@ -1,6 +1,7 @@
 from . import db, MatchRequest, Match
 from random import randrange
 
+
 def seed_match_and_match_requests(base_users, fake_user_list):
     ivan_and_javier = Match(users=[base_users[0], base_users[1]], status=True)
     dean_to_javier = MatchRequest(from_id=3, to_id=2)
@@ -66,6 +67,7 @@ def seed_match_and_match_requests(base_users, fake_user_list):
         match_history, 0.5, Match)}
     # this dict contains both confirmed matches AND match requests - we don't care about match requests
     # power of 0.2 used so there are less match requests than matches
-    fake_match_and_match_request_history = make_fake_match_and_match_req(match_history, 0.2, MatchRequest)
+    fake_match_and_match_request_history = make_fake_match_and_match_req(
+        match_history, 0.2, MatchRequest)
     db.session.commit()
     return fake_match_history

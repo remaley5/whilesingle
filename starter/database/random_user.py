@@ -1,9 +1,6 @@
-from . import db, User
-from faker import Faker
+from . import db, User, fake
 from random import randrange
-fake = Faker()
-# use this so same fake data generated each time
-Faker.seed(420)
+
 
 def seed_random_users(preferences, genders, pronouns, num_fake_users):
     # use this list later when adding fake mc/fr responses

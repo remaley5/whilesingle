@@ -1,5 +1,6 @@
 from . import db, FR_Response, fake
 
+
 def seed_fr_responses(fake_user_list, fr_q_list):
     u1_fr_q1_res = FR_Response(
         user_id=1, fr_answer='I have 17 but dream of the day I have 50.', fr_question_id=1)
