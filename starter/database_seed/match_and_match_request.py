@@ -1,15 +1,14 @@
 from . import db, MatchRequest, Match
 from random import randrange
 
-def seed_match_and_match_requests(fake_user_list):
-    ivan_to_javiar = MatchRequest(from_id=1, to_id=2)
-    dean_to_javiar = MatchRequest(from_id=3, to_id=2)
-    angela_to_javiar = MatchRequest(from_id=4, to_id=2)
+def seed_match_and_match_requests(base_users, fake_user_list):
+    ivan_and_javier = Match(users=[base_users[0], base_users[1]], status=True)
+    dean_to_javier = MatchRequest(from_id=3, to_id=2)
+    angela_to_javier = MatchRequest(from_id=4, to_id=2)
 
-    db.session.add(ivan_to_javiar)
-    db.session.add(dean_to_javiar)
-    db.session.add(angela_to_javiar)
-    db.session.commit()
+    db.session.add(ivan_and_javier)
+    db.session.add(dean_to_javier)
+    db.session.add(angela_to_javier)
 
 ####################################################
 # SEED MATCHREQUEST AND MATCH WITH FAKES

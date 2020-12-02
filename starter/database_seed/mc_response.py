@@ -1,9 +1,9 @@
-from . import db, MC_Response
-from faker import Faker
+from . import db, MC_Response, fake
+# from faker import Faker
 from random import randrange
-fake = Faker()
+# fake = Faker()
 # use this so same fake data generated each time
-Faker.seed(420)
+# Faker.seed(420)
 
 
 def seed_mc_responses(fake_user_list, mc_qa_list):
