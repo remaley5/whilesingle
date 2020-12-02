@@ -219,52 +219,69 @@ with app.app_context():
 ####################################################
 # SEED MC QUESTION AND ANSWER OPTIONS TABLES
 ####################################################
-#   MC_Q1
-    mc_q1 = MC_Question(mc_question='How do you feel about cats?')
-    mc_q1_a1 = MC_Answer_Option(mc_answer='I love cats.', mc_question_id=1)
-    mc_q1_a2 = MC_Answer_Option(mc_answer='I hate cats.', mc_question_id=1)
-    mc_q1_a3 = MC_Answer_Option(
-        mc_answer='I have no strong feelings regarding cats.', mc_question_id=1)
-    mc_q1_a4 = MC_Answer_Option(
-        mc_answer='I would prefer to keep my opinion on cats private.', mc_question_id=1)
+# #   MC_Q1
+#     mc_q1 = MC_Question(mc_question='How do you feel about cats?')
+#     mc_q1_a1 = MC_Answer_Option(mc_answer='I love cats.', mc_question_id=1)
+#     mc_q1_a2 = MC_Answer_Option(mc_answer='I hate cats.', mc_question_id=1)
+#     mc_q1_a3 = MC_Answer_Option(
+#         mc_answer='I have no strong feelings regarding cats.', mc_question_id=1)
+#     mc_q1_a4 = MC_Answer_Option(
+#         mc_answer='I would prefer to keep my opinion on cats private.', mc_question_id=1)
 
-    mc_qa_1 = {'q': mc_q1, 'a': [mc_q1_a1, mc_q1_a2, mc_q1_a3, mc_q1_a4]}
+#     mc_qa_1 = {'q': mc_q1, 'a': [mc_q1_a1, mc_q1_a2, mc_q1_a3, mc_q1_a4]}
 
-#   MC_Q2
-    mc_q2 = MC_Question(mc_question='How do you feel about dogs?')
-    mc_q2_a1 = MC_Answer_Option(mc_answer='I love dogs.', mc_question_id=2)
-    mc_q2_a2 = MC_Answer_Option(mc_answer='I hate dogs.', mc_question_id=2)
-    mc_q2_a3 = MC_Answer_Option(
-        mc_answer='I have no strong feelings regarding dogs.', mc_question_id=2)
-    mc_q2_a4 = MC_Answer_Option(
-        mc_answer='I would prefer to keep my opinion on dogs private.', mc_question_id=2)
+# #   MC_Q2
+#     mc_q2 = MC_Question(mc_question='How do you feel about dogs?')
+#     mc_q2_a1 = MC_Answer_Option(mc_answer='I love dogs.', mc_question_id=2)
+#     mc_q2_a2 = MC_Answer_Option(mc_answer='I hate dogs.', mc_question_id=2)
+#     mc_q2_a3 = MC_Answer_Option(
+#         mc_answer='I have no strong feelings regarding dogs.', mc_question_id=2)
+#     mc_q2_a4 = MC_Answer_Option(
+#         mc_answer='I would prefer to keep my opinion on dogs private.', mc_question_id=2)
 
-    mc_qa_2 = {'q': mc_q2, 'a': [mc_q2_a1, mc_q2_a2, mc_q2_a3, mc_q2_a4]}
+#     mc_qa_2 = {'q': mc_q2, 'a': [mc_q2_a1, mc_q2_a2, mc_q2_a3, mc_q2_a4]}
 
-#   MC_Q3
-    mc_q3 = MC_Question(mc_question='How do you feel about iguanas?')
-    mc_q3_a1 = MC_Answer_Option(mc_answer='I love iguanas.', mc_question_id=3)
-    mc_q3_a2 = MC_Answer_Option(mc_answer='I hate iguanas.', mc_question_id=3)
-    mc_q3_a3 = MC_Answer_Option(
-        mc_answer='I have no strong feelings regarding iguanas.', mc_question_id=3)
-    mc_q3_a4 = MC_Answer_Option(
-        mc_answer='I would prefer to keep my opinion on iguanas private.', mc_question_id=3)
+# #   MC_Q3
+#     mc_q3 = MC_Question(mc_question='How do you feel about iguanas?')
+#     mc_q3_a1 = MC_Answer_Option(mc_answer='I love iguanas.', mc_question_id=3)
+#     mc_q3_a2 = MC_Answer_Option(mc_answer='I hate iguanas.', mc_question_id=3)
+#     mc_q3_a3 = MC_Answer_Option(
+#         mc_answer='I have no strong feelings regarding iguanas.', mc_question_id=3)
+#     mc_q3_a4 = MC_Answer_Option(
+#         mc_answer='I would prefer to keep my opinion on iguanas private.', mc_question_id=3)
 
-    mc_qa_3 = {'q': mc_q3, 'a': [mc_q3_a1, mc_q3_a2, mc_q3_a3, mc_q3_a4]}
+#     mc_qa_3 = {'q': mc_q3, 'a': [mc_q3_a1, mc_q3_a2, mc_q3_a3, mc_q3_a4]}
 
-# ADD MC
 
-    mc_qa_list = [mc_qa_1, mc_qa_2, mc_qa_3]
-
-    for mc_qa in mc_qa_list:
-        q = mc_qa['q']
+    def add_mc_qa(question_id, question, *answer_options):
+        ###Arguments should be a question id, a question string, and 2 or more answer option strings. Ideally there are 4 answer options but more/less should be ok.###
+        q = MC_Question(mc_question=question)
         db.session.add(q)
-        a_list = mc_qa['a']
-        for a in a_list:
+        for answer_option in answer_options:
+            a = MC_Answer_Option(mc_answer=answer_option, mc_question_id=question_id)
             db.session.add(a)
 
-    # commit so we can use mc questions for fake users
+    qa_list = [
+        ['q1', 'q1a1', 'q1a2', 'q1a3', 'q1a4'],
+        ['q2', 'q2a1', 'q2a2', 'q2a3', 'q2a4'],
+        ['q3', 'q3a1', 'q3a2', 'q3a3', 'q3a4'],
+        ]
+    for i in range(len(qa_list)):
+        add_mc_qa(i+1, *qa_list[i])
     db.session.commit()
+# ADD MC
+
+    # mc_qa_list = [mc_qa_1, mc_qa_2, mc_qa_3]
+
+    # for mc_qa in mc_qa_list:
+    #     q = mc_qa['q']
+    #     db.session.add(q)
+    #     a_list = mc_qa['a']
+    #     for a in a_list:
+    #         db.session.add(a)
+
+    # # commit so we can use mc questions for fake users
+    # db.session.commit()
 
 ####################################################
 # SEED MC RESPONSE TABLE
