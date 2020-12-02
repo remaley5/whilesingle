@@ -12,4 +12,5 @@ def seed_pronouns():
     pronouns = [n1, n2, n3, n4, n5, n6, n7]
     for pronoun in pronouns:
         db.session.add(pronoun)
+    db.session.commit()
     return pronouns

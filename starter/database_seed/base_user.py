@@ -20,5 +20,5 @@ def seed_base_users(pref, genders, pronouns):
     base_users = [ian, javier, dean, angela, soonmi, alissa]
     for base_user in base_users:
         db.session.add(base_user)
-
+    db.session.commit()
     return base_users

@@ -12,4 +12,5 @@ def seed_preferences():
     preferences = [p1, p2, p3, p4, p5, p6]
     for preference in preferences:
         db.session.add(preference)
+    db.session.commit()
     return preferences
