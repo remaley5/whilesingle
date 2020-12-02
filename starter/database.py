@@ -4,7 +4,7 @@ from faker import Faker
 from random import randrange
 from dotenv import load_dotenv
 
-from database_seed import seed_pronouns, seed_preferences, seed_genders, seed_base_users, seed_random_users, seed_match_and_match_requests, seed_mc_questions, seed_mc_responses
+from database_seed import seed_pronouns, seed_preferences, seed_genders, seed_base_users, seed_random_users, seed_match_and_match_requests, seed_mc_questions, seed_mc_responses, seed_fr_questions
 
 load_dotenv()
 # fake = Faker()
@@ -42,46 +42,8 @@ with app.app_context():
     mc_qa_list = seed_mc_questions()
 
     seed_mc_responses(random_users, mc_qa_list)
-# ####################################################
-# ####################################################
-# # FREE RESPONSE
-# ####################################################
-# ####################################################
 
-# ####################################################
-# # SEED FR QUESTION TABLE
-# ####################################################
-# #   FR_Q1
-#     fr_q1 = FR_Question(
-#         fr_question='How many cats do you have, and do you want 50?')
-#     fr_q2 = FR_Question(
-#         fr_question='Why is my shit like, all busted?', alt='Have you tried turning it off?')
-#     fr_q3 = FR_Question(
-#         fr_question='My current goal',
-#         alt='Aim high'
-#     )
-#     fr_q4 = FR_Question(
-#         fr_question='My favorite furry friend',
-#         alt='Fur not required'
-#     )
-#     fr_q5 = FR_Question(
-#         fr_question='I could probably beat you at',
-#         alt='Go ahead and brag a little, champ'
-#     )
-#     fr_q6 = FR_Question(
-#         fr_question='My golden rule',
-#         alt='The thing you live by'
-#     )
-
-# # ADD FR QUESTIONS
-#     fr_q_list = [fr_q1, fr_q2, fr_q3, fr_q4, fr_q5, fr_q6]
-
-#     for fr_q in fr_q_list:
-#         db.session.add(fr_q)
-
-#     # commit so we can use fr questions for fake users
-#     db.session.commit()
-
+    fr_q_list = seed_fr_questions()
 # ####################################################
 # # SEED FR RESPONSE TABLE
 # ####################################################

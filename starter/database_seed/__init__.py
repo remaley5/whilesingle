@@ -9,3 +9,4 @@ from .random_user import seed_random_users
 from .match_and_match_request import seed_match_and_match_requests
 from .mc_question import seed_mc_questions
 from .mc_response import seed_mc_responses
+from .fr_question import seed_fr_questions
