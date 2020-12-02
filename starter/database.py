@@ -4,7 +4,7 @@ from faker import Faker
 from random import randrange
 from dotenv import load_dotenv
 
-from database_seed import seed_pronouns, seed_preferences, seed_genders
+from database_seed import seed_pronouns, seed_preferences, seed_genders, seed_base_users
 
 load_dotenv()
 fake = Faker()
@@ -20,94 +20,21 @@ num_fake_messages = 10
 with app.app_context():
     db.drop_all()
     db.create_all()
-    seed_preferences()
-    seed_genders()
-    seed_pronouns()
-# ####################################################
-# # SEED PREFERENCES TABLE
-# ####################################################
-#     p1 = Preference(preference='hookups')
-#     p2 = Preference(preference='new friends')
-#     p3 = Preference(preference='short-term dating')
-#     p4 = Preference(preference='long-term dating')
-#     p5 = Preference(preference='Monogamy')
-#     p6 = Preference(preference='Non-Monogamy')
+    # arrays returned from seed functions (preferences, genders, and pronouns) used in generating users (base and random)
+    preferences = seed_preferences()
+    genders = seed_genders()
+    pronouns = seed_pronouns()
 
-#     # use this array for generating random users
-#     preferences = [p1, p2, p3, p4, p5, p6]
-#     for preference in preferences:
-#         db.session.add(preference)
+    base_users = seed_base_users(preferences, genders, pronouns)
+    db.session.commit()
 
-# ####################################################
-# # SEED GENDERS TABLE
-# ####################################################
-#     g1 = Gender(gender='cis man')
-#     g2 = Gender(gender='cis woman')
-#     g3 = Gender(gender='trans man')
-#     g4 = Gender(gender='trans woman')
-#     g5 = Gender(gender='non-binary')
-#     g6 = Gender(gender='genderqueer')
-#     g7 = Gender(gender='gender fluid')
-#     g8 = Gender(gender='gender neutral')
-#     g9 = Gender(gender='man')
-#     g10 = Gender(gender='woman')
+    test_reject5 = Reject(user_id=1, reject_id=5)
+    test_reject4 = Reject(user_id=1, reject_id=4)
+    test_reject3 = Reject(user_id=1, reject_id=3)
 
-#     # use this array for generating random users
-#     genders = [g3, g4, g5, g6, g7, g8, g9, g10, g1, g2]
-#     for gender in genders:
-#         db.session.add(gender)
-# ####################################################
-# # SEED PRONOUNS TABLE
-# ####################################################
-#     n1 = Pronoun(pronoun='They/Them/Theirs')
-#     n2 = Pronoun(pronoun='She/Her/Hers')
-#     n3 = Pronoun(pronoun='He/Him/His')
-#     n4 = Pronoun(pronoun='Ze/Hir/Hirs')
-#     n5 = Pronoun(pronoun='Per/Per/Pers')
-#     n6 = Pronoun(pronoun='Ve/Ver/Vis')
-#     n7 = Pronoun(pronoun='Xe, Xem, Xyr')
-
-#     # use this array for generating random users
-#     pronouns = [n1, n2, n3, n4, n5, n6, n7]
-#     for pronoun in pronouns:
-#         db.session.add(pronoun)
-
-#     db.session.commit()
-
-# # commit preferences, genders, and pronouns so we can use them in generating random users
-
-# ####################################################
-# # SEED USER TABLE
-# ####################################################
-
-#     ian = User(first_name='Ian', last_name='Dude', email='ian@aa.io',
-#                password='password', preferences=[p1, p3, p5], genders=g1, pronouns=n1)
-#     javier = User(first_name='Javier', last_name='Dude',
-#                   email='javier@aa.io', password='password')
-#     dean = User(first_name='Dean', last_name='Dude',
-#                 email='dean@aa.io', password='password')
-#     angela = User(first_name='Angela', last_name='Dude',
-#                   email='angela@aa.io', password='password')
-#     soonmi = User(first_name='Soon-Mi', last_name='Dude',
-#                   email='soonmi@aa.io', password='password')
-#     alissa = User(first_name='Alissa', last_name='Dude',
-#                   email='alissa@aa.io', password='password')
-
-#     db.session.add(ian)
-#     db.session.add(javier)
-#     db.session.add(dean)
-#     db.session.add(angela)
-#     db.session.add(soonmi)
-#     db.session.add(alissa)
-#     db.session.commit()
-
-#     test_reject5 = Reject(user_id=1, reject_id=5)
-#     test_reject4 = Reject(user_id=1, reject_id=4)
-#     test_reject3 = Reject(user_id=1, reject_id=3)
-
-#     db.session.add(test_reject5)
-#     db.session.add(test_reject4)
-#     db.session.add(test_reject3)
+    db.session.add(test_reject5)
+    db.session.add(test_reject4)
+    db.session.add(test_reject3)
 
 
 # ####################################################

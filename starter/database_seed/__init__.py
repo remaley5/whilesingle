@@ -7,3 +7,4 @@ from dotenv import load_dotenv
 from .pronoun import seed_pronouns
 from .gender import seed_genders
 from .preference import seed_preferences
+from .base_user import seed_base_users
