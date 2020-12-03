@@ -14,8 +14,8 @@ function Home(props) {
   const [viewingUser, setViewingUser] = useState([]);
   const [index, setIndex] = useState();
   const [matchPercent, setMatchPercent] = useState();
-  const [likedOpen, setLikedOpen] = useState(false)
-  const [rejectOpen, setRejectOpen] = useState(false)
+  const [likedOpen, setLikedOpen] = useState(false);
+  const [rejectOpen, setRejectOpen] = useState(false);
   let user = "You've swiped on everyone! Time to go outside";
 
   useEffect(() => {
@@ -72,20 +72,20 @@ function Home(props) {
   };
 
   const reject = async () => {
-    setRejectOpen(true)
+    setRejectOpen(true);
     setTimeout(() => {
-      setRejectOpen(false)
-    }, 500)
+      setRejectOpen(false);
+    }, 500);
     const reject_id = await handleSwipe();
     const url = `/api/matches/reject/${currentUserId}`;
     updateDatabase(url, reject_id);
   };
 
   const accept = async () => {
-    setLikedOpen(true)
+    setLikedOpen(true);
     setTimeout(() => {
-      setLikedOpen(false)
-    }, 500)
+      setLikedOpen(false);
+    }, 500);
     const accept_id = await handleSwipe();
     const url = `/api/matches/add-match/${currentUserId}`;
     updateDatabase(url, accept_id);
@@ -111,34 +111,40 @@ function Home(props) {
 
       return (
         <>
-        <div className="swipe-con" key={idx}>
-          <div className="content-con">
-            <div className="swipe-img-con">{photos}</div>
-            <div className="swipe-con__right">
-              <div className="swipe__info">
-                <h3 className="swipe-info__head">{user.first_name}</h3>
-                <h4 className="swipe-info__sub-head">{user.location}</h4>
-                <p className="info gender">
-                  {user.gender[1]}, {user.pronouns[1]}
-                </p>
-                <div className="info prefs">{preferences} </div>
-                <div className="info percent-match">{`Match: ${matchPercent}%`}</div>
-                <p className="swipe-bio">{user.bio}</p>
+          <div className="page-con">
+            <div className="swipe-con" key={idx}>
+              <div className="content-con">
+                <div className="swipe-img-con">{photos}</div>
+                <div className="swipe-con__right">
+                  <div className="swipe__info">
+                    <h3 className="swipe-info__head">{user.first_name}</h3>
+                    <h4 className="swipe-info__sub-head">{user.location}</h4>
+                    <p className="info gender">
+                      {user.gender[1]}, {user.pronouns[1]}
+                    </p>
+                    <div className="info prefs">{preferences} </div>
+                    <div className="info percent-match">{`Match: ${matchPercent}%`}</div>
+                    <p className="swipe-bio">{user.bio}</p>
+                  </div>
+                </div>
               </div>
+              <div className="swipe-btns">
+                <div className="swipe-icons">
+                  <ClearIcon className={iconClass.nope} onClick={reject} />
+                  <FavoriteIcon className={iconClass.heart} onClick={accept} />
+                </div>
+                <NavLink className="prof-btn" to={`/profile/${user.id}`}>
+                  View Profile
+                </NavLink>
+              </div>
+              <dialog className="swipe-alert yes" open={likedOpen}>
+                Yes!
+              </dialog>
+              <dialog className="swipe-alert no" open={rejectOpen}>
+                Nope!
+              </dialog>
             </div>
           </div>
-          <div className="swipe-btns">
-            <div className="swipe-icons">
-              <ClearIcon className={iconClass.nope} onClick={reject} />
-              <FavoriteIcon className={iconClass.heart} onClick={accept} />
-            </div>
-            <NavLink className="prof-btn" to={`/profile/${user.id}`}>
-              View Profile
-            </NavLink>
-          </div>
-        <dialog className='swipe-alert yes' open={likedOpen}>Yes!</dialog>
-        <dialog className='swipe-alert no' open={rejectOpen}>Nope!</dialog>
-        </div>
         </>
       );
     });
