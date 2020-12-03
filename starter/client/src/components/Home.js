@@ -5,6 +5,7 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import ClearIcon from "@material-ui/icons/Clear";
 import { iconTheme } from "../styles/homeThemes";
 import { NavLink } from "react-router-dom";
+import LoadingPage from "./loading";
 
 function Home(props) {
   const iconClass = iconTheme();
@@ -15,7 +16,9 @@ function Home(props) {
   const [index, setIndex] = useState();
   const [matchPercent, setMatchPercent] = useState();
   const [likedOpen, setLikedOpen] = useState(false);
-  const [rejectOpen, setRejectOpen] = useState(false);
+	const [rejectOpen, setRejectOpen] = useState(false);
+	const [loading, setLoading] = useState(true)
+
   let user = "You've swiped on everyone! Time to go outside";
 
   useEffect(() => {
@@ -32,7 +35,8 @@ function Home(props) {
       }
       setUserBank(data);
       setViewingUser([data[0]]);
-    })();
+			setLoading(false)
+		})();
   }, [currentUserId]);
 
   const getMoreSwipes = async () => {
@@ -89,7 +93,7 @@ function Home(props) {
     const accept_id = await handleSwipe();
     const url = `/api/matches/add-match/${currentUserId}`;
     updateDatabase(url, accept_id);
-  };
+	};
 
   if (viewingUser[0]) {
     user = viewingUser.map(({ user }, idx) => {
@@ -108,11 +112,14 @@ function Home(props) {
       if (photos.length <= 0) {
         photos = [<div key={0} className="default-image"></div>];
       }
-
       return (
         <>
           <div className="page-con">
-            <div className="swipe-con" key={idx}  style={(likedOpen || rejectOpen) ? {display:'none'} : null}>
+            <div
+              className="swipe-con"
+              key={idx}
+              style={likedOpen || rejectOpen ? { display: "none" } : null}
+            >
               <div className="content-con">
                 <div className="swipe-img-con">{photos}</div>
                 <div className="swipe-con__right">
@@ -138,18 +145,21 @@ function Home(props) {
                 </NavLink>
               </div>
             </div>
-              <dialog className="swipe-alert yes" open={likedOpen}>
-                Yes!
-              </dialog>
-              <dialog className="swipe-alert no" open={rejectOpen}>
-                Nope!
-              </dialog>
+            <dialog className="swipe-alert yes" open={likedOpen}>
+              Yes!
+            </dialog>
+            <dialog className="swipe-alert no" open={rejectOpen}>
+              Nope!
+            </dialog>
           </div>
         </>
       );
     });
-  }
-
-  return user;
+    return user;
+  } else if (loading) {
+    return <LoadingPage string={"Finding your life partner..."} />;
+  } else {
+		return <LoadingPage string={"You've swiped on everyone! Time to go outside"} />;
+	}
 }
 export default Home;
