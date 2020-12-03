@@ -112,7 +112,7 @@ function Home(props) {
       return (
         <>
           <div className="page-con">
-            <div className="swipe-con" key={idx}>
+            <div className="swipe-con" key={idx}  style={(likedOpen || rejectOpen) ? {display:'none'} : null}>
               <div className="content-con">
                 <div className="swipe-img-con">{photos}</div>
                 <div className="swipe-con__right">
@@ -137,13 +137,13 @@ function Home(props) {
                   View Profile
                 </NavLink>
               </div>
+            </div>
               <dialog className="swipe-alert yes" open={likedOpen}>
                 Yes!
               </dialog>
               <dialog className="swipe-alert no" open={rejectOpen}>
                 Nope!
               </dialog>
-            </div>
           </div>
         </>
       );
