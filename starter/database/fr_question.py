@@ -4,11 +4,12 @@ from . import db, FR_Question
 def seed_fr_questions():
     fr_q_and_alt_list = [
         [
-            'How many cats do you have, and do you want 50?'
+            'How many cats do you have, and do you want 50?',
+            "More than 50 is cool, we won't judge"
         ],
         [
-            'Why is my shit like, all busted?',
-            'Have you tried turning it off?'
+            'How do you like to spend your free time?',
+            'Make sure you sound SUPER interesting'
         ],
         [
             'My current goal',

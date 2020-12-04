@@ -16,7 +16,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # num_fake_users must be at least 4
-num_fake_users = 10
+num_fake_users = 100
 
 # num_fake_messages is the AVERAGE number of messages sent
 num_fake_messages = 10
