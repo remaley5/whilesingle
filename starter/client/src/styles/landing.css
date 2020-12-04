@@ -1,92 +1,112 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&display=swap");
 
-.landing{
-    background-color:#ffaeafd5;
-    padding-bottom: 150px;
+.landing {
+  background-color: #ffaeafd5;
+  padding-bottom: 150px;
 }
-  .main{
-      padding-top: 150px;
-      display: flex;
-      flex-direction: column;
-    margin: auto;
-    width: 70%;
-  }
+.main {
+  padding-top: 150px;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  width: 70%;
+}
 
-  .landing-txt {
-      width: 80%;
-      align-self: flex-end;
-      font-size: 30px;
-      line-height: 32px;
-      letter-spacing: 1px;
-      color: rgb(46, 45, 45);
-  }
+.landing-txt {
+  width: 80%;
+  align-self: flex-end;
+  font-size: 30px;
+  line-height: 32px;
+  letter-spacing: 1px;
+  color: rgb(46, 45, 45);
+}
 
-  .landing-btns {
-      display: flex;
-      width: 90%;
-      margin: auto;
-      justify-content: flex-end;
-      padding: 40px;
-      border-radius: 30px;
-  }
+.landing-btns {
+  display: flex;
+  width: 90%;
+  margin: auto;
+  justify-content: flex-end;
+  padding: 40px;
+  border-radius: 30px;
+}
 
-  .landing-btn {
-      font-size: 25px;
-      font-family: 'Poppins', sans-serif;
-      padding: 20px 40px;
-  }
+.landing-btn {
+  font-size: 25px;
+  font-family: "Poppins", sans-serif;
+  padding: 20px 40px;
+}
 
-  .sign-in-btn {
-    border-radius: 0px 30px 30px 0px;
-    background-color: white;
-    color: gray;
-    border: 1px solid gray;
-  }
+.sign-in-btn {
+  border-radius: 0px 30px 30px 0px;
+  background-color: white;
+  color: gray;
+  border: 1px solid gray;
+}
 
-  .sign-in-btn:hover {
-    background-color: rgb(73, 73, 73);
-    color: rgb(255, 255, 255);
-    box-shadow: 0 0 10px gray;
-  }
+.sign-in-btn:hover {
+  background-color: rgb(73, 73, 73);
+  color: rgb(255, 255, 255);
+  box-shadow: 0 0 10px gray;
+}
 
-  .signup-btn {
-      border-radius: 30px 0px 0px 30px;
-      background-color: #E2EFF5;
-      color: rgb(83, 83, 83);
-      border: none;
-    }
+/* removes thick black square outline from buttons and the like when clicked; instead adds light highlighting around border */
+.sign-form-btn:focus,
+.sign-form-btn:active,
+.exit-sign:focus,
+.exit-sign:active {
+	outline: none;
+	border-color: transparent;
+  z-index: 1;
+  box-shadow: 0 0 3pt 2pt #ffaeafd5;
+}
+.sign-in-btn:focus,
+.sign-in-btn:active,
+.signup-btn:focus,
+.signup-btn:active{
+	outline: none;
+	border-color: transparent;
+  z-index: 1;
+  box-shadow: 0 0 3pt 2pt black;
+}
 
-    .signup-btn:hover {
-        background-color: rgb(73, 73, 73);
-        color: rgb(247, 247, 247);
-        box-shadow: 0 0 10px gray;
-    }
+.signup-btn {
+  border-radius: 30px 0px 0px 30px;
+  background-color: #e2eff5;
+  color: rgb(83, 83, 83);
+  border: none;
+}
 
-  .title {
-    font-family: 'Poppins', sans-serif;
-    font-size: 80px;
-    font-weight: bold;
-    color: rgb(46, 45, 45);
-    letter-spacing: 3px;
-  }
+.signup-btn:hover {
+  background-color: rgb(73, 73, 73);
+  color: rgb(247, 247, 247);
+  box-shadow: 0 0 10px gray;
+}
 
-    .header{
-    display: flex;
-    justify-content: space-between;
-  }
+.title {
+  font-family: "Poppins", sans-serif;
+  font-size: 80px;
+  font-weight: bold;
+  color: rgb(46, 45, 45);
+  letter-spacing: 3px;
+}
 
-  .login{
-    display: flex;
-    align-items: flex-end;
-  }
+.header {
+  display: flex;
+  justify-content: space-between;
+}
 
-  .login-text{
-    align-self: center;
-    padding-right: 10px;
-    font-size: 16px;
-    font-weight: bold;
-    font-family: 'Roboto';
-  }
+.login {
+  display: flex;
+  align-items: flex-end;
+}
+
+.login-text {
+  align-self: center;
+  padding-right: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  font-family: "Roboto";
+}
 
 /* SIGN IN FORM: */
 
@@ -100,7 +120,6 @@
   z-index: 200;
   width: 100%;
   height: 100%;
-
 }
 
 .sign-in-dialog {
@@ -122,25 +141,24 @@
   display: flex;
   justify-content: flex-end;
   margin-bottom: -70px;
-
 }
 
 .exit-sign {
   width: fit-content;
   border-radius: 50%;
   border: none;
-background-color: rgb(220, 225, 228);
-color:white;
-font-size: 20px;
-padding: 2px 9px;
-float: right;
+  background-color: rgb(220, 225, 228);
+  color: white;
+  font-size: 20px;
+  padding: 2px 9px;
+  float: right;
 }
 
 .exit-sign:hover {
   box-shadow: 0 0 6px gray;
 }
 .sign-in__title {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   text-align: center;
   font-size: 30px;
   color: rgb(87, 86, 86);
@@ -153,7 +171,7 @@ float: right;
   font-size: 20px;
 }
 .sign-form {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   display: flex;
   flex-direction: column;
   font-size: 20px;
@@ -165,7 +183,7 @@ float: right;
   padding: 10px;
   margin-bottom: 30px;
   letter-spacing: 1.5px;
-  color:gray;
+  color: gray;
 }
 
 .form-label {
@@ -179,15 +197,17 @@ float: right;
 }
 
 .sign-form-btn {
+  cursor: pointer;
   background-color: white;
   border: 1px solid gray;
   font-size: 17px;
   padding: 14px 40px;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   text-transform: lowercase;
 }
 
-.sign-form-btn:hover {
+.sign-form-btn.left:hover,
+.sign-form-btn.right:hover {
   color: white;
   background-color: gray;
 }
@@ -197,7 +217,9 @@ float: right;
 }
 
 .sign-form-btn.left {
+  border: none;
   border-radius: 20px 0px 0px 20px;
+  background-color: #e2eff5;
 }
 
 .sign-up {
