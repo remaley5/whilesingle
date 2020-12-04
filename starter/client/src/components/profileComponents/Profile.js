@@ -7,6 +7,7 @@ import FrView from "../fr_questions/FrView";
 import FrEdit from "../fr_questions/FrEdit";
 import UserInfoView from "./UserInfoView";
 import EditIcon from "@material-ui/icons/Edit";
+import LoadingPage from '../loading';
 
 export default function Profile() {
   const defaultPhoto = [
@@ -101,7 +102,7 @@ export default function Profile() {
   };
 
   if (userLoading) {
-    return "give us a second...";
+    return <LoadingPage string="Looking for your profile - it's around here somewhere..."/>;
   }
 
   let {

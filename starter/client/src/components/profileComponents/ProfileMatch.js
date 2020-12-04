@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import FrMatchContainer from "../fr_questions/FrMatchContainer";
 import FrView from "../fr_questions/FrView";
 import UserInfoView from "./UserInfoView";
+import LoadingPage from '../loading';
 
 export default function ProfileMatch({ otherUserId }) {
   const defaultPhoto = [
@@ -33,7 +34,7 @@ export default function ProfileMatch({ otherUserId }) {
   const [matchProfile, matchProfileLoading] = useFetch(otherUserId);
 
   if (matchProfileLoading) {
-    return "give us a second...";
+    return <LoadingPage string="Loading your life partner's profile, one sec..."/>;
   }
 
   let {

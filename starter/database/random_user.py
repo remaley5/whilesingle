@@ -1,5 +1,8 @@
-from . import db, User, fake
+from . import db, User, fake, bio_list
 from random import randrange
+# from . import bio_list
+
+fake_bio_list = bio_list
 
 
 def seed_random_users(preferences, genders, pronouns, num_fake_users):
@@ -17,7 +20,8 @@ def seed_random_users(preferences, genders, pronouns, num_fake_users):
 
         location = f'{fake.city()}, {fake.state_abbr(include_territories=False)}'
 
-        bio = fake.text(max_nb_chars=200)
+        bio = fake_bio_list[randrange(len(fake_bio_list))]
+        # bio = fake.text(max_nb_chars=200)
 
         preference_list = []
         # number of preferences to include

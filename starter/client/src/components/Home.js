@@ -5,6 +5,7 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import ClearIcon from "@material-ui/icons/Clear";
 import { iconTheme } from "../styles/homeThemes";
 import { NavLink } from "react-router-dom";
+import LoadingPage from "./loading";
 
 function Home(props) {
   const iconClass = iconTheme();
@@ -14,8 +15,10 @@ function Home(props) {
   const [viewingUser, setViewingUser] = useState([]);
   const [index, setIndex] = useState();
   const [matchPercent, setMatchPercent] = useState();
-  const [likedOpen, setLikedOpen] = useState(false)
-  const [rejectOpen, setRejectOpen] = useState(false)
+  const [likedOpen, setLikedOpen] = useState(false);
+	const [rejectOpen, setRejectOpen] = useState(false);
+	const [loading, setLoading] = useState(true)
+
   let user = "You've swiped on everyone! Time to go outside";
 
   useEffect(() => {
@@ -32,7 +35,8 @@ function Home(props) {
       }
       setUserBank(data);
       setViewingUser([data[0]]);
-    })();
+			setLoading(false)
+		})();
   }, [currentUserId]);
 
   const getMoreSwipes = async () => {
@@ -72,24 +76,24 @@ function Home(props) {
   };
 
   const reject = async () => {
-    setRejectOpen(true)
+    setRejectOpen(true);
     setTimeout(() => {
-      setRejectOpen(false)
-    }, 500)
+      setRejectOpen(false);
+    }, 500);
     const reject_id = await handleSwipe();
     const url = `/api/matches/reject/${currentUserId}`;
     updateDatabase(url, reject_id);
   };
 
   const accept = async () => {
-    setLikedOpen(true)
+    setLikedOpen(true);
     setTimeout(() => {
-      setLikedOpen(false)
-    }, 500)
+      setLikedOpen(false);
+    }, 500);
     const accept_id = await handleSwipe();
     const url = `/api/matches/add-match/${currentUserId}`;
     updateDatabase(url, accept_id);
-  };
+	};
 
   if (viewingUser[0]) {
     user = viewingUser.map(({ user }, idx) => {
@@ -108,42 +112,54 @@ function Home(props) {
       if (photos.length <= 0) {
         photos = [<div key={0} className="default-image"></div>];
       }
-
       return (
         <>
-        <div className="swipe-con" key={idx}>
-          <div className="content-con">
-            <div className="swipe-img-con">{photos}</div>
-            <div className="swipe-con__right">
-              <div className="swipe__info">
-                <h3 className="swipe-info__head">{user.first_name}</h3>
-                <h4 className="swipe-info__sub-head">{user.location}</h4>
-                <p className="info gender">
-                  {user.gender[1]}, {user.pronouns[1]}
-                </p>
-                <div className="info prefs">{preferences} </div>
-                <div className="info percent-match">{`Match: ${matchPercent}%`}</div>
-                <p className="swipe-bio">{user.bio}</p>
+          <div className="page-con">
+            <div
+              className="swipe-con"
+              key={idx}
+              style={likedOpen || rejectOpen ? { display: "none" } : null}
+            >
+              <div className="content-con">
+                <div className="swipe-img-con">{photos}</div>
+                <div className="swipe-con__right">
+                  <div className="swipe__info">
+                    <h3 className="swipe-info__head">{user.first_name}</h3>
+                    <h4 className="swipe-info__sub-head">{user.location}</h4>
+                    <p className="info gender">
+                      {user.gender[1]}, {user.pronouns[1]}
+                    </p>
+                    <div className="info prefs">{preferences} </div>
+                    <div className="info percent-match">{`Match: ${matchPercent}%`}</div>
+                    <p className="swipe-bio">{user.bio}</p>
+                  </div>
+                </div>
+              </div>
+              <div className="swipe-btns">
+                <div className="swipe-icons">
+                  <ClearIcon className={iconClass.nope} onClick={reject} />
+                  <FavoriteIcon className={iconClass.heart} onClick={accept} />
+                </div>
+                <NavLink className="prof-btn" to={`/profile/${user.id}`}>
+                  View Profile
+                </NavLink>
               </div>
             </div>
+            <dialog className="swipe-alert yes" open={likedOpen}>
+              Yes!
+            </dialog>
+            <dialog className="swipe-alert no" open={rejectOpen}>
+              Nope!
+            </dialog>
           </div>
-          <div className="swipe-btns">
-            <div className="swipe-icons">
-              <ClearIcon className={iconClass.nope} onClick={reject} />
-              <FavoriteIcon className={iconClass.heart} onClick={accept} />
-            </div>
-            <NavLink className="prof-btn" to={`/profile/${user.id}`}>
-              View Profile
-            </NavLink>
-          </div>
-        <dialog className='swipe-alert yes' open={likedOpen}>Yes!</dialog>
-        <dialog className='swipe-alert no' open={rejectOpen}>Nope!</dialog>
-        </div>
         </>
       );
     });
-  }
-
-  return user;
+    return user;
+  } else if (loading) {
+    return <LoadingPage string={"Finding your life partner..."} />;
+  } else {
+		return <LoadingPage string={"You've swiped on everyone! Time to go outside"} />;
+	}
 }
 export default Home;

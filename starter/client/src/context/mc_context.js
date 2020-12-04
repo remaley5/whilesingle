@@ -1,5 +1,6 @@
 import React, { useState, createContext, useEffect, useContext } from "react";
 import AuthContext from "../auth";
+import LoadingPage from '../components/loading'
 
 export const McContext = createContext();
 
@@ -63,7 +64,7 @@ export const McContextProvider = (props) => {
 	// make sure context loaded before rendering children
   for (let i = 0; i < mcLoading.length; i++) {
     if (mcLoading[i]) {
-      return 'where is it?';
+      return <LoadingPage string="Hold on, we're thinking"/>;
     }
 	}
 
