@@ -49,15 +49,15 @@ withStyles(styles)((props) => {
   );
 });
 
-function Login({ redirected = false }) {
-  // changed open default value to redirected - idea is that if they click 'sign in instead' from sign up page, they will be redirected to the login page with redirected = true - this will open the sign in modal immediately
-  let [open, setOpen] = useState(redirected);
+function Login(props) {
+	// changed open default value to props.location.redirected - idea is that if they click 'sign in instead' from sign up page, they will be redirected to the login page with redirected = true - this will open the sign in modal immediately
+	// props.location is always defined. If redirected is undefined, page functions as desired.
+  let [open, setOpen] = useState(props.location.redirected);
   let [email, setEmail] = useState("");
   let [password, setPassword] = useState("");
   let [errors, setErrors] = useState([]);
   const { fetchWithCSRF, setCurrentUserId } = useContext(AuthContext);
   let history = useHistory();
-
   // const classes =
   buttonThemeOne();
 
@@ -111,7 +111,6 @@ function Login({ redirected = false }) {
     e.preventDefault();
     loginUser("ian@aa.io", "password");
   };
-
   return (
     <div className="landing">
       <div className="body">
