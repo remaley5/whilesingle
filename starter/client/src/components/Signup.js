@@ -106,8 +106,8 @@ function Signup(props) {
             onChange={handleChange}
           />
           <div className='sign-form-btns'>
-            <button onClick={handleSignUp} className='sign-form-btn left'>Sign Up</button>
-            <NavLink className='sign-form-btn right' to="/login">Login Instead</NavLink>
+            <button onClick={handleSignUp} className='sign-form-btn left'>sign up</button>
+            <NavLink className='sign-form-btn right' to="/login">sign in instead</NavLink>
           </div>
         </form>
       </div>
